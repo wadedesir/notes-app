@@ -8,18 +8,16 @@ export const getAllUsers = async (req, res) => {
 
 export const createNewUser = async (req, res, next) => {
   const { username, name, password } = req.body
-  console.log(`${JSON.stringify(req.body)}`)
-
   const saltRounds = 10
-  const passwordHash = await bcryptjs.hash(password, saltRounds)
-
-  const user = new User({
-    username,
-    name,
-    passwordHash,
-  })
 
   try {
+    const passwordHash = await bcryptjs.hash(password, saltRounds)
+    const user = new User({
+      username,
+      name,
+      passwordHash,
+    })
+
     const savedUser = await user.save()
     res.status(201).json(savedUser)
   } catch (e) {
@@ -28,12 +26,13 @@ export const createNewUser = async (req, res, next) => {
 }
 
 export const findUserById = async (req, res, next) => {
+  const { id } = req.params;
+
   try {
-    const id = req.params["id"];
     const user = await User.findById(id);
+
     if (!user) {
-      res.status(404);
-      res.json({ message: `404 user with id:${id} not found` });
+      res.status(404).json({ message: `404 user with id:${id} not found` });
     } else {
       res.json(user);
     }
@@ -43,16 +42,20 @@ export const findUserById = async (req, res, next) => {
 }
 
 export const updateUser = async (req, res, next) => {
-  const body = req.body
-  console.log(JSON.stringify(req.body))
-
-  const userEdit = {
-    content: body.content,
-    important: body.important,
-  }
+  const { username, name, password} = req.body
+  const { id } = req.params
 
   try {
-    const updatedUser = await User.findByIdAndUpdate(req.params.id, userEdit, { new: true })
+    const saltRounds = 10
+    const passwordHash = await bcryptjs.hash(password, saltRounds)
+
+    const updatedContent = {
+      username,
+      name,
+      passwordHash
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(id, updatedContent, { new: true })
     res.json(updatedUser)
   } catch (e) {
     next(e)
@@ -60,8 +63,10 @@ export const updateUser = async (req, res, next) => {
 }
 
 export const deleteUser = async (req, res, next) => {
+  const { id } = req.params
+
   try {
-    const deletedUser = await User.findByIdAndDelete(req.params.id)
+    const deletedUser = await User.findByIdAndDelete(id)
     res.json(deletedUser)
   } catch (e) {
     next(e)

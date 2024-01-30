@@ -2,9 +2,9 @@ GET http://localhost:8420/v1/notes
 
 POST http://localhost:8420/v1/notes
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImNoZXNzX3BsYXllciIsImlkIjoiNjViOTM3ZjJjMTU0ZTcwZDE2MmM5ODY0IiwiaWF0IjoxNzA2NjM3MzQ4LCJleHAiOjE3MDY2NDA5NDh9.9XBqckO2QtocT-fOYSIn9Wg7eacCMPzNkWIUYBGxsTE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImNoZXNzX3BsYXllciIsImlkIjoiNjViOTNiZDhhMWNiOTdmNDg1ZDhkMDVmIiwiaWF0IjoxNzA2NjM4NTMwLCJleHAiOjE3MDY2NDIxMzB9.L5E8OPOwOTAu6-oyrQJXe7Z96TkKYStyL2pNtyICpMw
 
 {
-    "content": "forreal? the first note",
+    "content": "charlick hartlaub gambit",
     "important": true
 }
