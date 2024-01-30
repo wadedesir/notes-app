@@ -8,6 +8,7 @@ export const getAllUsers = async (req, res) => {
 
 export const createNewUser = async (req, res, next) => {
   const { username, name, password } = req.body
+  console.log(`${JSON.stringify(req.body)}`)
 
   const saltRounds = 10
   const passwordHash = await bcryptjs.hash(password, saltRounds)

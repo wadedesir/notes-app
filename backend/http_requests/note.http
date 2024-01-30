@@ -1,0 +1,9 @@
+GET http://localhost:8420/v1/notes
+
+POST http://localhost:8420/v1/notes
+Content-Type: application/json
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWQiOiI2NWI5MmMzMWE2NmI5MWVkZTJkYTE0MWIiLCJpYXQiOjE3MDY2MzQ0MDYsImV4cCI6MTcwNjYzODAwNn0.NDzZQO7lL4tRxPqKAoek2BWpGpY8X27gN1tQwbnuh4s
+{
+    "content": "forreal? the first note",
+    "important": true
+}
