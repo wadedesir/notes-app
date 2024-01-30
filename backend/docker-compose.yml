@@ -3,6 +3,8 @@ services:
   mongo_db:
     image: mongo:latest
     restart: always
+    ports:
+      - 27017:27017
     volumes:
       - mongo_db:/data/db
   # Node API Service
