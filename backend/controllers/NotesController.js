@@ -38,6 +38,7 @@ export const findNoteById = async (req, res, next) => {
 
 export const updateNote = async (req, res, next) => {
   const body = req.body
+  console.log(JSON.stringify(req.body))
 
   const noteEdit = {
     content: body.content,
@@ -45,7 +46,7 @@ export const updateNote = async (req, res, next) => {
   }
 
   try {
-    const updatedNote = Note.findByIdAndUpdate(req.params.id, noteEdit, { new: true })
+    const updatedNote = await Note.findByIdAndUpdate(req.params.id, noteEdit, { new: true })
     res.json(updatedNote)
   } catch (error) {
     next(error)
