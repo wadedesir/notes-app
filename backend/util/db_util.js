@@ -16,8 +16,13 @@ export const initDb = async () => {
   mongoose.set('strictQuery', false)
 
   try {
-    await mongoose.connect(process.env.MONGODB_URI)
-    console.log('mongoose connected')
+    await mongoose.connect(process.env.MONGODB_URI, {
+      dbName: process.env.DB_NAME,
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });  
+    console.log('mongoose connected');
   } catch (error) {
+    console.error(error)
   }
 }

@@ -12,6 +12,8 @@ services:
     build: .
     ports:
       - 8420:8420
+    volumes:
+      - .:/usr/src/app
     environment:
       PORT: 8420
       MONGODB_URI: mongodb://mongo_db:27017
