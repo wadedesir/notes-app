@@ -11,7 +11,7 @@ import packageJson from './package.json' assert { type: "json" };
 
 console.log(chalk.yellow("Server Starting!"));
 
-await initDb()
+initDb()
 
 const server = express();
 server.use(cors());

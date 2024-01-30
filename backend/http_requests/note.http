@@ -2,7 +2,8 @@ GET http://localhost:8420/v1/notes
 
 POST http://localhost:8420/v1/notes
 Content-Type: application/json
-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWQiOiI2NWI5MmMzMWE2NmI5MWVkZTJkYTE0MWIiLCJpYXQiOjE3MDY2MzQ0MDYsImV4cCI6MTcwNjYzODAwNn0.NDzZQO7lL4tRxPqKAoek2BWpGpY8X27gN1tQwbnuh4s
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImNoZXNzX3BsYXllciIsImlkIjoiNjViOTM3ZjJjMTU0ZTcwZDE2MmM5ODY0IiwiaWF0IjoxNzA2NjM3MzQ4LCJleHAiOjE3MDY2NDA5NDh9.9XBqckO2QtocT-fOYSIn9Wg7eacCMPzNkWIUYBGxsTE
+
 {
     "content": "forreal? the first note",
     "important": true

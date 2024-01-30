@@ -2,6 +2,6 @@ POST http://localhost:8420/v1/login
 Content-Type: application/json
 
 {
-    "username": "admin",
-    "password": "admin"
+    "username": "chess_player",
+    "password": "chess_player"
 }
