@@ -1,23 +1,15 @@
-// import { 
-//   fetchAndStoreData, 
-//   flushCache, 
-//   initDb 
-// } from './util/db_util.js';
-import NotesRouter from './controllers/notes.js';
-
 import packageJson from './package.json' assert { type: "json" };
 import express from 'express';
 import chalk from 'chalk';
 import cors from 'cors';
-import mongoose from 'mongoose';
+import { initDb } from './util/db_util.js';
+
+import NotesRouter from './routes/NotesRouter.js';
+
 
 console.log(chalk.yellow("Server Starting!"));
+await initDb()
 
-/**
- * Fetch and store data before starting the server
- */
-
-// initDb();
 const server = express();
 server.use(cors());
 server.use(express.json());
@@ -26,10 +18,6 @@ server.use('/v1/notes', NotesRouter)
 
 /**
  * Route for fetching server status
- * @name server/status
- * @method
- * @memberof module:routers
- * @inner
  */
 server.get("/status", (req, res) => {
   const statusObj = {
@@ -41,10 +29,6 @@ server.get("/status", (req, res) => {
 
 /**
  * Route for flushing cache items
- * @name server/flush_cache
- * @method
- * @memberof module:routers
- * @inner
  * @param {string} req.query.cacheKey - Key of the cache item to flush
  */
 server.get("/flush_cache", (req, res, next) => {
