@@ -10,7 +10,7 @@ import { initDb } from './util/db_util.js';
 
 import packageJson from './package.json' assert { type: "json" };
 
-console.log(chalk.yellow("Server Starting!"));
+console.log(chalk.green("Server Starting!"));
 
 initDb()
 
@@ -45,4 +45,4 @@ server.use((err, req, res, next) => {
 const PORT = process.env.PORT || 8420;
 server.listen(PORT);
 
-console.log(chalk.yellow(`server listening on port ${PORT}`));
+console.log(chalk.green(`server listening on port ${PORT}`));

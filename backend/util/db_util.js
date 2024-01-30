@@ -21,7 +21,7 @@ export const initDb = () => {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });  
-  } catch (error) {
-    console.error(error)
+  } catch (e) {
+    console.error(e)
   }
 }
