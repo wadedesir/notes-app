@@ -4,6 +4,10 @@ const noteSchema = new mongoose.Schema(
   {
     content: String,
     important: Boolean,
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User'
+    },
   },
   {
     timestamps: true

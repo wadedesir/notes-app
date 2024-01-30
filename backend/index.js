@@ -4,7 +4,8 @@ import chalk from 'chalk';
 import cors from 'cors';
 import { initDb } from './util/db_util.js';
 
-import NotesRouter from './routes/NotesRouter.js';
+import NoteRouter from './routes/NoteRouter.js';
+import UserRouter from './routes/UserRouter.js';
 
 
 console.log(chalk.yellow("Server Starting!"));
@@ -14,7 +15,8 @@ const server = express();
 server.use(cors());
 server.use(express.json());
 
-server.use('/v1/notes', NotesRouter)
+server.use('/v1/notes', NoteRouter)
+server.use('/v1/users', UserRouter)
 
 /**
  * Route for fetching server status
