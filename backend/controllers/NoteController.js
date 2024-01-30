@@ -54,7 +54,7 @@ export const findNoteById = async (req, res, next) => {
     const note = await Note.findById(id);
 
     if (!note) {
-      res.status(404).json({ message: `404 note with id:${id} not found` });
+      res.status(404).json({ error: `note with id:${id} not found` });
     } else {
       res.json(note);
     }

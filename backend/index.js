@@ -5,6 +5,7 @@ import cors from 'cors';
 import NoteRouter from './routes/NoteRouter.js';
 import UserRouter from './routes/UserRouter.js';
 import LoginRouter from './routes/LoginRouter.js';
+
 import { initDb } from './util/db_util.js';
 
 import packageJson from './package.json' assert { type: "json" };
@@ -14,6 +15,7 @@ console.log(chalk.yellow("Server Starting!"));
 initDb()
 
 const server = express();
+
 server.use(cors());
 server.use(express.json());
 

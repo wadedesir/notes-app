@@ -32,7 +32,9 @@ export const findUserById = async (req, res, next) => {
     const user = await User.findById(id);
 
     if (!user) {
-      res.status(404).json({ message: `404 user with id:${id} not found` });
+      return res.status(404).json({ 
+        error: `user with id:${id} not found` 
+      });
     } else {
       res.json(user);
     }
