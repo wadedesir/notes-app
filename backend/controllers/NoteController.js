@@ -1,4 +1,5 @@
 import Note from '../models/Note.js'
+import User from '../models/User.js'
 
 export const getAllNotes = async (req, res) => {
   const notes = await Note.find({})
@@ -7,14 +8,18 @@ export const getAllNotes = async (req, res) => {
 
 export const createNewNote = async (req, res, next) => {
   const body = req.body
+  const user = await User.findById(body.userId)
 
   const note = new Note({
     content: body.content,
     important: body.important || false,
+    user: user.id
   })
 
   try {
     const savedNote = await note.save()
+    user.notes = user.notes.concat(savedNote._id)
+    await user.save()
     res.json(savedNote)
   } catch (error) {
     next(error)

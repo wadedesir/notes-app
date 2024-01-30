@@ -1,5 +1,6 @@
 import express from 'express';
 import { 
+  getAllUsers,
   createNewUser, 
   findUserById, 
   updateUser, 
@@ -7,6 +8,11 @@ import {
 } from '../controllers/UserController.js'
 
 const UserRouter = express.Router()
+
+/**
+ * Route for all users
+ */
+UserRouter.get('/', getAllUsers)
 
 /**
  * Route for creating new users
