@@ -3,11 +3,13 @@
 //   flushCache, 
 //   initDb 
 // } from './util/db_util.js';
+import NotesRouter from './controllers/notes.js';
 
 import packageJson from './package.json' assert { type: "json" };
 import express from 'express';
 import chalk from 'chalk';
 import cors from 'cors';
+import mongoose from 'mongoose';
 
 console.log(chalk.yellow("Server Starting!"));
 
@@ -16,104 +18,11 @@ console.log(chalk.yellow("Server Starting!"));
  */
 
 // initDb();
-// fetchAndStoreData();
-
 const server = express();
 server.use(cors());
 server.use(express.json());
 
-/**
- * Route for handling note requests by ID
- * @name server/getNote
- * @method
- * @memberof module:routers
- * @inner
- * @param {string} req.params.id - ID of the note to retrieve
- */
-server.get("/note/:id", async (req, res, next) => {
-  try {
-    const id = req.params["id"];
-    const note = await getById(id);
-    if (!note) {
-      res.status(404);
-      res.json({ message: `404 note with id:${id} not found` });
-    } else {
-      res.json(note);
-    }
-  } catch (e) {
-    next(e);
-  }
-});
-
-/**
- * Route for deleting notes by ID
- * @name server/deleteNote
- * @method
- * @memberof module:routers
- * @inner
- * @param {string} req.params.id - ID of the note to delete
- */
-server.delete("/note/:id", async (req, res, next) => {
-  try {
-    const id = req.params["id"];
-    const note = await deleteById(id);
-    if (!note) {
-      res.status(404);
-      res.json({ message: `404 note with id:${id} not found` });
-    } else {
-      res.json(note);
-    }
-  } catch (e) {
-    next(e);
-  }
-});
-
-/**
- * Route for creating new notes
- * @name server/createNote
- * @method
- * @memberof module:routers
- * @inner
- * @param {object} req.body - Body of the note
- */
-server.post("/note/", async (req, res, next) => {
-  try {
-    const id = req.params["id"];
-    const noteBody = request.body;
-    const note = await createNote(noteBody);
-    if (!note) {
-      res.status(500);
-      res.json({ message: `could not create note` });
-    } else {
-      res.json(note);
-    }
-  } catch (e) {
-    next(e);
-  }
-});
-
-/**
- * Route for searching notes by keywords
- * @name server/search
- * @method
- * @memberof module:routers
- * @inner
- * @param {string} req.query.keywords - Keywords to search for
- */
-// server.get("/search", async (req, res, next) => {
-//   try {
-//     const keywords = req.query.keywords;
-//     const notes = await getByKeywords(keywords);
-//     if (!notes) {
-//       res.status(404);
-//       res.json({ message: `404 note with keywords:${keywords} not found` });
-//     } else {
-//       res.json(notes);
-//     }
-//   } catch (e) {
-//     next(e);
-//   }
-// });
+server.use('/v1/notes', NotesRouter)
 
 /**
  * Route for fetching server status
