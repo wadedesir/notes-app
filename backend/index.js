@@ -4,6 +4,7 @@
 //   initDb 
 // } from './util/db_util.js';
 
+import packageJson from './package.json' assert { type: "json" };
 import express from 'express';
 import chalk from 'chalk';
 import cors from 'cors';
@@ -19,6 +20,7 @@ console.log(chalk.yellow("Server Starting!"));
 
 const server = express();
 server.use(cors());
+server.use(express.json());
 
 /**
  * Route for handling note requests by ID
@@ -98,20 +100,20 @@ server.post("/note/", async (req, res, next) => {
  * @inner
  * @param {string} req.query.keywords - Keywords to search for
  */
-server.get("/search", async (req, res, next) => {
-  try {
-    const keywords = req.query.keywords;
-    const notes = await getByKeywords(keywords);
-    if (!notes) {
-      res.status(404);
-      res.json({ message: `404 note with keywords:${keywords} not found` });
-    } else {
-      res.json(notes);
-    }
-  } catch (e) {
-    next(e);
-  }
-});
+// server.get("/search", async (req, res, next) => {
+//   try {
+//     const keywords = req.query.keywords;
+//     const notes = await getByKeywords(keywords);
+//     if (!notes) {
+//       res.status(404);
+//       res.json({ message: `404 note with keywords:${keywords} not found` });
+//     } else {
+//       res.json(notes);
+//     }
+//   } catch (e) {
+//     next(e);
+//   }
+// });
 
 /**
  * Route for fetching server status
@@ -161,3 +163,5 @@ server.use((err, req, res, next) => {
 
 const PORT = process.env.PORT || 8420;
 server.listen(PORT);
+
+console.log(chalk.yellow(`server listening on port ${PORT}`));
