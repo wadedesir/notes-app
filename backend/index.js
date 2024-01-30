@@ -4,6 +4,7 @@ import cors from 'cors';
 
 import NoteRouter from './routes/NoteRouter.js';
 import UserRouter from './routes/UserRouter.js';
+import LoginRouter from './routes/LoginRouter.js';
 import { initDb } from './util/db_util.js';
 
 import packageJson from './package.json' assert { type: "json" };
@@ -18,6 +19,7 @@ server.use(express.json());
 
 server.use('/v1/notes', NoteRouter)
 server.use('/v1/users', UserRouter)
+server.use('/v1/login', LoginRouter)
 
 /**
  * Route for fetching server status

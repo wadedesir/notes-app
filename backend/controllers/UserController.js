@@ -2,7 +2,7 @@ import User from '../models/User.js'
 import bcryptjs from 'bcryptjs'
 
 export const getAllUsers = async (req, res) => {
-  const users = await User.find({})
+  const users = await User.find({}).populate('notes')
   res.json(users)
 }
 
