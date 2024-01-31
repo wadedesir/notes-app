@@ -8,7 +8,8 @@ import LoginRouter from './routes/LoginRouter.js'
 
 import { initDb } from './util/db_util.js'
 
-import packageJson from './package.json' assert { type: "json" }
+import { readFileSync } from "fs"
+const packageJson = JSON.parse(readFileSync("./package.json"))
 
 console.log(chalk.green("Server Starting!"))
 
