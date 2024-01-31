@@ -1,11 +1,5 @@
-function AddNote({ notes, setNotes, note, setNote }) {
-  const addNote = () => {
-    if (note.trim() !== '') {
-      setNotes([...notes, { date: new Date().toLocaleString(), content: note }])
-      setNote('')
-    }
-  }
 
+function AddNote({note, setNote, createNote}) {
   return (
     <div className="mt-32 ml-10">
       <input
@@ -17,7 +11,7 @@ function AddNote({ notes, setNotes, note, setNote }) {
         onChange={(e) => setNote(e.target.value)}
         style={{ width: '85vw', height: '40px' }}
       />
-      <button className="ml-5" onClick={addNote}>
+      <button className="ml-5" onClick={createNote}>
         Add
       </button>
     </div>
