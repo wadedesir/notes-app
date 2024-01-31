@@ -15,7 +15,7 @@ import {
 } from './util/middleware.js'
 
 
-logInfo('server starting')
+logInfo('server starting!')
 initDb()
 
 const server = express()
