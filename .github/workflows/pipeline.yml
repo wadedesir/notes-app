@@ -6,9 +6,15 @@ on:
       - issue-44
 
 jobs:
-  hello_world_job:
+  simple_deployment_pipeline:
     runs-on: ubuntu-20.04
     steps:
-      - name: Say hello
-        run: |
-          echo "Hello World!"
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install dependencies 
+        run: cd backend
+        run: npm install  
+      - name: Check style
+        run: npm run eslint
