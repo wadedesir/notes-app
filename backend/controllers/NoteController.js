@@ -73,7 +73,11 @@ export const updateNote = async (req, res, next) => {
   }
 
   try {
-    const updatedNote = await Note.findByIdAndUpdate(id, updatedContent, { new: true })
+    const updatedNote = await Note.findByIdAndUpdate(
+      request.params.id, 
+      { content, important },
+      { new: true, runValidators: true, context: 'query' }
+    )    
     res.json(updatedNote)
   } catch (e) {
     next(e)

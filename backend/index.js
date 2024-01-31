@@ -40,6 +40,11 @@ server.get("/status", (req, res) => {
  */
 server.use((err, req, res, next) => {
   console.error(chalk.red(err))
+  if (err.name === 'CastError') {
+    return response.status(400).send({ err: 'malformatted id' })
+  } else if (err.name === 'ValidationError') {
+    return response.status(400).json({ err: err.message })
+  }
   res.status(err.status || 500).json({ status: err.status, message: err.message })
 })
 
