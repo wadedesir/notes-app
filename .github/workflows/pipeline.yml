@@ -5,8 +5,8 @@ on:
     paths:
       - 'backend/**'
       - '.github/workflows/**'
-    branches:
-      - [issue-44, main]
+    branches: [issue-44, main]
+    types: [opened, synchronize]
 
 jobs:
   backend_deployment_pipeline:
