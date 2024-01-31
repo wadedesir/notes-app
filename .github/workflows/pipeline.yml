@@ -2,6 +2,9 @@ name: pipeline
 
 on:
   push:
+    paths:
+      - 'backend/**'
+      - '.github/workflows/**'
     branches:
       - issue-44
 
