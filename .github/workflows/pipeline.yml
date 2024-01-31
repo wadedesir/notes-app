@@ -3,7 +3,7 @@ name: Hello World!
 on:
   push:
     branches:
-      - main
+      - issue-44
 
 jobs:
   hello_world_job:
