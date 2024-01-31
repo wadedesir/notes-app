@@ -1,14 +1,15 @@
 name: pipeline
 
 on:
-  push:
+  pull-request:
     paths:
       - 'backend/**'
+      - '.github/workflows/**'
     branches:
       - issue-44
 
 jobs:
-  simple_deployment_pipeline:
+  backend_deployment_pipeline:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v4
