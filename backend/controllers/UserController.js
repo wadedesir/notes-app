@@ -15,7 +15,7 @@ export const createNewUser = async (req, res, next) => {
     const user = new User({
       username,
       name,
-      passwordHash,
+      passwordHash
     })
 
     const savedUser = await user.save()
@@ -26,25 +26,25 @@ export const createNewUser = async (req, res, next) => {
 }
 
 export const findUserById = async (req, res, next) => {
-  const { id } = req.params;
+  const { id } = req.params
 
   try {
-    const user = await User.findById(id);
+    const user = await User.findById(id)
 
     if (!user) {
-      return res.status(404).json({ 
-        error: `user with id:${id} not found` 
-      });
+      return res.status(404).json({
+        error: `user with id:${id} not found`
+      })
     } else {
-      res.json(user);
+      res.json(user)
     }
   } catch (e) {
-    next(e);
+    next(e)
   }
 }
 
 export const updateUser = async (req, res, next) => {
-  const { username, name, password} = req.body
+  const { username, name, password } = req.body
   const { id } = req.params
 
   try {

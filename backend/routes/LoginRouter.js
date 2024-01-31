@@ -1,6 +1,6 @@
-import express from 'express';
-import { 
-  createNewLogin, 
+import express from 'express'
+import {
+  createNewLogin
 } from '../controllers/LoginController.js'
 
 const LoginRouter = express.Router()
