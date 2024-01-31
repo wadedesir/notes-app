@@ -1,27 +1,30 @@
 import mongoose from 'mongoose'
+import { MONGODB_URI, DB_NAME } from '../util/config.js'
+import { logInfo, logError } from '../util/logger.js'
 
 mongoose.connection.on('connected', () => {
-  console.log('Mongoose connected to db...')
+  logInfo('Mongoose connected to db...')
 })
 
 mongoose.connection.on('error', err => {
-  console.log(err.message)
+  logInfo(err.message)
 })
 
 mongoose.connection.on('disconnected', () => {
-  console.log('Mongoose connection is disconnected...')
+  logInfo('Mongoose connection is disconnected...')
 })
 
 export const initDb = () => {
-  mongoose.set('strictQuery', false)
+  logInfo(`connecting to mongodb - db_uri:${MONGODB_URI} | db_name:${DB_NAME}`)
 
+  mongoose.set('strictQuery', false)
   try {
-    mongoose.connect(process.env.MONGODB_URI, {
-      dbName: process.env.DB_NAME,
+    mongoose.connect(MONGODB_URI, {
+      dbName: DB_NAME,
       useNewUrlParser: true,
       useUnifiedTopology: true
     })
   } catch (e) {
-    console.error(e)
+    logError(e)
   }
 }

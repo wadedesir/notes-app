@@ -1,10 +1,11 @@
 import Note from '../models/Note.js'
 import User from '../models/User.js'
 import jwt from 'jsonwebtoken'
+import { logInfo } from '../util/logger.js'
 
 const getTokenFrom = req => {
   const authorization = req.get('authorization')
-  console.log(`authorization: ${authorization}`)
+  logInfo(`authorization: ${authorization}`)
 
   if (authorization && authorization.startsWith('Bearer ')) {
     return authorization.replace('Bearer ', '')
