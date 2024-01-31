@@ -2,9 +2,9 @@ GET http://localhost:8420/v1/notes
 
 POST http://localhost:8420/v1/notes
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImNoZXNzX3BsYXllciIsImlkIjoiNjViOTNiZDhhMWNiOTdmNDg1ZDhkMDVmIiwiaWF0IjoxNzA2NjM4NTMwLCJleHAiOjE3MDY2NDIxMzB9.L5E8OPOwOTAu6-oyrQJXe7Z96TkKYStyL2pNtyICpMw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImthaSIsImlkIjoiNjViYWIwODVhZDYyMjY1MDM3ZmI5M2JjIiwiaWF0IjoxNzA2NzMzNzIwLCJleHAiOjE3MDY3MzczMjB9.l2xxxIY5xjIxuyejZhkFZiS0y0I0ncPXeUKWlJnbPvM
 
 {
-    "content": "charlick hartlaub gambit",
+    "content": "scan",
     "important": true
 }
