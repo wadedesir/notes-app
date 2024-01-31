@@ -18,8 +18,8 @@ const getTokenFrom = req => {
 }
 
 export const getAllNotes = async (req, res) => {
-  const notes = await Note.find({}).populate('user', { 
-    username: 1, name: 1 
+  const notes = await Note.find({}).populate('user', {
+    username: 1, name: 1
   })
 
   res.json(notes)
@@ -71,10 +71,10 @@ export const updateNote = async (req, res) => {
   }
 
   const updatedNote = await Note.findByIdAndUpdate(
-    id, 
+    id,
     updatedContent,
     { new: true, runValidators: true, context: 'query' }
-  )    
+  )
   res.json(updatedNote)
 }
 
