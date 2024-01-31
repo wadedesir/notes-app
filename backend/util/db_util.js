@@ -12,17 +12,16 @@ mongoose.connection.on('disconnected', () => {
   console.log('Mongoose connection is disconnected...');
 });
 
-export const initDb = async () => {
+export const initDb = () => {
   mongoose.set('strictQuery', false)
 
   try {
-    await mongoose.connect(process.env.MONGODB_URI, {
+    mongoose.connect(process.env.MONGODB_URI, {
       dbName: process.env.DB_NAME,
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });  
-    console.log('mongoose connected');
-  } catch (error) {
-    console.error(error)
+  } catch (e) {
+    console.error(e)
   }
 }

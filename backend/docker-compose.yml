@@ -14,10 +14,12 @@ services:
       - 8420:8420
     volumes:
       - .:/usr/src/app
+      - /usr/src/app/node_modules
     environment:
       PORT: 8420
       MONGODB_URI: mongodb://mongo_db:27017
       DB_NAME: my_db
+      SECRET: foobar
     depends_on:
       - mongo_db
 
