@@ -4,7 +4,7 @@ POST http://localhost:8420/v1/users
 Content-Type: application/json
 
 {
-    "name": "kai",
-    "username": "kai",
-    "password": "weed"
+    "name": "weeble",
+    "username": "wibble",
+    "password": "wobble"
 }

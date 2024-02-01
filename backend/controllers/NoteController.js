@@ -7,6 +7,7 @@ import User from '../models/User.js'
 import { logInfo } from '../util/logger.js'
 import { SECRET } from '../util/config.js'
 
+// TODO: unit test
 const getTokenFrom = authorization => {
   logInfo(`authorization: ${authorization}`)
 
@@ -16,6 +17,7 @@ const getTokenFrom = authorization => {
   return null
 }
 
+// TODO: unit test
 export const getAllNotes = async (req, res) => {
   const notes = await Note.find({}).populate('user', {
     username: 1, name: 1
@@ -24,6 +26,7 @@ export const getAllNotes = async (req, res) => {
   res.json(notes)
 }
 
+// TODO: unit test
 export const createNewNote = async (req, res) => {
   const { content, important } = req.body
 
@@ -54,6 +57,7 @@ export const createNewNote = async (req, res) => {
   res.status(201).json(savedNote)
 }
 
+// TODO: unit test
 export const findNoteById = async (req, res) => {
   const { id } = req.params
 
@@ -65,6 +69,7 @@ export const findNoteById = async (req, res) => {
   }
 }
 
+// TODO: unit test
 export const updateNote = async (req, res) => {
   const { content, important } = req.body
   const { id } = req.params
@@ -82,9 +87,10 @@ export const updateNote = async (req, res) => {
   res.json(updatedNote)
 }
 
+// TODO: unit test
 export const deleteNote = async (req, res) => {
   const { id } = req.params
 
   const deletedNote = await Note.findByIdAndDelete(id)
-  res.json(deletedNote)
+  res.status(204).json(deletedNote)
 }

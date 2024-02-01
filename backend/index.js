@@ -20,13 +20,16 @@ initDb()
 const Server = express()
 Server.use(cors())
 Server.use(express.json())
+// TODO: unit test
 Server.use(requestLogger)
 
 Server.use('/v1/notes', NoteRouter)
 Server.use('/v1/users', UserRouter)
 Server.use('/v1/login', LoginRouter)
 
+// TODO: unit test
 Server.use(unknownEndpointHandler)
+// TODO: unit test
 Server.use(errorHandler)
 
 Server.listen(PORT_NUM)

@@ -4,6 +4,7 @@ import 'express-async-errors'
 
 import User from '../models/User.js'
 
+// TODO: unit test
 export const createNewLogin = async (req, res) => {
   const { username, password } = req.body
 
@@ -11,7 +12,7 @@ export const createNewLogin = async (req, res) => {
 
   const passwordCorrect = user === null
     ? false
-    : bcryptjs.compare(password, user.passwordHash)
+    : await bcryptjs.compare(password, user.passwordHash)
 
   if (!(user && passwordCorrect)) {
     return res.status(401).json({

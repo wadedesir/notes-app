@@ -3,113 +3,215 @@ import supertest from 'supertest'
 import Server from '../index.js'
 import Note from '../models/Note.js'
 import User from '../models/User.js'
+import { notesInDb, nonExistingId, initNotes } from './helper.js'
 
 const testServer = supertest(Server)
 
 let token = ''
+
+const testName = 'Test Dummy'
+const testUserName = 'test_dummy420'
+const testUserPass = 'testing123'
 
 beforeAll(async () => {
   await Note.deleteMany({})
   await User.deleteMany({})
 })
 
-test('users are returned as json', async () => {
-  await testServer
-    .get('/v1/users')
-    .expect(200)
-    .expect('Content-Type', /application\/json/)
-}, 100000)
+describe('when there are no initial users', () => {
+  test('a valid user can be added', async () => {
+    const newUser = {
+      name: testName,
+      password: testUserPass,
+      username: testUserName,
+    }
 
-test('a valid user can be added', async () => {
-  const newUser = {
-    name: 'Seymour',
-    password: 'Cox',
-    username: 'seymourcox420',
-  }
-
-  await testServer
-    .post('/v1/users')
-    .send(newUser)
-    .expect(201)
-    .expect('Content-Type', /application\/json/)
-
-  const res = await testServer.get('/v1/users')
-  const contents = res.body.map(r => r.username)
-
-  expect(contents).toContain(
-    'seymourcox420'
-  )
+    await testServer
+      .post('/v1/users')
+      .send(newUser)
+      .expect(201)
+      .expect('Content-Type', /application\/json/)
+  })
 })
 
-test('logging in is possible', async () => {
-  const loginInfo = {
-    password: 'Cox',
-    username: 'seymourcox420',
-  }
+describe('when there are some initial users', () => {
+  test('users are returned as json', async () => {
+    const res = await testServer
+      .get('/v1/users')
+      .expect(200)
+      .expect('Content-Type', /application\/json/)
 
-  const res = await testServer
-    .post('/v1/login')
-    .send(loginInfo)
-    .expect(200)
-    .expect('Content-Type', /application\/json/)
-  token = res.body.token
+    const contents = res.body.map(r => r.username)
+    expect(contents).toContain(testUserName)
+  }, 100000)
 })
 
-test('notes are returned as json', async () => {
-  await testServer
-    .get('/v1/notes')
-    .expect(200)
-    .expect('Content-Type', /application\/json/)
-}, 100000)
+describe('when logged out', () => {
+  test('logging in with bad info is not possible', async () => {
+    const loginInfo = {
+      password: 'the_wrong_password',
+      username: testUserName,
+    }
 
-test('valid notes can be added', async () => {
-  const initNotes = [
-    {
-      content: 'HTML is easy',
-      important: false,
-    },
-    {
-      content: 'Browser can execute only JavaScript',
+    await testServer
+      .post('/v1/login')
+      .send(loginInfo)
+      .expect(401)
+      .expect('Content-Type', /application\/json/)
+  })
+
+  test('logging in with correct info is possible', async () => {
+    const loginInfo = {
+      password: testUserPass,
+      username: testUserName,
+    }
+
+    const res = await testServer
+      .post('/v1/login')
+      .send(loginInfo)
+      .expect(200)
+      .expect('Content-Type', /application\/json/)
+    token = res.body.token
+  })
+})
+
+describe('when logged in', () => {
+  test('notes are returned as json', async () => {
+    await testServer
+      .get('/v1/notes')
+      .expect(200)
+      .expect('Content-Type', /application\/json/)
+  }, 100000)
+
+  test('valid notes can be added', async () => {
+
+    await testServer
+      .post('/v1/notes')
+      .set('Authorization', `Bearer ${token}`)
+      .send(initNotes[0])
+      .expect(201)
+      .expect('Content-Type', /application\/json/)
+
+    await testServer
+      .post('/v1/notes')
+      .set('Authorization', `Bearer ${token}`)
+      .send(initNotes[1])
+      .expect(201)
+      .expect('Content-Type', /application\/json/)
+  })
+
+  test('there are two notes', async () => {
+    const res = await testServer.get('/v1/notes')
+    expect(res.body).toHaveLength(2)
+  })
+
+  test('the first note is about HTTP methods', async () => {
+    const res = await testServer.get('/v1/notes')
+
+    expect(res.body[0].content).toBe('HTML is easy')
+  })
+
+  test('a specific note is within the returned notes', async () => {
+    const res = await testServer.get('/v1/notes')
+
+    const contents = res.body.map(r => r.content)
+    expect(contents).toContain(
+      'Browser can execute only JavaScript'
+    )
+  })
+})
+
+describe('viewing a specific note', () => {
+  test('succeeds with a valid id', async () => {
+    const notesAtStart = await notesInDb()
+
+    const noteToView = notesAtStart[0]
+
+    const resultNote = await testServer
+      .get(`/v1/notes/${noteToView.id}`)
+      .expect(200)
+      .expect('Content-Type', /application\/json/)
+
+    expect(resultNote.body).toEqual(noteToView)
+  })
+
+  test('fails with statuscode 404 if note does not exist', async () => {
+    const validNonexistingId = await nonExistingId()
+
+    await testServer
+      .get(`/v1/notes/${validNonexistingId}`)
+      .expect(404)
+  })
+
+  test('fails with statuscode 400 if id is malformatted', async () => {
+    const invalidId = '5a3d5da59070081a82a3445'
+
+    await testServer
+      .get(`/v1/notes/${invalidId}`)
+      .expect(400)
+  })
+})
+
+describe('addition of a new note', () => {
+  test('succeeds with valid data', async () => {
+    const newNote = {
+      content: 'async/await simplifies making async calls',
       important: true,
-    },
-  ]
+    }
 
-  await testServer
-    .post('/v1/notes')
-    .set('Authorization', `Bearer ${token}`)
-    .send(initNotes[0])
-    .expect(201)
-    .expect('Content-Type', /application\/json/)
+    await testServer
+      .post('/v1/notes')
+      .set('Authorization', `Bearer ${token}`)
+      .send(newNote)
+      .expect(201)
+      .expect('Content-Type', /application\/json/)
 
-  await testServer
-    .post('/v1/notes')
-    .set('Authorization', `Bearer ${token}`)
-    .send(initNotes[1])
-    .expect(201)
-    .expect('Content-Type', /application\/json/)
+    const notesAtEnd = await notesInDb()
+    expect(notesAtEnd).toHaveLength(initNotes.length + 1)
+
+    const contents = notesAtEnd.map(n => n.content)
+    expect(contents).toContain(
+      'async/await simplifies making async calls'
+    )
+  })
+
+  test('fails with status code 400 if data invalid', async () => {
+    const newNote = {
+      important: true
+    }
+
+    await testServer 
+      .post('/v1/notes')
+      .set('Authorization', `Bearer ${token}`)
+      .send(newNote)
+      .expect(400)
+
+    const notesAtEnd = await notesInDb()
+
+    expect(notesAtEnd).toHaveLength(initNotes.length + 1)
+  })
 })
 
-test('there are two notes', async () => {
-  const res = await testServer.get('/v1/notes')
+describe('deletion of a note', () => {
+  test('succeeds with status code 204 if id is valid', async () => {
+    const notesAtStart = await notesInDb()
+    const noteToDelete = notesAtStart[0]
 
-  expect(res.body).toHaveLength(2)
+    await testServer
+      .delete(`/v1/notes/${noteToDelete.id}`)
+      .expect(204)
+
+    const notesAtEnd = await notesInDb()
+
+    expect(notesAtEnd).toHaveLength(
+      initNotes.length
+    )
+
+    const contents = notesAtEnd.map(r => r.content)
+
+    expect(contents).not.toContain(noteToDelete.content)
+  })
 })
-
-test('the first note is about HTTP methods', async () => {
-  const res = await testServer.get('/v1/notes')
-
-  expect(res.body[0].content).toBe('HTML is easy')
-})
-
-test('a specific note is within the returned notes', async () => {
-  const res = await testServer.get('/v1/notes')
-
-  const contents = res.body.map(r => r.content)
-  expect(contents).toContain(
-    'Browser can execute only JavaScript'
-  )
-})
-
 
 afterAll(async () => {
   await mongoose.connection.close()

@@ -3,11 +3,13 @@ import 'express-async-errors'
 
 import User from '../models/User.js'
 
+// TODO: unit test
 export const getAllUsers = async (req, res) => {
   const users = await User.find({}).populate('notes')
   res.json(users)
 }
 
+// TODO: unit test
 export const createNewUser = async (req, res) => {
   const { username, name, password } = req.body
   const saltRounds = 10
@@ -24,6 +26,7 @@ export const createNewUser = async (req, res) => {
   res.status(201).json(savedUser)
 }
 
+// TODO: unit test
 export const findUserById = async (req, res) => {
   const { id } = req.params
 
@@ -38,6 +41,7 @@ export const findUserById = async (req, res) => {
   }
 }
 
+// TODO: unit test
 export const updateUser = async (req, res) => {
   const { username, name, password } = req.body
   const { id } = req.params
@@ -55,6 +59,7 @@ export const updateUser = async (req, res) => {
   res.json(updatedUser)
 }
 
+// TODO: unit test
 export const deleteUser = async (req, res) => {
   const { id } = req.params
 
