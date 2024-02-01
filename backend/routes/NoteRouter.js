@@ -1,10 +1,10 @@
-import express from 'express';
-import { 
-  getAllNotes, 
-  createNewNote, 
-  findNoteById, 
-  updateNote, 
-  deleteNote,
+import express from 'express'
+import {
+  getAllNotes,
+  createNewNote,
+  findNoteById,
+  updateNote,
+  deleteNote
 } from '../controllers/NoteController.js'
 
 const NoteRouter = express.Router()

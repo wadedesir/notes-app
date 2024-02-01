@@ -1,12 +1,16 @@
 import mongoose from 'mongoose'
 
 const noteSchema = new mongoose.Schema({
-  content: String,
+  content: {
+    type: String,
+    minLength: 5,
+    required: true
+  },
   important: Boolean,
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
-  },
+  }
 },
 {
   timestamps: true

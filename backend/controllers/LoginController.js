@@ -20,19 +20,19 @@ export const createNewLogin = async (req, res, next) => {
 
     const userForToken = {
       username: user.username,
-      id: user._id,
+      id: user._id
     }
 
     const token = jwt.sign(
-      userForToken, 
+      userForToken,
       process.env.SECRET,
-      { expiresIn: 60*60 }
+      { expiresIn: 60 * 60 }
     )
 
-    res.status(200).send({ 
-      token, 
-      username: user.username, 
-      name: user.name 
+    res.status(200).send({
+      token,
+      username: user.username,
+      name: user.name
     })
   } catch (e) {
     next(e)
