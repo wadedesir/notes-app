@@ -8,12 +8,11 @@ import LoginRouter from './routes/LoginRouter.js'
 import { initDb } from './util/db_util.js'
 import { logInfo } from './util/logger.js'
 import { PORT_NUM } from './util/config.js'
-import { 
-  requestLogger, 
+import {
+  requestLogger,
   unknownEndpointHandler,
   errorHandler
 } from './util/middleware.js'
-
 
 logInfo('server starting')
 initDb()
