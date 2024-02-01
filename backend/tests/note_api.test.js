@@ -9,6 +9,18 @@ test('notes are returned as json', async () => {
     .get('/v1/notes')
     .expect(200)
     .expect('Content-Type', /application\/json/)
+}, 100000)
+
+test('there are two notes', async () => {
+  const response = await api.get('/v1/notes')
+
+  expect(response.body).toHaveLength(2)
+})
+
+test('the first note is about HTTP methods', async () => {
+  const response = await api.get('/v1/notes')
+
+  expect(response.body[0].content).toBe('HTML is easy')
 })
 
 afterAll(async () => {
