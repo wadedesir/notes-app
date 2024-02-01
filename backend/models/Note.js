@@ -16,5 +16,13 @@ const noteSchema = new mongoose.Schema({
   timestamps: true
 })
 
+noteSchema.set('toJSON', {
+  transform: (doc, note) => {
+    note.id = note._id.toString()
+    delete note._id
+    delete note.__v
+  }
+})
+
 const Note = mongoose.model('Note', noteSchema)
 export default Note
