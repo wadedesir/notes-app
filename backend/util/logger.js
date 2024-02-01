@@ -7,7 +7,5 @@ export const logInfo = (...params) => {
 }
 
 export const logError = (...params) => {
-  if (process.env.NODE_ENV !== 'test') { 
-    chalk.red(console.error(...params))
-  }
+  chalk.red(console.error(...params))
 }

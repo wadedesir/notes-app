@@ -11,7 +11,7 @@ export const createNewLogin = async (req, res) => {
 
   const passwordCorrect = user === null
     ? false
-    : await bcryptjs.compare(password, user.passwordHash)
+    : bcryptjs.compare(password, user.passwordHash)
 
   if (!(user && passwordCorrect)) {
     return res.status(401).json({
