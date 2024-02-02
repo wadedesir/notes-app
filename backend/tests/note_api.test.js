@@ -23,7 +23,7 @@ describe('when there are no initial users', () => {
     const newUser = {
       name: testName,
       password: testUserPass,
-      username: testUserName,
+      username: testUserName
     }
 
     await testServer
@@ -50,7 +50,7 @@ describe('when logged out', () => {
   test('logging in with bad info is not possible', async () => {
     const loginInfo = {
       password: 'the_wrong_password',
-      username: testUserName,
+      username: testUserName
     }
 
     await testServer
@@ -63,7 +63,7 @@ describe('when logged out', () => {
   test('logging in with correct info is possible', async () => {
     const loginInfo = {
       password: testUserPass,
-      username: testUserName,
+      username: testUserName
     }
 
     const res = await testServer
@@ -84,7 +84,6 @@ describe('when logged in', () => {
   }, 100000)
 
   test('valid notes can be added', async () => {
-
     await testServer
       .post('/v1/notes')
       .set('Authorization', `Bearer ${token}`)
@@ -156,7 +155,7 @@ describe('addition of a new note', () => {
   test('succeeds with valid data', async () => {
     const newNote = {
       content: 'async/await simplifies making async calls',
-      important: true,
+      important: true
     }
 
     await testServer
@@ -180,7 +179,7 @@ describe('addition of a new note', () => {
       important: true
     }
 
-    await testServer 
+    await testServer
       .post('/v1/notes')
       .set('Authorization', `Bearer ${token}`)
       .send(newNote)
