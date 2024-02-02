@@ -61,7 +61,7 @@ export const createNewNote = async (req, res) => {
 export const findNoteById = async (req, res) => {
   const { id } = req.params
 
-  const note = await Note.findById(id)
+  const note = await Note.findById(id).populate('user', { username: 1, name: 1 })
   if (note) {
     res.json(note)
   } else {
@@ -83,7 +83,7 @@ export const updateNote = async (req, res) => {
     id,
     updatedContent,
     { new: true, runValidators: true, context: 'query' }
-  )
+  ).populate('user', { username: 1, name: 1 })
   res.json(updatedNote)
 }
 
@@ -91,6 +91,6 @@ export const updateNote = async (req, res) => {
 export const deleteNote = async (req, res) => {
   const { id } = req.params
 
-  const deletedNote = await Note.findByIdAndDelete(id)
+  const deletedNote = await Note.findByIdAndDelete(id).populate('user', { username: 1, name: 1 })
   res.status(204).json(deletedNote)
 }

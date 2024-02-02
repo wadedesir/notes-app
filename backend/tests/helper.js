@@ -20,6 +20,8 @@ export const nonExistingId = async () => {
 }
 
 export const notesInDb = async () => {
-  const notes = await Note.find({})
-  return notes.map(note => note.toJSON())
+  const notes = await Note.find({}).populate('user', { username: 1, name: 1 })
+  const notesJson = notes.map(note => note.toJSON())
+
+  return notesJson
 }
