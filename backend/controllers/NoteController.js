@@ -31,7 +31,7 @@ export const createNewNote = async (req, res) => {
   const { content, important } = req.body
 
   const authorization = req.get('authorization')
-  if(!authorization){
+  if (!authorization) {
     return res.status(400).json({ error: 'must provide auth token' })
   }
 

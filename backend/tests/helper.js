@@ -1,14 +1,14 @@
-import Note from "../models/Note.js"
+import Note from '../models/Note.js'
 
 export const initNotes = [
   {
     content: 'HTML is easy',
-    important: false,
+    important: false
   },
   {
     content: 'Browser can execute only JavaScript',
-    important: true,
-  },
+    important: true
+  }
 ]
 
 export const nonExistingId = async () => {
