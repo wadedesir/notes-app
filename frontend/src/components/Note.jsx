@@ -24,7 +24,7 @@ function Note({ id, date, content, important, editNote, deleteNote }) {
         {date}
         <br></br>
         {(editing ? <input className="text-black font-bold border-0 outline-none" value={note} onChange={(e) => setNote(e.target.value)}/> : <strong>{content}</strong> )}
-        {(editing && <div className="text-xl"><span onClick={() => setEditing(false)}>✖️</span> <span onClick={() => updateNote()}>✔️</span></div>)}
+        {(editing && <div className="text-xl hover:cursor-pointer"><span onClick={() => setEditing(false)}>✖️</span> <span onClick={() => updateNote()}>✔️</span></div>)}
         
         
       </div>
