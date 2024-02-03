@@ -16,6 +16,10 @@ jobs:
       - name: Build the stack
         working-directory: ./backend
         run: docker compose up -d
-      - name: Test
+      - name: lint 
         working-directory: ./backend
         run: docker compose exec api npm run lint
+      - name: tests
+        working-directory: ./backend
+        run: docker compose run api npm run test
+
