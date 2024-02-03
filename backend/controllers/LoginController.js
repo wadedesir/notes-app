@@ -3,15 +3,18 @@ import jwt from 'jsonwebtoken'
 import 'express-async-errors'
 
 import User from '../models/User.js'
-/**
- * Create New Login 
- * @param {Request} req
- * @param {Response} res
- */
 
+/**
+ * Creates a new login.
+ * @module LoginController
+ * @function
+ * @param {Object} req - The request.
+ * @param {Object} res - The response.
+ * @param {string} req.body.username - The user's display name.
+ * @param {string} req.body.password - The user's password.
+ */
 export const createNewLogin = async (req, res) => {
   const { username, password } = req.body
-  console.log(express.request)
 
   const user = await User.findOne({ username })
 

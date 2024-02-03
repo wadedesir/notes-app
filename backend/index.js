@@ -14,26 +14,27 @@ import {
   errorHandler
 } from './util/middleware.js'
 
+// Init mongoDB and create the server.
 logInfo('Server starting')
 initDb()
-
 const Server = express()
-Server.use(express.static('dist'))
+
+// Set up pre-request middleware.
 Server.use(cors())
 Server.use(express.json())
-
-// TODO: unit test
+Server.use(express.static('dist'))
 Server.use(requestLogger)
 
+// Set up express routes.
 Server.use('/v1/notes', NoteRouter)
 Server.use('/v1/users', UserRouter)
 Server.use('/v1/login', LoginRouter)
 
-// TODO: unit test
-Server.use(unknownEndpointHandler)
-// TODO: unit test
+// Set up post-request middleware
 Server.use(errorHandler)
+Server.use(unknownEndpointHandler)
 
+// Start the server on the specified port
 Server.listen(PORT_NUM)
 logInfo(`Server listening on port ${PORT_NUM}`)
 

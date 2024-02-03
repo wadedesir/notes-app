@@ -1,294 +1,401 @@
-# Note App API
+# 📝 Notes API
 
-> Version 1.0.0
+> Version 1.1.0
 
-API Spec for the Notes App
+Welcome to the Notes API Spec. This Spec outlines the various responses from the API
 
-## Path Table
+## 🛣️ Path Table
 
 | Method | Path | Description |
 | --- | --- | --- |
-| GET | [/v1/users](#getv1users) | Returns a list of users. |
-| POST | [/v1/users](#postv1users) | Creates a new user. |
-| GET | [/v1/users/{userId}](#getv1usersuserid) | Returns a user by ID. |
-| PUT | [/v1/users/{userId}](#putv1usersuserid) | Update a user by ID |
-| DELETE | [/v1/users/{userId}](#deletev1usersuserid) | delete a user by ID. |
-| GET | [/v1/notes](#getv1notes) | Returns a list of notes. |
-| POST | [/v1/notes](#postv1notes) | Creates a new note. |
-| GET | [/v1/notes/{noteId}](#getv1notesnoteid) | Returns a note by ID. |
-| PUT | [/v1/notes/{noteId}](#putv1notesnoteid) | Update a note by ID |
-| DELETE | [/v1/notes/{noteId}](#deletev1notesnoteid) | delete a note by ID. |
+| GET | [/v1/users](#getv1users) | Get all users |
+| POST | [/v1/users](#postv1users) | Create a new user |
+| GET | [/v1/users/{id}](#getv1usersid) | Get user by ID |
+| PUT | [/v1/users/{id}](#putv1usersid) | Update user by ID |
+| DELETE | [/v1/users/{id}](#deletev1usersid) | Delete user by ID |
+| GET | [/v1/notes](#getv1notes) | Get all notes |
+| POST | [/v1/notes](#postv1notes) | Create a new note |
+| GET | [/v1/notes/{id}](#getv1notesid) | Get note by ID |
+| PUT | [/v1/notes/{id}](#putv1notesid) | Update note by ID |
+| DELETE | [/v1/notes/{id}](#deletev1notesid) | Delete note by ID |
+| POST | [/v1/login](#postv1login) | Authenticate user |
 
-## Reference Table
+## 📚 Reference Table
 
 | Name | Path | Description |
 | --- | --- | --- |
-| User | [#/components/schemas/User](#componentsschemasuser) |  |
-| Note | [#/components/schemas/Note](#componentsschemasnote) |  |
+| User | [#/components/schemas/User](#componentsschemasuser) | 🥷🏾 User Schema |
+| UserCreate | [#/components/schemas/UserCreate](#componentsschemasusercreate) | 🚪 User Creation Schema |
+| UserUpdate | [#/components/schemas/UserUpdate](#componentsschemasuserupdate) | 🛠️ User Update Schema |
+| Note | [#/components/schemas/Note](#componentsschemasnote) | 📝 Note Schema |
+| NoteCreate | [#/components/schemas/NoteCreate](#componentsschemasnotecreate) | 📝 Note Creation Schema |
+| NoteUpdate | [#/components/schemas/NoteUpdate](#componentsschemasnoteupdate) | 🛠️ Note Update Schema |
+| LoginCredentials | [#/components/schemas/LoginCredentials](#componentsschemaslogincredentials) | 🔑 Login Credentials Schema |
+| LoginResponse | [#/components/schemas/LoginResponse](#componentsschemasloginresponse) | 🔑 Login Response Schema |
 
-## Path Details
+## 🌟 Path Details
 
 ***
 
 ### [GET]/v1/users
 
-- Summary  
-Returns a list of users.
-
-- Description  
-Optional extended description in CommonMark or HTML.
+- **Summary:** Get all users
 
 #### Responses
 
-- 200 A JSON array of user names
+- **200 OK:** A list of users.
 
-`application/json`
-
-```ts
-[]
+```json
+[
+  {
+    "id": "string",
+    "name": "string",
+    "username": "string"
+  }
+]
 ```
 
 ***
 
 ### [POST]/v1/users
 
-- Summary  
-Creates a new user.
+- **Summary:** Create a new user
 
-#### RequestBody
+#### Request Body
 
-- application/json
+- **application/json**
 
-```ts
+```json
 {
-  id: integer
-  name: string
+  "name": "string",
+  "username": "string",
+  "password": "string"
 }
 ```
 
 #### Responses
 
-- 201 Created
+- **201 Created:** The created user.
+
+```json
+{
+  "id": "string",
+  "name": "string",
+  "username": "string"
+}
+```
+
+- **400 Bad Request.**
 
 ***
 
-### [GET]/v1/users/{userId}
+### [GET]/v1/users/{id}
 
-- Summary  
-Returns a user by ID.
+- **Summary:** Get user by ID
 
 #### Responses
 
-- 200 A user object.
+- **200 OK:** The user.
 
-`application/json`
-
-```ts
+```json
 {
-  id: integer
-  name: string
+  "id": "string",
+  "name": "string",
+  "username": "string"
 }
 ```
 
-- 400 The specified user ID is invalid (not a number).
-
-- 404 A user with the specified ID was not found.
-
-- default Unexpected error
+- **404 Not Found.**
 
 ***
 
-### [PUT]/v1/users/{userId}
+### [PUT]/v1/users/{id}
 
-- Summary  
-Update a user by ID
+- **Summary:** Update user by ID
 
-#### Responses
+#### Request Body
 
-- 200 A user object.
+- **application/json**
 
-`application/json`
-
-```ts
+```json
 {
-  id: integer
-  name: string
+  "name": "string",
+  "username": "string",
+  "password": "string"
 }
 ```
 
-- 400 The specified user ID is invalid (not a number).
+#### Responses
 
-- 404 A user with the specified ID was not found.
+- **200 OK:** The updated user.
 
-- default Unexpected error
+```json
+{
+  "id": "string",
+  "name": "string",
+  "username": "string"
+}
+```
+
+- **404 Not Found.**
 
 ***
 
-### [DELETE]/v1/users/{userId}
+### [DELETE]/v1/users/{id}
 
-- Summary  
-delete a user by ID.
+- **Summary:** Delete user by ID
 
 #### Responses
 
-- 200 A user object.
+- **204 No Content:** User deleted successfully.
 
-`application/json`
-
-```ts
-{
-  id: integer
-  name: string
-}
-```
-
-- 400 The specified user ID is invalid (not a number).
-
-- 404 A user with the specified ID was not found.
-
-- default Unexpected error
+- **404 Not Found.**
 
 ***
 
 ### [GET]/v1/notes
 
-- Summary  
-Returns a list of notes.
-
-- Description  
-Optional extended description in CommonMark or HTML.
+- **Summary:** Get all notes
 
 #### Responses
 
-- 200 A JSON array of note names
+- **200 OK:** A list of notes.
 
-`application/json`
-
-```ts
-[]
+```json
+[
+  {
+    "id": "string",
+    "content": "string",
+    "important": true,
+    "user": {
+      "id": "string",
+      "name": "string",
+      "username": "string"
+    }
+  }
+]
 ```
 
 ***
 
 ### [POST]/v1/notes
 
-- Summary  
-Creates a new note.
+- **Summary:** Create a new note
 
-#### RequestBody
+#### Request Body
 
-- application/json
+- **application/json**
 
-```ts
+```json
 {
-  id: integer
-  content: string
-  important?: boolean
+  "content": "string",
+  "important": true
 }
 ```
 
 #### Responses
 
-- 201 Created
+- **201 Created:** The created note.
+
+```json
+{
+  "id": "string",
+  "content": "string",
+  "important": true,
+  "user": {
+    "id": "string",
+    "name": "string",
+    "username": "string"
+  }
+}
+```
+
+- **400 Bad Request.**
+
+- **401 Unauthorized.**
 
 ***
 
-### [GET]/v1/notes/{noteId}
+### [GET]/v1/notes/{id}
 
-- Summary  
-Returns a note by ID.
+- **Summary:** Get note by ID
 
 #### Responses
 
-- 200 A note object.
+- **200 OK:** The note.
 
-`application/json`
-
-```ts
+```json
 {
-  id: integer
-  content: string
-  important?: boolean
+  "id": "string",
+  "content": "string",
+  "important": true,
+  "user": {
+    "id": "string",
+    "name": "string",
+    "username": "string"
+  }
 }
 ```
 
-- 400 The specified note ID is invalid (not a number).
-
-- 404 A note with the specified ID was not found.
-
-- default Unexpected error
+- **404 Not Found.**
 
 ***
 
-### [PUT]/v1/notes/{noteId}
+### [PUT]/v1/notes/{id}
 
-- Summary  
-Update a note by ID
+- **Summary:** Update note by ID
 
-#### Responses
+#### Request Body
 
-- 200 A note object.
+- **application/json**
 
-`application/json`
-
-```ts
+```json
 {
-  id: integer
-  content: string
-  important?: boolean
+  "content": "string",
+  "important": true
 }
 ```
 
-- 400 The specified note ID is invalid (not a number).
+#### Responses
 
-- 404 A note with the specified ID was not found.
+- **200 OK:** The updated note.
 
-- default Unexpected error
+```json
+{
+  "id": "string",
+  "content": "string",
+  "important": true,
+  "user": {
+    "id": "string",
+    "name": "string",
+    "username": "string"
+  }
+}
+```
+
+- **404 Not Found.**
 
 ***
 
-### [DELETE]/v1/notes/{noteId}
+### [DELETE]/v1/notes/{id}
 
-- Summary  
-delete a note by ID.
+- **Summary:** Delete note by ID
 
 #### Responses
 
-- 200 A note object.
+- **204 No Content:** Note deleted successfully.
 
-`application/json`
+- **404 Not Found.**
 
-```ts
+***
+
+### [POST]/v1/login
+
+- **Summary:** Authenticate user
+
+#### Request Body
+
+- **application/json**
+
+```json
 {
-  id: integer
-  content: string
-  important?: boolean
+  "username": "string",
+  "password": "string"
 }
 ```
 
-- 400 The specified note ID is invalid (not a number).
+#### Responses
 
-- 404 A note with the specified ID was not found.
+- **200 OK:** Login successful.
 
-- default Unexpected error
+```json
+{
+  "token": "string"
+}
+```
+
+- **400 Bad Request.**
+
+- **401 Unauthorized.**
 
 ## References
 
 ### #/components/schemas/User
 
-```ts
+```json
 {
-  id: integer
-  name: string
+  "id": "string",
+  "name": "string",
+  "username": "string"
+}
+```
+
+### #/components/schemas/UserCreate
+
+```json
+{
+  "name": "string",
+  "username": "string",
+  "password": "string"
+}
+```
+
+### #/components/schemas/UserUpdate
+
+```json
+{
+  "name": "string",
+  "username": "string",
+  "password": "string"
 }
 ```
 
 ### #/components/schemas/Note
 
-```ts
+```json
 {
-  id: integer
-  content: string
-  important?: boolean
+  "id": "string",
+  "content": "string",
+  "important": true,
+  "user": {
+    "id": "string",
+    "name": "string",
+    "username": "string"
+  }
+}
+```
+
+### #/components/schemas/NoteCreate
+
+```json
+{
+  "content": "string",
+  "important": true
+}
+```
+
+### #/components/schemas/NoteUpdate
+
+```json
+{
+  "content": "string",
+  "important": true
+}
+```
+
+### #/components/schemas/LoginCredentials
+
+```json
+{
+  "username": "string",
+  "password": "string"
+}
+```
+
+### #/components/schemas/LoginResponse
+
+```json
+{
+  "token": "string"
 }
 ```

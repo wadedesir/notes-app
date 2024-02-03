@@ -3,17 +3,27 @@ import 'express-async-errors'
 
 import User from '../models/User.js'
 
-// TODO: unit test
+/**
+ * Get all users
+ * @module UserController
+ * @function
+ * @param {Object} req - The request.
+ * @param {Object} res - The response.
+ */
 export const getAllUsers = async (req, res) => {
   const users = await User.find({}).populate('notes')
   res.json(users)
 }
 
 /**
- * Create New User
- * @param {Request & {username: string, name:string, password: string}} request object 
- * @param {Response} Response
- * @param {NextFunction} Next
+ * Creates a new user.
+ * @module UserController
+ * @function
+ * @param {Object} req - The request.
+ * @param {Object} res - The response.
+ * @param {string} req.body.name - The user's first and last name.
+ * @param {string} req.body.username - The user's display name.
+ * @param {string} req.body.password - The user's password.
  */
 export const createNewUser = async (req, res) => {
   const { username, name, password } = req.body
@@ -32,10 +42,12 @@ export const createNewUser = async (req, res) => {
 }
 
 /**
- * Find User By ID
- * @param {Request & {username: string, password: string}} request object 
- * @param {Response} Response
- * @param {NextFunction} Next
+ * Finds a user by ID.
+ * @module UserController
+ * @function
+ * @param {Object} req - The request.
+ * @param {Object} res - The response.
+ * @param {string} req.params.id - The user's ID.
  */
 export const findUserById = async (req, res) => {
   const { id } = req.params
@@ -52,10 +64,15 @@ export const findUserById = async (req, res) => {
 }
 
 /**
- * Update User
- * @param {Request} Request
- * @param {Response} Response
- * @param {NextFunction} Next
+ * Updates a user by ID.
+ * @module UserController
+ * @function
+ * @param {Object} req - The request.
+ * @param {Object} res - The response.
+ * @param {string} req.body.username - The user's display name.
+ * @param {string} req.body.name - The user's first and last name.
+ * @param {string} req.body.password - The user's password.
+ * @param {string} req.params.id - The user's ID.
  */
 export const updateUser = async (req, res) => {
   const { username, name, password } = req.body
@@ -75,10 +92,12 @@ export const updateUser = async (req, res) => {
 }
 
 /**
- * Delete User
- * @param {Request} Request
- * @param {Response} Response
- * @param {NextFunction} Next
+ * Deletes a user by ID.
+ * @module UserController
+ * @function
+ * @param {Object} req - The request.
+ * @param {Object} res - The response.
+ * @param {string} req.params.id - The user's ID.
  */
 export const deleteUser = async (req, res) => {
   const { id } = req.params
