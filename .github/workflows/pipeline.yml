@@ -5,7 +5,7 @@ on:
     paths:
       - 'backend/**'
       - '.github/workflows/**'
-    branches: [main, issue-45]
+    branches: [main]
     types: [opened, synchronize]
 
 jobs:

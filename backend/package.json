@@ -24,6 +24,7 @@
   },
   "devDependencies": {
     "chalk": "^5.3.0",
+    "cypress": "^13.6.4",
     "eslint": "^8.56.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-google": "^0.14.0",
