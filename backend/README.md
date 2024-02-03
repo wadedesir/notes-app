@@ -3,7 +3,7 @@
 ### 👋🏿 Introduction
 Welcome to the **Notes API**. This service provides a simple way to manage ascend notes. Powered by Node.js, Docker, Express.js, and Mongoose, this API is designed to readable and easy to use as a template for future APIs.
 
-Ready to explore the API? Check out the [Notes API Spec](#notes-api-spec) below!
+Ready to explore the API? Check out the [Notes API Spec](#-notes-api-spec) below!
 
 ### 🚀 Installation & Run
 Getting started is ez-pz! Simply follow these steps:
