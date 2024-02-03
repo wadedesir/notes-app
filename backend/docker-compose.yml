@@ -1,7 +1,7 @@
 services:
   # MongoDB Service
   mongo_db:
-    image: mongo:latest
+    image: mongo:6-jammy
     restart: always
     ports:
       - 27017:27017

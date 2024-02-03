@@ -31,7 +31,6 @@ function Login() {
     <div className='flex items-center flex-col'>
       <img className="size-1/2 object-contain" src={logo}/>
       <LoginForm username={username} password={password} setPassword={setPassword} setUsername={setUsername} authenticate={authenticate} type="Login"/>
-    
     </div>
   )
 }
