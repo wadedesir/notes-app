@@ -18,6 +18,7 @@ logInfo('Server starting')
 initDb()
 
 const Server = express()
+Server.use(express.static('dist'))
 Server.use(cors())
 Server.use(express.json())
 // TODO: unit test
