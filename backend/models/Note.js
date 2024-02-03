@@ -19,6 +19,12 @@ const noteSchema = new mongoose.Schema({
 noteSchema.set('toJSON', {
   transform: (doc, note) => {
     note.id = note._id.toString()
+    if (note.createdAt) {
+      note.createdAt = note.createdAt.toString()
+    }
+    if (note.updatedAt) {
+      note.updatedAt = note.updatedAt.toString()
+    }
     delete note._id
     delete note.__v
   }

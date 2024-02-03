@@ -7,16 +7,17 @@ import User from '../models/User.js'
 import { logInfo } from '../util/logger.js'
 import { SECRET } from '../util/config.js'
 
-const getTokenFrom = req => {
-  const authorization = req.get('authorization')
+// TODO: unit test
+const getTokenFrom = authorization => {
   logInfo(`authorization: ${authorization}`)
 
-  if (authorization && authorization.startsWith('Bearer ')) {
+  if (authorization.startsWith('Bearer ')) {
     return authorization.replace('Bearer ', '')
   }
   return null
 }
 
+// TODO: unit test
 export const getAllNotes = async (req, res) => {
   const notes = await Note.find({}).populate('user', {
     username: 1, name: 1
@@ -25,10 +26,16 @@ export const getAllNotes = async (req, res) => {
   res.json(notes)
 }
 
+// TODO: unit test
 export const createNewNote = async (req, res) => {
   const { content, important } = req.body
 
-  const decodedToken = jwt.verify(getTokenFrom(req), SECRET)
+  const authorization = req.get('authorization')
+  if (!authorization) {
+    return res.status(400).json({ error: 'must provide auth token' })
+  }
+
+  const decodedToken = jwt.verify(getTokenFrom(authorization), SECRET)
   if (!decodedToken.id) {
     return res.status(401).json({ error: 'token invalid' })
   }
@@ -47,13 +54,14 @@ export const createNewNote = async (req, res) => {
 
   await user.save()
 
-  res.json(savedNote)
+  res.status(201).json(savedNote)
 }
 
+// TODO: unit test
 export const findNoteById = async (req, res) => {
   const { id } = req.params
 
-  const note = await Note.findById(id)
+  const note = await Note.findById(id).populate('user', { username: 1, name: 1 })
   if (note) {
     res.json(note)
   } else {
@@ -61,6 +69,7 @@ export const findNoteById = async (req, res) => {
   }
 }
 
+// TODO: unit test
 export const updateNote = async (req, res) => {
   const { content, important } = req.body
   const { id } = req.params
@@ -74,13 +83,14 @@ export const updateNote = async (req, res) => {
     id,
     updatedContent,
     { new: true, runValidators: true, context: 'query' }
-  )
+  ).populate('user', { username: 1, name: 1 })
   res.json(updatedNote)
 }
 
+// TODO: unit test
 export const deleteNote = async (req, res) => {
   const { id } = req.params
 
-  const deletedNote = await Note.findByIdAndDelete(id)
-  res.json(deletedNote)
+  const deletedNote = await Note.findByIdAndDelete(id).populate('user', { username: 1, name: 1 })
+  res.status(204).json(deletedNote)
 }
