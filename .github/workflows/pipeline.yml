@@ -17,4 +17,5 @@ jobs:
         working-directory: ./backend
         run: docker compose up -d
       - name: Test
+        working-directory: ./backend
         run: docker compose exec api npm run lint
