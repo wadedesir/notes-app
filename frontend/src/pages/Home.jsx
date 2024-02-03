@@ -43,24 +43,41 @@ function Home() {
     setNote('')
   }
 
-  const deleteNote = () => {
+  const deleteNote = (id) => {
     console.log('delete')
+    axios
+      .delete('http://localhost:8420/v1/notes/' + id)
+      .then(resp => {
+        console.log(resp)
+        getNotes()
+      })
   }
 
-  const editNote = () => {
+  const editNote = (newNote, important, id) => {
     console.log('edit')
 
+    const noteObj = {
+      'content': newNote,
+      'important': important
+    }
+
+    axios
+      .put('http://localhost:8420/v1/notes/' + id, noteObj)
+      .then(resp => {
+        console.log(resp)
+        getNotes()
+      })
   }
 
   return (
     <div className="container" style={{ minWidth: '100vw', minHeight: '100vh', padding: '20px' }}>
       <img className="fixed size-40 left-5 top-0 object-contain" src={logo} alt="logo" />
 
-    <AddNote notes={notes} note={note} setNote={setNote} createNote={createNote} />
+      <AddNote notes={notes} note={note} setNote={setNote} createNote={createNote} />
 
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-8">
         {notes.map((n, index) => (
-          <Note key={index} date={new Date(n.createdAt).toLocaleString()} content={n.content} important={n.important} editNote={editNote} deleteNote={deleteNote}/>
+          <Note id={n.id} key={index} date={new Date(n.createdAt).toLocaleString()} content={n.content} important={n.important} editNote={editNote} deleteNote={deleteNote}/>
         ))}
       </div>
     </div>
