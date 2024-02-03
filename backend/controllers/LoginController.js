@@ -4,6 +4,7 @@ import 'express-async-errors'
 
 import User from '../models/User.js'
 
+// TODO: unit test
 export const createNewLogin = async (req, res) => {
   const { username, password } = req.body
 

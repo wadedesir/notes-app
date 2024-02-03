@@ -14,20 +14,25 @@ import {
   errorHandler
 } from './util/middleware.js'
 
-logInfo('server starting')
+logInfo('Server starting')
 initDb()
 
-const server = express()
-server.use(cors())
-server.use(express.json())
-server.use(requestLogger)
+const Server = express()
+Server.use(cors())
+Server.use(express.json())
+// TODO: unit test
+Server.use(requestLogger)
 
-server.use('/v1/notes', NoteRouter)
-server.use('/v1/users', UserRouter)
-server.use('/v1/login', LoginRouter)
+Server.use('/v1/notes', NoteRouter)
+Server.use('/v1/users', UserRouter)
+Server.use('/v1/login', LoginRouter)
 
-server.use(unknownEndpointHandler)
-server.use(errorHandler)
+// TODO: unit test
+Server.use(unknownEndpointHandler)
+// TODO: unit test
+Server.use(errorHandler)
 
-server.listen(PORT_NUM)
-logInfo(`server listening on port ${PORT_NUM}`)
+Server.listen(PORT_NUM)
+logInfo(`Server listening on port ${PORT_NUM}`)
+
+export default Server

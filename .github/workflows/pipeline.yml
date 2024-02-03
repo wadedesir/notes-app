@@ -12,13 +12,14 @@ jobs:
   backend_deployment_pipeline:
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-      - name: Install dependencies 
+      - uses: actions/checkout@v2
+      - name: Build the stack
         working-directory: ./backend
-        run: npm install  
-      - name: Check style
+        run: docker compose up -d
+      - name: lint 
         working-directory: ./backend
-        run: npm run lint
+        run: docker compose exec api npm run lint
+      - name: tests
+        working-directory: ./backend
+        run: docker compose run api npm run test
+

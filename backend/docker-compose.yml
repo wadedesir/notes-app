@@ -18,7 +18,9 @@ services:
     environment:
       PORT: 8420
       MONGODB_URI: mongodb://mongo_db:27017
+      TEST_MONGODB_URI: mongodb://mongo_db:27017
       DB_NAME: my_db
+      TEST_DB_NAME: jest_test_db
       SECRET: foobar
     depends_on:
       - mongo_db
