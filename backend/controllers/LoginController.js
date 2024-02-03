@@ -3,10 +3,15 @@ import jwt from 'jsonwebtoken'
 import 'express-async-errors'
 
 import User from '../models/User.js'
+/**
+ * Create New Login 
+ * @param {Request} req
+ * @param {Response} res
+ */
 
-// TODO: unit test
 export const createNewLogin = async (req, res) => {
   const { username, password } = req.body
+  console.log(express.request)
 
   const user = await User.findOne({ username })
 

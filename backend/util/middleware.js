@@ -1,6 +1,10 @@
 import { logInfo } from './logger.js'
 
-// TODO: unit test
+/**
+ * Create New Login 
+ * @param {Request} req
+ * @param {Response} res
+ */
 export const requestLogger = (req, res, next) => {
   logInfo('Method:', req.method)
   logInfo('Path:  ', req.path)
@@ -9,12 +13,20 @@ export const requestLogger = (req, res, next) => {
   next()
 }
 
-// TODO: unit test
+/**
+ * Create New Login 
+ * @param {Request} req
+ * @param {Response} res
+ */
 export const unknownEndpointHandler = (req, res) => {
   res.status(404).json({ error: 'unknown endpoint' })
 }
 
-// TODO: unit test
+/**
+ * Create New Login 
+ * @param {Request} req
+ * @param {Response} res
+ */
 export const errorHandler = (err, req, res, next) => {
   if (err.name === 'CastError') {
     return res.status(400).json({ error: 'malformatted id' })

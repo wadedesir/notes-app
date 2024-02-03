@@ -1,0 +1,240 @@
+openapi: 3.0.0
+info:
+  title: Note App API
+  description: API Spec for the Notes App
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 4
+        name:
+          type: string
+          example: Arthur Dent
+        username:
+          type: string
+          example: arthur420
+        password:
+          type: string
+          example: arthur420
+      # Both properties are required
+      required:  
+        - id
+        - name
+        - username
+        - password
+    Note:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 4
+        content:
+          type: string
+          example: Arthur Dent
+        important:
+          type: boolean
+          example: true
+      # Both properties are required
+      required:  
+        - id
+        - content
+paths:
+  /v1/users:
+    get:
+      summary: Returns a list of users.
+      description: Optional extended description in CommonMark or HTML.
+      responses:
+        '200':    # status code
+          description: A JSON array of user names
+          content:
+            application/json:
+              schema: 
+                type: array
+                items:
+                  schema:
+                    $ref: '#/components/schemas/User'      # <-------
+    post:
+      summary: Creates a new user.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'      # <-------
+      responses:
+        '201':
+          description: Created
+  /v1/users/{userId}:
+    get:
+      summary: Returns a user by ID.
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: The ID of the user to return.
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: A user object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'    # <-------
+        '400':
+          description: The specified user ID is invalid (not a number).
+        '404':
+          description: A user with the specified ID was not found.
+        default:
+          description: Unexpected error
+    put:
+      summary: Update a user by ID
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: The ID of the user to update.
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: A user object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'    # <-------
+        '400':
+          description: The specified user ID is invalid (not a number).
+        '404':
+          description: A user with the specified ID was not found.
+        default:
+          description: Unexpected error
+    delete:
+      summary: delete a user by ID.
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: The ID of the user to delete.
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: A user object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'    # <-------
+        '400':
+          description: The specified user ID is invalid (not a number).
+        '404':
+          description: A user with the specified ID was not found.
+        default:
+          description: Unexpected error
+  /v1/notes:
+    get:
+      summary: Returns a list of notes.
+      description: Optional extended description in CommonMark or HTML.
+      responses:
+        '200':    # status code
+          description: A JSON array of note names
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  schema:
+                    $ref: '#/components/schemas/Note'      # <-------
+    post:
+      summary: Creates a new note.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Note'      # <-------
+      responses:
+        '201':
+          description: Created
+  /v1/notes/{noteId}:
+    get:
+      summary: Returns a note by ID.
+      parameters:
+        - name: noteId
+          in: path
+          required: true
+          description: The ID of the note to return.
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: A note object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Note'    # <-------
+        '400':
+          description: The specified note ID is invalid (not a number).
+        '404':
+          description: A note with the specified ID was not found.
+        default:
+          description: Unexpected error
+    put:
+      summary: Update a note by ID
+      parameters:
+        - name: noteId
+          in: path
+          required: true
+          description: The ID of the note to update.
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: A note object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Note'    # <-------
+        '400':
+          description: The specified note ID is invalid (not a number).
+        '404':
+          description: A note with the specified ID was not found.
+        default:
+          description: Unexpected error
+    delete:
+      summary: delete a note by ID.
+      parameters:
+        - name: noteId
+          in: path
+          required: true
+          description: The ID of the note to delete.
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: A note object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Note'    # <-------
+        '400':
+          description: The specified note ID is invalid (not a number).
+        '404':
+          description: A note with the specified ID was not found.
+        default:
+          description: Unexpected error

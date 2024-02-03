@@ -21,6 +21,7 @@ const Server = express()
 Server.use(express.static('dist'))
 Server.use(cors())
 Server.use(express.json())
+
 // TODO: unit test
 Server.use(requestLogger)
 

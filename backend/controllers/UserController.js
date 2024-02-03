@@ -9,7 +9,12 @@ export const getAllUsers = async (req, res) => {
   res.json(users)
 }
 
-// TODO: unit test
+/**
+ * Create New User
+ * @param {Request & {username: string, name:string, password: string}} request object 
+ * @param {Response} Response
+ * @param {NextFunction} Next
+ */
 export const createNewUser = async (req, res) => {
   const { username, name, password } = req.body
   const saltRounds = 10
@@ -26,7 +31,12 @@ export const createNewUser = async (req, res) => {
   res.status(201).json(savedUser)
 }
 
-// TODO: unit test
+/**
+ * Find User By ID
+ * @param {Request & {username: string, password: string}} request object 
+ * @param {Response} Response
+ * @param {NextFunction} Next
+ */
 export const findUserById = async (req, res) => {
   const { id } = req.params
 
@@ -41,7 +51,12 @@ export const findUserById = async (req, res) => {
   }
 }
 
-// TODO: unit test
+/**
+ * Update User
+ * @param {Request} Request
+ * @param {Response} Response
+ * @param {NextFunction} Next
+ */
 export const updateUser = async (req, res) => {
   const { username, name, password } = req.body
   const { id } = req.params
@@ -59,7 +74,12 @@ export const updateUser = async (req, res) => {
   res.json(updatedUser)
 }
 
-// TODO: unit test
+/**
+ * Delete User
+ * @param {Request} Request
+ * @param {Response} Response
+ * @param {NextFunction} Next
+ */
 export const deleteUser = async (req, res) => {
   const { id } = req.params
 
