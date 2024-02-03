@@ -44,10 +44,11 @@ function Home() {
   }
 
   const deleteNote = () => {
-
+    console.log('delete')
   }
 
   const editNote = () => {
+    console.log('edit')
 
   }
 
@@ -59,7 +60,7 @@ function Home() {
 
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-8">
         {notes.map((n, index) => (
-          <Note key={index} date={new Date(n.createdAt).toLocaleString()} content={n.content} important={n.important} />
+          <Note key={index} date={new Date(n.createdAt).toLocaleString()} content={n.content} important={n.important} editNote={editNote} deleteNote={deleteNote}/>
         ))}
       </div>
     </div>
