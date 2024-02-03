@@ -43,6 +43,14 @@ function Home() {
     setNote('')
   }
 
+  const deleteNote = () => {
+
+  }
+
+  const editNote = () => {
+
+  }
+
   return (
     <div className="container" style={{ minWidth: '100vw', minHeight: '100vh', padding: '20px' }}>
       <img className="fixed size-40 left-5 top-0 object-contain" src={logo} alt="logo" />
@@ -51,7 +59,7 @@ function Home() {
 
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-8">
         {notes.map((n, index) => (
-          <Note key={index} date={n.createdAt} content={n.content} important={n.important} />
+          <Note key={index} date={new Date(n.createdAt).toLocaleString()} content={n.content} important={n.important} />
         ))}
       </div>
     </div>
