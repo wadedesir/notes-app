@@ -1,22 +1,22 @@
 # 📝 Notes App Backend Overview!
 
-### Introduction
+### 👋🏿 Introduction
 Welcome to the **Notes API**. This service provides a simple way to manage ascend notes. Powered by Node.js, Docker, Express.js, and Mongoose, this API is designed to readable and easy to use as a template for future APIs.
 
 Ready to explore the API? Check out the [Notes API Spec](#NotesAPISpec) below!
 
-### Installation & Run
+### 🚀 Installation & Run
 Getting started is ez-pz! Simply follow these steps:
 1. If you don't have Docker installed, don't worry! You can still run the app using MongoDB Atlas. Set the `MONGODB_URI` environment variable ( dotenv is installed so create a .env) and run the dev server on your local machine with `npm install` & `npm run dev`.
 2. If you have Docker installed, navigate to the backend directory and run `docker compose up`.
 3. That's it! Your API is now up and running at http://localhost:8420.
 
-### Testing & Linting
+### 🧪 Testing & Linting
 dont you just _love_ writing tests?
 1. If you don't have Docker installed, don't worry! To lint the project just do `npm run lint` to lint, and `npm run test` to run test!.
 2. If you have Docker installed, do `docker compose run api npm run lint` to lint, and `docker compose run api npm run test` to run tests!
 
-### Structure
+### 🗂 Structure
 Here's an overview of the project structure:
 ```
 ├── index.js // main entry point into the app
