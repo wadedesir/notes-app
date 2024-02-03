@@ -1,3 +1,40 @@
+# Notes App Backend
+A RESTful API for the ascend notes project
+
+just simple example for making simple RESTful API with node using **docker** **expressjs** and **mongoose**
+
+## Installation & Run
+
+The project was set up with docker in mind, but if you dont feel like installing docker you can use mongoDB atlas https://www.mongodb.com/atlas/database by setting the MONGODB_URI environment variableand running the dev server directly on your own machine instead of through docker
+
+but if you have docker installed then all you need to do is cd into the backend and run docker compose up
+```bash
+# Build and Run
+cd backend/
+docker compose up
+# API Endpoint : http://localhost:8420
+```
+
+## Structure
+```
+├── index.js // main entry point into the app
+├── routes // all the express routes
+│   ├── LoginRouter.js
+│   ├── UserRouter.js
+│   ├── NoteRouter.js
+├── controllers // application logic implementations
+│   ├── NoteController.js
+│   ├── UserController.js
+│   ├── LoginController.js
+├── models // database object interfaces
+│   ├── User.js
+│   ├── Note.js
+├── util // utility functions
+│   ├── db_util.js
+│   ├── logger.js
+│   ├── config.js
+│   ├── middleware.js
+```
 # 📝 Notes API
 
 > Version 1.1.0
