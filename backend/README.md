@@ -1,21 +1,23 @@
-# Notes App Backend
-A RESTful API for the ascend notes project
+# 📝 Notes App Backend Overview!
 
-just simple example for making simple RESTful API with node using **docker** **expressjs** and **mongoose**
+### Introduction
+Welcome to the **Notes API**. This service provides a simple way to manage ascend notes. Powered by Node.js, Docker, Express.js, and Mongoose, this API is designed to readable and easy to use as a template for future APIs.
 
-## Installation & Run
+Ready to explore the API? Check out the [Notes API Spec](#NotesAPISpec) below!
 
-The project was set up with docker in mind, but if you dont feel like installing docker you can use mongoDB atlas https://www.mongodb.com/atlas/database by setting the MONGODB_URI environment variableand running the dev server directly on your own machine instead of through docker
+### Installation & Run
+Getting started is ez-pz! Simply follow these steps:
+1. If you don't have Docker installed, don't worry! You can still run the app using MongoDB Atlas. Set the `MONGODB_URI` environment variable ( dotenv is installed so create a .env) and run the dev server on your local machine with `npm install` & `npm run dev`.
+2. If you have Docker installed, navigate to the backend directory and run `docker compose up`.
+3. That's it! Your API is now up and running at http://localhost:8420.
 
-but if you have docker installed then all you need to do is cd into the backend and run docker compose up
-```bash
-# Build and Run
-cd backend/
-docker compose up
-# API Endpoint : http://localhost:8420
-```
+### Testing & Linting
+dont you just _love_ writing tests?
+1. If you don't have Docker installed, don't worry! To lint the project just do `npm run lint` to lint, and `npm run test` to run test!.
+2. If you have Docker installed, do `docker compose run api npm run lint` to lint, and `docker compose run api npm run test` to run tests!
 
-## Structure
+### Structure
+Here's an overview of the project structure:
 ```
 ├── index.js // main entry point into the app
 ├── routes // all the express routes
@@ -34,10 +36,9 @@ docker compose up
 │   ├── logger.js
 │   ├── config.js
 │   ├── middleware.js
+├── tests // jest tests - everything in here gets ran automatically through github actions when tryna merge so make sure youre passing!
 ```
-# 📝 Notes API
-
-> Version 1.1.0
+# 📝 Notes API Spec
 
 Welcome to the Notes API Spec. This Spec outlines the various responses from the API
 
