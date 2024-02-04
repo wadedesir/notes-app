@@ -18,6 +18,18 @@ But running unit tests & linting the project manually is pretty straight forward
 1. If you don't have Docker installed, don't worry! To lint the project just do `npm run lint` to lint, and `npm run test` to run test!.
 2. If you have Docker installed, do `docker compose run api npm run lint` to lint, and `docker compose run api npm run test` to run tests!
 
+### 📦 Deployment
+
+Though the application is fairly straightforward, configuration and deploying to fly.io / render can be slightly complicated, so we went with AWS ec2. This is a result of the app using a multi-container setup when fly.io doesnt support docker-compose.
+
+To deploy to AWS, follow these steps.
+1. Create AWS account & ec2 instance
+2. SSH into ec2 instance and install deps ( docker, docker-compose, git, npm) 
+3. use AWS code deploy OR github actions + self hosted runner to pull in the code automatically. Alternative is to just run git clone from inside the instance
+4. use AWS code deploy OR github actions + self hosted runner to build the frontend and copy it to the backend's /dist folder
+5. run docker-compose up in the backend folder on the ec2 instance
+6. edit inbound traffic rules to allow traffic to port 8420 on the ec2 instance
+
 ### 🗂 Structure
 Here's an overview of the project structure:
 ```
@@ -40,6 +52,34 @@ Here's an overview of the project structure:
 │   ├── middleware.js
 ├── tests // jest tests - everything in here gets ran automatically through github actions when tryna merge so make sure youre passing!
 ```
+### Implementation Overview
+
+The backend of our notes app follows a modular architecture, with distinct components responsible for handling different aspects of the application logic.
+
+#### 1. Routes
+
+- **LoginRouter.js**: Defines routes related to user authentication.
+- **UserRouter.js**: Handles CRUD operations for user management.
+- **NoteRouter.js**: Manages CRUD operations for notes.
+
+#### 2. Controllers
+
+- **LoginController.js**: Contains logic for user authentication.
+- **UserController.js**: Implements methods for user CRUD operations.
+- **NoteController.js**: Implements methods for note CRUD operations.
+
+#### 3. Models
+
+- **User.js**: Defines the schema and methods for interacting with user data in the database.
+- **Note.js**: Defines the schema and methods for interacting with note data in the database.
+
+#### 4. Utilities
+
+- **db_util.js**: Provides utility functions for interacting with the database.
+- **logger.js**: Handles logging throughout the application.
+- **config.js**: Manages application configuration settings.
+- **middleware.js**: Contains middleware functions for request processing.
+
 # 📝 Notes API Spec
 
 Welcome to the Notes API Spec. This Spec outlines the various responses from the API
