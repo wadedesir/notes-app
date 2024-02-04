@@ -7,8 +7,7 @@ import User from '../models/User.js'
 import { logInfo } from '../util/logger.js'
 import { SECRET } from '../util/config.js'
 
-// TODO: unit test
-const getTokenFrom = authorization => {
+export const getTokenFrom = authorization => {
   logInfo(`authorization: ${authorization}`)
 
   if (authorization.startsWith('Bearer ')) {
