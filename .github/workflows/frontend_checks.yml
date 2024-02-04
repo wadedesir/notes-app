@@ -1,4 +1,4 @@
-name: pipeline
+name: frontend test runner 
 
 on:
   pull_request:
@@ -9,7 +9,7 @@ on:
     types: [opened, synchronize]
 
 jobs:
-  backend_deployment_pipeline:
+  frontend_test_pipeline:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
