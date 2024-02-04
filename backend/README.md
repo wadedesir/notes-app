@@ -12,7 +12,9 @@ Getting started is ez-pz! Simply follow these steps:
 3. That's it! Your API is now up and running at http://localhost:8420.
 
 ### 🧪 Testing & Linting
-dont you just _love_ writing tests?
+These tests are ran automatically through github actions ( check out the .github/workflows/ folder at the root of the repo ) when creating a new PR to main!
+But running unit tests & linting the project manually is pretty straight forward.
+
 1. If you don't have Docker installed, don't worry! To lint the project just do `npm run lint` to lint, and `npm run test` to run test!.
 2. If you have Docker installed, do `docker compose run api npm run lint` to lint, and `docker compose run api npm run test` to run tests!
 
