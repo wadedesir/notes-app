@@ -1,4 +1,4 @@
-FROM node:18-bullseye
+FROM node
 WORKDIR /usr/src/app
 COPY package*.json .
 RUN npm ci
