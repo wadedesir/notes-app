@@ -4,7 +4,7 @@ on:
   pull_request:
     paths:
       - 'frontend/**'
-    branches: [main, issue-61]
+    branches: [main]
     types: [opened, synchronize]
 
 jobs:
