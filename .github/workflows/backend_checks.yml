@@ -4,7 +4,6 @@ on:
   pull_request:
     paths:
       - 'backend/**'
-      - '.github/workflows/**'
     branches: [main]
     types: [opened, synchronize]
 
