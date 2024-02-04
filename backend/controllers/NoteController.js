@@ -7,7 +7,14 @@ import User from '../models/User.js'
 import { logInfo } from '../util/logger.js'
 import { SECRET } from '../util/config.js'
 
-// TODO: unit test
+/**
+ * Extracts the JWT token from the authorization header.
+ * @module NoteController
+ * @private
+ * @function
+ * @param {string} authorization - The auth header striNg.
+ * @returns {string|null} The extracted token or null if not found.
+ */
 const getTokenFrom = authorization => {
   logInfo(`authorization: ${authorization}`)
 
@@ -17,7 +24,13 @@ const getTokenFrom = authorization => {
   return null
 }
 
-// TODO: unit test
+/**
+ * Retrieves all notes from the database.
+ * @module NoteController
+ * @function
+ * @param {Object} req - The request.
+ * @param {Object} res - The response.
+ */
 export const getAllNotes = async (req, res) => {
   const notes = await Note.find({}).populate('user', {
     username: 1, name: 1
@@ -26,7 +39,16 @@ export const getAllNotes = async (req, res) => {
   res.json(notes)
 }
 
-// TODO: unit test
+/**
+ * Creates a new note and saves it to the database.
+ * @module NoteController
+ * @function
+ * @param {Object} req - The request.
+ * @param {Object} res - The response.
+ * @param {string} req.headers.authorization - The auth header containing user's auth token.
+ * @param {string} req.body.content - The content of the note.
+ * @param {boolean} req.body.important - Indicates whether the note is important.
+ */
 export const createNewNote = async (req, res) => {
   const { content, important } = req.body
 
@@ -57,7 +79,14 @@ export const createNewNote = async (req, res) => {
   res.status(201).json(savedNote)
 }
 
-// TODO: unit test
+/**
+ * Finds a note by ID in the database.
+ * @module NoteController
+ * @function
+ * @param {Object} req - The request.
+ * @param {Object} res - The response.
+ * @param {string} req.params.id - The ID of the note.
+ */
 export const findNoteById = async (req, res) => {
   const { id } = req.params
 
@@ -69,7 +98,16 @@ export const findNoteById = async (req, res) => {
   }
 }
 
-// TODO: unit test
+/**
+ * Updates a note by ID in the database.
+ * @module NoteController
+ * @function
+ * @param {Object} req - The request.
+ * @param {Object} res - The response.
+ * @param {string} req.params.id - The ID of the note to update.
+ * @param {string} req.body.content - The updated content of the note.
+ * @param {boolean} req.body.important - The updated importance status of the note.
+ */
 export const updateNote = async (req, res) => {
   const { content, important } = req.body
   const { id } = req.params
@@ -84,10 +122,18 @@ export const updateNote = async (req, res) => {
     updatedContent,
     { new: true, runValidators: true, context: 'query' }
   ).populate('user', { username: 1, name: 1 })
+
   res.json(updatedNote)
 }
 
-// TODO: unit test
+/**
+ * Deletes a note by ID from the database.
+ * @module NoteController
+ * @function
+ * @param {Object} req - The request.
+ * @param {Object} res - The response.
+ * @param {string} req.params.id - The ID of the note to delete.
+ */
 export const deleteNote = async (req, res) => {
   const { id } = req.params
 

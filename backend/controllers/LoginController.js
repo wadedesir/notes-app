@@ -4,7 +4,15 @@ import 'express-async-errors'
 
 import User from '../models/User.js'
 
-// TODO: unit test
+/**
+ * Creates a new login.
+ * @module LoginController
+ * @function
+ * @param {Object} req - The request.
+ * @param {Object} res - The response.
+ * @param {string} req.body.username - The user's display name.
+ * @param {string} req.body.password - The user's password.
+ */
 export const createNewLogin = async (req, res) => {
   const { username, password } = req.body
 
