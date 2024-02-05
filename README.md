@@ -1,4 +1,4 @@
-[![Backend Tests](https://github.com/wadedesir/notes-app/actions/workflows/backend_checks.yml/badge.svg)](https://github.com/wadedesir/notes-app/actions/workflows/backend_checks.yml) [![Frontend Tests](https://github.com/wadedesir/notes-app/actions/workflows/frontend_checks.yml/badge.svg)](https://github.com/wadedesir/notes-app/actions/workflows/frontend_checks.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Tests](https://github.com/wadedesir/notes-app/actions/workflows/backend_checks.yml/badge.svg)](https://github.com/wadedesir/notes-app/actions/workflows/backend_checks.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 # 📝 Notes App
 Welcome to the **Notes App**, a simple and user-friendly application for managing notes. The application is powered by a backend API and a frontend interface. Explore the details of each component below:
