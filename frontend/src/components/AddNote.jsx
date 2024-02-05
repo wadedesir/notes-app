@@ -11,7 +11,7 @@ function AddNote({note, setNote, createNote}) {
         onChange={(e) => setNote(e.target.value)}
         style={{ height: '40px' }}
       />
-      <button className="ml-5" onClick={createNote}>
+      <button className="ml-5" onClick={() => createNote()}>
         Add
       </button>
     </div>

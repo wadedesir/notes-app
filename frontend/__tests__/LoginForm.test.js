@@ -2,7 +2,7 @@ import React from "react"
 import "@testing-library/jest-dom"
 import { render, screen } from "@testing-library/react"
 import LoginForm from "../src/components/LoginForm"
-
+import userEvent from "@testing-library/user-event"
 //This test suite is tests for the LoginForm component - 'describe' fn is how we instantiate a test suite and the first argument is a string that describes the suite, the second is the cb function which can be another suite or test
 describe("Tests for LoginForm Component", () => {
 
@@ -36,4 +36,5 @@ describe("Tests for LoginForm Component", () => {
         
     
     })
+
 })
