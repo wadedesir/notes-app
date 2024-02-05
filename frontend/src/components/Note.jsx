@@ -4,16 +4,13 @@ function Note({ id, date, content, important, editNote, deleteNote }) {
   const [note, setNote] = useState(content)
   const [editing, setEditing] = useState(false)
   const [tooltip, setTooltip] = useState(false)
-  // const [isImportant, setIsImportant] = useState(important)
 
   const updateNote = () => {
     editNote(note, important, id)
     setEditing(false)
   }
   const toggleImportant = () => {
-    // const newImportance = !isImportant
     editNote(note, !important, id)
-    // setIsImportant(newImportance)
   }
 
   return (
