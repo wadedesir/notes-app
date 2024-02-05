@@ -47,26 +47,29 @@ https://github.com/wadedesir/notes-app/blob/da9820c45348238941af9a44a88a6e4f6146
 
 ### Integration Test Implementation Overview
 
-#### GET USER /v1/users/ (Get all users)
+#### GET USER TEST /v1/users/ (Get all users)
 a GET request to `/v1/users/` should return all the users, so when there are some initial users ( after we POST a test user ), we should be able to see them when we hit the `/v1/users/` endpoint with a GET request.
 
 All we're doing here is hitting the `/v1/users/` endpoint and mapping the returned object array into a new object array that just has the name for each object. Then we step through that array with jest `expects(contents).toContain(testUserName)` to make sure it contains the user name for the test user we just created.
 
-https://github.com/wadedesir/notes-app/blob/da9820c45348238941af9a44a88a6e4f61461024/backend/tests/note_api.test.js#L37C1-L47C3
-#### POST USER /v1/users/ (Create a user)
+https://github.com/wadedesir/notes-app/blob/da9820c45348238941af9a44a88a6e4f61461024/backend/tests/note_api.test.js#L21-L35
+
+#### POST USER TEST /v1/users/ (Create a user)
 When no users are added, we test that we can actually create a user. We create a mock user object and post it to the `/v1/users/` endpoint, which should create a new user and respond back with 201 & the data for the new user.
-https://github.com/wadedesir/notes-app/blob/da9820c45348238941af9a44a88a6e4f61461024/backend/tests/note_api.test.js#L21C1-L35C3
-#### GET USERS /v1/users/${ID} (Return a user by ID)
-#### PUT USERS /v1/users/${ID} (Update a user by ID)
-#### DELETE USERS /v1/users/${ID} (Delete a user by ID)
 
-#### GET NOTE /v1/notes/ (Get all notes)
-#### POST NOTE /v1/notes/ (Create a note)
-#### GET NOTES /v1/notes/${ID} (Return a note by ID)
-#### PUT NOTES /v1/notes/${ID} (Update a note by ID)
-#### DELETE NOTES /v1/notes/${ID} (Delete a note by ID)
+https://github.com/wadedesir/notes-app/blob/da9820c45348238941af9a44a88a6e4f61461024/backend/tests/note_api.test.js#L37-L47
 
-#### POST LOGIN /v1/login/ (Create a new login token)
+#### GET USERS TEST /v1/users/${ID} (Return a user by ID)
+#### PUT USERS TEST /v1/users/${ID} (Update a user by ID)
+#### DELETE USERS TEST /v1/users/${ID} (Delete a user by ID)
+
+#### GET NOTE TEST /v1/notes/ (Get all notes)
+#### POST NOTE TEST /v1/notes/ (Create a note)
+#### GET NOTES TEST /v1/notes/${ID} (Return a note by ID)
+#### PUT NOTES TEST /v1/notes/${ID} (Update a note by ID)
+#### DELETE NOTES TEST /v1/notes/${ID} (Delete a note by ID)
+
+#### POST LOGIN TEST /v1/login/ (Create a new login token)
 
 NEED MORE DOCUMENTATION HERE
 
