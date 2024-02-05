@@ -1,5 +1,8 @@
 import mongoose from 'mongoose'
 
+/**
+ * Defines the schema for the Note model.
+ */
 const noteSchema = new mongoose.Schema({
   content: {
     type: String,
@@ -11,11 +14,13 @@ const noteSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   }
-},
-{
+}, {
   timestamps: true
 })
 
+/**
+ * Transforms the note object to JSON format.
+ */
 noteSchema.set('toJSON', {
   transform: (doc, note) => {
     note.id = note._id.toString()

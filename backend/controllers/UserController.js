@@ -3,13 +3,28 @@ import 'express-async-errors'
 
 import User from '../models/User.js'
 
-// TODO: unit test
+/**
+ * Get all users
+ * @module UserController
+ * @function
+ * @param {Object} req - The request.
+ * @param {Object} res - The response.
+ */
 export const getAllUsers = async (req, res) => {
   const users = await User.find({}).populate('notes')
   res.json(users)
 }
 
-// TODO: unit test
+/**
+ * Creates a new user.
+ * @module UserController
+ * @function
+ * @param {Object} req - The request.
+ * @param {Object} res - The response.
+ * @param {string} req.body.name - The user's first and last name.
+ * @param {string} req.body.username - The user's display name.
+ * @param {string} req.body.password - The user's password.
+ */
 export const createNewUser = async (req, res) => {
   const { username, name, password } = req.body
   const saltRounds = 10
@@ -26,7 +41,14 @@ export const createNewUser = async (req, res) => {
   res.status(201).json(savedUser)
 }
 
-// TODO: unit test
+/**
+ * Finds a user by ID.
+ * @module UserController
+ * @function
+ * @param {Object} req - The request.
+ * @param {Object} res - The response.
+ * @param {string} req.params.id - The user's ID.
+ */
 export const findUserById = async (req, res) => {
   const { id } = req.params
 
@@ -41,7 +63,17 @@ export const findUserById = async (req, res) => {
   }
 }
 
-// TODO: unit test
+/**
+ * Updates a user by ID.
+ * @module UserController
+ * @function
+ * @param {Object} req - The request.
+ * @param {Object} res - The response.
+ * @param {string} req.body.username - The user's display name.
+ * @param {string} req.body.name - The user's first and last name.
+ * @param {string} req.body.password - The user's password.
+ * @param {string} req.params.id - The user's ID.
+ */
 export const updateUser = async (req, res) => {
   const { username, name, password } = req.body
   const { id } = req.params
@@ -59,7 +91,14 @@ export const updateUser = async (req, res) => {
   res.json(updatedUser)
 }
 
-// TODO: unit test
+/**
+ * Deletes a user by ID.
+ * @module UserController
+ * @function
+ * @param {Object} req - The request.
+ * @param {Object} res - The response.
+ * @param {string} req.params.id - The user's ID.
+ */
 export const deleteUser = async (req, res) => {
   const { id } = req.params
 

@@ -7,35 +7,34 @@ import {
   deleteUser
 } from '../controllers/UserController.js'
 
+/**
+ * Express router for handling user-related HTTP requests.
+ * @type {express.Router}
+ */
 const UserRouter = express.Router()
 
 /**
- * Route for all users
+ * Route to get all users.
  */
 UserRouter.get('/', getAllUsers)
 
 /**
- * Route for creating new users
- * @param {object} req.body - Body of the user
+ * Route to create a new user.
  */
 UserRouter.post('/', createNewUser)
 
 /**
- * Route for handling user requests by ID
- * @param {string} req.params.id - ID of the user to retrieve
+ * Route to find a user by ID.
  */
 UserRouter.get('/:id', findUserById)
 
 /**
- * Route for updating users by ID
- * @param {string} req.params.id - ID of the user to delete
- * @param {object} req.body - body of the updated user
+ * Route to update a user by ID.
  */
 UserRouter.put('/:id', updateUser)
 
 /**
- * Route for deleting users by ID
- * @param {string} req.params.id - ID of the user to delete
+ * Route to delete a user by ID.
  */
 UserRouter.delete('/:id', deleteUser)
 

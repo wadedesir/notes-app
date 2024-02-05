@@ -1,15 +1,14 @@
-name: pipeline
+name: backend test runner 
 
 on:
   pull_request:
     paths:
       - 'backend/**'
-      - '.github/workflows/**'
     branches: [main]
     types: [opened, synchronize]
 
 jobs:
-  backend_deployment_pipeline:
+  backend_test_pipeline:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
@@ -22,4 +21,3 @@ jobs:
       - name: tests
         working-directory: ./backend
         run: docker compose run api npm run test
-
