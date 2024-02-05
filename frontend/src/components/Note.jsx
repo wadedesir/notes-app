@@ -4,16 +4,13 @@ function Note({ id, date, content, important, editNote, deleteNote }) {
   const [note, setNote] = useState(content)
   const [editing, setEditing] = useState(false)
   const [tooltip, setTooltip] = useState(false)
-  const [isImportant, setIsImportant] = useState(important)
 
   const updateNote = () => {
     editNote(note, important, id)
     setEditing(false)
   }
   const toggleImportant = () => {
-    const newImportance = !isImportant
-    editNote(note, newImportance, id)
-    setIsImportant(newImportance)
+    editNote(note, !important, id)
   }
 
   return (
@@ -23,13 +20,13 @@ function Note({ id, date, content, important, editNote, deleteNote }) {
       )}
       
       {(
-        tooltip && <span className="hover:cursor-pointer absolute z-50 rounded-full bg-white text-black hover:bg-green-500 text-center flex justify-center items-center" style={{left: '-5px', top: '-10px', width: '32px', height: '32px'}} onClick={() => setEditing(!editing)}>✏️</span>
+        tooltip && <span className="hover:cursor-pointer absolute z-50 rounded-full bg-white text-black hover:bg-green-500 text-center flex justify-center items-center" style={{left: '-5px', top: '-10px', width: '32px', height: '32px'}} onClick={() => setEditing(!editing)}>foo✏️</span>
       )}
       {(
-        tooltip && <span className="hover:cursor-pointer absolute z-50 rounded-full bg-white text-black hover:bg-green-500 text-center flex justify-center items-center" style={{left: '30px', top: '-10px', width: '32px', height: '32px', opacity: isImportant ? '1' : '0.25'}} onClick={toggleImportant}>📌</span>
+        tooltip && <span className="hover:cursor-pointer absolute z-50 rounded-full bg-white text-black hover:bg-green-500 text-center flex justify-center items-center" style={{left: '30px', top: '-10px', width: '32px', height: '32px', opacity: important ? '1' : '0.25'}} onClick={toggleImportant}>📌</span>
       )}
               
-      <div className={`${isImportant ? 'bg-cyan-600' : 'bg-slate-500'} aspect-h-1 aspect-w-1 w-68 h-32 overflow-hidden rounded-md  lg:aspect-none group-hover:opacity-75 p-5`}>
+      <div className={`${important ? 'bg-cyan-600' : 'bg-slate-500'} aspect-h-1 aspect-w-1 w-68 h-32 overflow-hidden rounded-md  lg:aspect-none group-hover:opacity-75 p-5`}>
         {date}
         <br></br>
         {(editing ? <input className="text-black font-bold border-0 outline-none" value={note} onChange={(e) => setNote(e.target.value)}/> : <strong>{content}</strong> )}
