@@ -16,7 +16,12 @@ function Home() {
     axios
     .get('http://localhost:8420/v1/notes')
     .then(resp => {
-      setNotes(resp.data)
+      const d = resp.data;
+
+      const importantNotes = resp.data.filter(d => d.important)
+      const notImportantNotes = resp.data.filter(d => !d.important)
+
+      setNotes([...importantNotes, ...notImportantNotes])
       console.log(resp.data)
     })
   }
@@ -76,9 +81,9 @@ function Home() {
       <AddNote notes={notes} note={note} setNote={setNote} createNote={createNote} />
 
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-8">
-        {notes.map((n, index) => (
-          <Note id={n.id} key={index} date={new Date(n.createdAt).toLocaleString()} content={n.content} important={n.important} editNote={editNote} deleteNote={deleteNote}/>
-        ))}
+        {notes.map((n) => 
+          <Note id={n.id} key={n.id} date={new Date(n.createdAt).toLocaleString()} content={n.content} important={n.important} editNote={editNote} deleteNote={deleteNote}/>
+        )}
       </div>
     </div>
   )
