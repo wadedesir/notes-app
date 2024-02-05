@@ -7,7 +7,7 @@ describe("Unit tests for getTokenfunction", () => {
         const authHeader = `Bearer ${token}`
         const authorizedUserToken = getTokenFrom(authHeader)
 
-        expect(authorizedUserToken).toBe(token);
+        expect(authorizedUserToken).toBe(token)
     })
 
     test("when header does not start with 'Bearer' getTokenFrom returns null", () => {
@@ -15,8 +15,8 @@ describe("Unit tests for getTokenfunction", () => {
         const invalidFormatToken = getTokenFrom(authHeader)
         const emptyToken = getTokenFrom('')
 
-        expect(invalidFormatToken).toBeNull
-        expect(emptyToken).toBeNull
+        expect(invalidFormatToken).toBeNull()
+        expect(emptyToken).toBeNull()
 
     })
 })
