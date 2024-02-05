@@ -6,16 +6,16 @@ Welcome to the **Notes App Backend**. Powered by Node.js, Express.js, Mongoose, 
 Ready to explore the API? Check out the [Notes API Spec](#-notes-api-spec) below!
 
 # 🚀 Installing & Starting the Service
-## Clone the repository:
+### Clone the repository:
 `git clone https://github.com/wadedesir/notes-app.git`
 
-## If you don't have Docker installed, you can run the app using MongoDB Atlas:
+### If you don't have Docker installed, you can run the app using MongoDB Atlas:
 1. Make an .env file and set the `MONGODB_URI` environment variable.
 2. Navigate to the backend directory: `cd backend`
 3. Install dependencies: `npm install`
 4. Run the backend: `npm run dev`
 
-## If you have Docker installed:
+### If you have Docker installed:
 1. Navigate to the backend directory: `cd backend`
 2. Run the backend: `docker compose up`
 
@@ -27,13 +27,13 @@ Whenever a new PR is made, tests are run automatically through GitHub Actions (c
 1. If you don't have Docker installed, run `npm run lint` to lint & `npm run test` to test.
 2. If you have Docker installed, run `docker compose run api npm run lint` to lint & `docker compose run api npm run test` to test.
 
-## Integration Test Details
+### Integration Test Details
 The integration test for the notes api is handled through `backend/test/note_api.test.js`. This suite will test the application logic of the API to make sure it has the correct behavior & make sure we're getting the data we expect.
 
 
 We're using [super test](https://github.com/visionmedia/supertest) for the backend API testing. The test imports the express app from the main module (index.js) and wraps it with the supertest function into a so-called superagent object. We use this 'superagent object' to make our test API requests.
 
-## Integration Test Setup & Config
+### Integration Test Setup & Config
 We define some `setup` & `teardown` logic for jest in [setup.js](https://github.com/wadedesir/notes-app/blob/main/backend/tests/setup.js) & [teardown.js](https://github.com/wadedesir/notes-app/blob/main/backend/tests/teardown.js). All we're doing in here is making jest a global variable in the `setup`, and making sure our process ends with exit code 0 which tells the 'shell' running our test command that everything went fine
 
 
@@ -41,28 +41,28 @@ We're using the User & Note model in a top level `beforeAll` function to wipe th
 
 https://github.com/wadedesir/notes-app/blob/da9820c45348238941af9a44a88a6e4f61461024/backend/tests/note_api.test.js#L16C1-L19C3
 
-## Integration Test Implementation Overview
+### Integration Test Implementation Overview
 
-### GET USER /v1/users/ (Get all users)
+#### GET USER /v1/users/ (Get all users)
 a GET request to `/v1/users/` should return all the users, so when there are some initial users ( after we POST a test user ), we should be able to see them when we hit the `/v1/users/` endpoint with a GET request.
 
 All we're doing here is hitting the `/v1/users/` endpoint and mapping the returned object array into a new object array that just has the name for each object. Then we step through that array with jest `expects(contents).toContain(testUserName)` to make sure it contains the user name for the test user we just created.
 
 https://github.com/wadedesir/notes-app/blob/da9820c45348238941af9a44a88a6e4f61461024/backend/tests/note_api.test.js#L37C1-L47C3
-# POST USER /v1/users/ (Create a user)
+#### POST USER /v1/users/ (Create a user)
 When no users are added, we test that we can actually create a user. We create a mock user object and post it to the `/v1/users/` endpoint, which should create a new user and respond back with 201 & the data for the new user.
 https://github.com/wadedesir/notes-app/blob/da9820c45348238941af9a44a88a6e4f61461024/backend/tests/note_api.test.js#L21C1-L35C3
-# GET USERS /v1/users/${ID} (Return a user by ID)
-# PUT USERS /v1/users/${ID} (Update a user by ID)
-# DELETE USERS /v1/users/${ID} (Delete a user by ID)
+#### GET USERS /v1/users/${ID} (Return a user by ID)
+#### PUT USERS /v1/users/${ID} (Update a user by ID)
+#### DELETE USERS /v1/users/${ID} (Delete a user by ID)
 
-# GET NOTE /v1/notes/ (Get all notes)
-# POST NOTE /v1/notes/ (Create a note)
-# GET NOTES /v1/notes/${ID} (Return a note by ID)
-# PUT NOTES /v1/notes/${ID} (Update a note by ID)
-# DELETE NOTES /v1/notes/${ID} (Delete a note by ID)
+#### GET NOTE /v1/notes/ (Get all notes)
+#### POST NOTE /v1/notes/ (Create a note)
+#### GET NOTES /v1/notes/${ID} (Return a note by ID)
+#### PUT NOTES /v1/notes/${ID} (Update a note by ID)
+#### DELETE NOTES /v1/notes/${ID} (Delete a note by ID)
 
-# POST LOGIN /v1/login/ (Create a new login token)
+#### POST LOGIN /v1/login/ (Create a new login token)
 
 NEED MORE DOCUMENTATION HERE
 
