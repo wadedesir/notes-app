@@ -14,13 +14,12 @@ function Note({ id, date, content, important, editNote, deleteNote }) {
   }
 
   return (
-    <div className="relative" onMouseEnter={() => setTooltip(true)} onMouseLeave={() => setTooltip(false)}>
+    <div className="note relative" onMouseEnter={() => setTooltip(true)} onMouseLeave={() => setTooltip(false)}>
       {(
-        tooltip && <span className="hover:cursor-pointer absolute z-50 rounded-full bg-white text-black hover:bg-red-400 text-center flex justify-center items-center" style={{right: '-5px', top: '-10px', width: '32px', height: '32px'}} onClick={() => deleteNote(id)}>✖️</span>
+        tooltip && <span className="delete hover:cursor-pointer absolute z-50 rounded-full bg-white text-black hover:bg-red-400 text-center flex justify-center items-center" style={{right: '-5px', top: '-10px', width: '32px', height: '32px'}} onClick={() => deleteNote(id)}>✖️</span>
       )}
       
       {(
-<<<<<<< HEAD
         tooltip && <span id="edit_button" className="hover:cursor-pointer absolute z-50 rounded-full bg-white text-black hover:bg-green-500 text-center flex justify-center items-center" style={{left: '-5px', top: '-10px', width: '32px', height: '32px'}} onClick={() => setEditing(!editing)}>✏️</span>
       )}
       {(
