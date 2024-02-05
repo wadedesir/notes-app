@@ -1,36 +1,99 @@
 # 📝 Notes App Backend Overview
 
 ### 👋🏿 Introduction
-Welcome to the **Notes App Backend**. Powered by Node.js, Express.js, Mongoose, and Docker, the API provides a simple way to manage notes & is designed to be readable and easy to use as a template for future APIs.
+Welcome to the [**Notes.app**](http://18.116.34.64:8420/) Backend. Powered by Node.js, Express.js, Mongoose, and Docker, this API provides a simple way to manage notes & is designed to be readable and easy to use as a template for future APIs.
 
 Ready to explore the API? Check out the [Notes API Spec](#-notes-api-spec) below!
 
-### 🚀 Installation & Run
-#### Clone the repository:
+Want to dive into our tests? Check out our [Testing & Linting Details](#-testing--linting) below!
+
+For an overview on the architecture, check out the [Implementation Overview Section](#implementation-overview) below!
+
+# 🚀 Installing & Starting the Service
+### Clone the repository:
 `git clone https://github.com/wadedesir/notes-app.git`
 
-#### If you don't have Docker installed, you can run the app using MongoDB Atlas:
+### If you don't have Docker installed, you can run the app using MongoDB Atlas:
 1. Make an .env file and set the `MONGODB_URI` environment variable.
 2. Navigate to the backend directory: `cd backend`
 3. Install dependencies: `npm install`
 4. Run the backend: `npm run dev`
 
-#### If you have Docker installed:
+### If you have Docker installed:
 1. Navigate to the backend directory: `cd backend`
 2. Run the backend: `docker compose up`
 
 #### Your API is now running at http://localhost:8420.
 
-### 🧪 Testing & Linting
+# 🧪 Testing & Linting
 Whenever a new PR is made, tests are run automatically through GitHub Actions (check out the .github/workflows folder at the root of the repo). Otherwise, running unit tests and linting the project manually is pretty straightforward.
 
 1. If you don't have Docker installed, run `npm run lint` to lint & `npm run test` to test.
 2. If you have Docker installed, run `docker compose run api npm run lint` to lint & `docker compose run api npm run test` to test.
 
+### Integration Test Details
+The integration test for the notes api is handled through `backend/test/note_api.test.js`. This suite will test the application logic of the API to make sure it has the correct behavior & make sure we're getting the data we expect.
+
+
+We're using [super test](https://github.com/visionmedia/supertest) for the backend API testing. The test imports the express app from the main module (index.js) and wraps it with the supertest function into a so-called superagent object. We use this 'superagent object' to make our test API requests.
+
+### Integration Test Setup & Config
+We define some `setup` & `teardown` logic for jest in [setup.js](https://github.com/wadedesir/notes-app/blob/main/backend/tests/setup.js) & [teardown.js](https://github.com/wadedesir/notes-app/blob/main/backend/tests/teardown.js). All we're doing in here is making jest a global variable in the `setup`, and making sure our process ends with exit code 0 which tells the 'shell' running our test command that everything went fine
+
+
+We're using the User & Note model in a top level `beforeAll` function to wipe the User & Note collection data so we're not relying on the databases previous state (which could introduce false positives & other issues to our tests). This `beforeAll` logic will run once before all the other tests in this file.
+
+https://github.com/wadedesir/notes-app/blob/da9820c45348238941af9a44a88a6e4f61461024/backend/tests/note_api.test.js#L16-L19
+
+### Integration Test Implementation Overview
+
+#### GET USER TEST /v1/users/ (Get all users)
+a GET request to `/v1/users/` should return all the users, so when there are some initial users ( after we POST a test user ), we should be able to see them when we hit the `/v1/users/` endpoint with a GET request.
+
+All we're doing here is hitting the `/v1/users/` endpoint and mapping the returned object array into a new object array that just has the name for each object. Then we step through that array with jest `expects(contents).toContain(testUserName)` to make sure it contains the user name for the test user we just created.
+
+https://github.com/wadedesir/notes-app/blob/da9820c45348238941af9a44a88a6e4f61461024/backend/tests/note_api.test.js#L21-L35
+
+#### POST USER TEST /v1/users/ (Create a user)
+When no users are added, we test that we can actually create a user. We create a mock user object and post it to the `/v1/users/` endpoint, which should create a new user and respond back with 201 & the data for the new user.
+
+https://github.com/wadedesir/notes-app/blob/da9820c45348238941af9a44a88a6e4f61461024/backend/tests/note_api.test.js#L37-L47
+
+
+#### GET NOTE TEST /v1/notes/ (Get all notes)
+When we're logged in we should be able to get back all the notes. We hit the `/v1/notes` end point and check that it gives up back 200.
+
+https://github.com/wadedesir/notes-app/blob/da9820c45348238941af9a44a88a6e4f61461024/backend/tests/note_api.test.js#L78-L84
+
+#### POST NOTE TEST /v1/notes/ (Create a note)
+When we're logged in, we should be able to create a new note. The user token from when we logged in got saved to the test's top level scope so it's available in all our test cases. We use the token here to make a post request to the notes endpoint and then we check the status code to make sure everything came back as expected.
+
+https://github.com/wadedesir/notes-app/blob/da9820c45348238941af9a44a88a6e4f61461024/backend/tests/note_api.test.js#L86-L100
+
+#### GET NOTES TEST /v1/notes/${ID} (Return a note by ID)
+In this test we're trying to make sure that we get the correct note by ID. We first grab all the notes in the database directly through our Note Model with `notesInDb()`. After we get all the notes, we grab the first note in the collection and use its ID in the request to the GET `/v1/notes/${ID}` endpoint.
+
+https://github.com/wadedesir/notes-app/blob/da9820c45348238941af9a44a88a6e4f61461024/backend/tests/note_api.test.js#L123-L135
+
+#### DELETE NOTES TEST /v1/notes/${ID} (Delete a note by ID)
+In this test we're trying to make sure that we delete the right note. We first grab all the notes in the database directly through our Note Model with `notesInDb()`. After we get all the notes, we grab the first note in the collection and use its ID in the request to the DELETE `/v1/notes/${ID}` endpoint.
+
+https://github.com/wadedesir/notes-app/blob/da9820c45348238941af9a44a88a6e4f61461024/backend/tests/note_api.test.js#L194-L213
+
+#### POST LOGIN TEST /v1/login/ (Create a new login token)
+In this test we first check to make sure we cant log in with fugazi information. We send bad credentials on purpose and check to see if we get back a `401` unauthorized request.
+After making sure we actually CANT log in with bad creds, we use the correct information to log in. We post to the same endpoint & check to see if it's response is 200, then we set the user token & user id to variables.
+
+https://github.com/wadedesir/notes-app/blob/da9820c45348238941af9a44a88a6e4f61461024/backend/tests/note_api.test.js#L49-L76
+
 NEED MORE DOCUMENTATION HERE
 
+
+# Implementation Overview
+
 ### 📦 Deployment
-To deploy our application, we opted for AWS EC2 due to its compatibility with our multi-container setup, as Fly.io does not support docker-compose.
+To deploy our application, we opted for AWS EC2 due to its compatibility with our multi-container setup, as Fly.io does not support docker-compose. 😥
+( You can still run the application on Fly.io if you want to use MongoDB Atlas over Docker, since you wont need the extra container to run mongoDB )
 
 To deploy to AWS, follow these steps:
 1. Set up an AWS account and create an EC2 instance.
@@ -41,6 +104,7 @@ To deploy to AWS, follow these steps:
 6. Modify inbound traffic rules to allow traffic to port 8420 on the EC2 instance.
 
 ### 🗂 Backend File Structure
+The backend follows a modular architecture, with distinct components responsible for handling different aspects of the application logic.
 ```
 ├── index.js           // Main entry point into the app
 ├── routes             // Express routes
@@ -61,10 +125,6 @@ To deploy to AWS, follow these steps:
 │   ├── middleware.js
 ├── tests              // Jest tests (automatically run through GitHub Actions)
 ```
-
-### Implementation Overview
-The backend follows a modular architecture, with distinct components responsible for handling different aspects of the application logic.
-
 #### 1. Routes
 - **LoginRouter.js**: Defines routes related to user authentication.
 - **UserRouter.js**: Handles CRUD operations for user management.
