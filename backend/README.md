@@ -5,9 +5,9 @@ Welcome to the [**Notes.app**](http://18.116.34.64:8420/) Backend. Powered by No
 
 Ready to explore the API? Check out the [Notes API Spec](#-notes-api-spec) below!
 
-Want to dive into our tests? Check out our [Testing & Linting Details](#-testing-&-linting) below!
+Want to dive into our tests? Check out our [Testing & Linting Details](#-testing--linting) below!
 
-For an overview on the architecture, check out the [Implementation Overview Section](#-implementation-overview) below!
+For an overview on the architecture, check out the [Implementation Overview Section](#implementation-overview) below!
 
 # 🚀 Installing & Starting the Service
 ### Clone the repository:
