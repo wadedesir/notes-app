@@ -1,91 +1,94 @@
-# 📝 Notes App Backend Overview!
+# 📝 Notes App Backend Overview
 
 ### 👋🏿 Introduction
-Welcome to the **Notes API**. This service provides a simple way to manage ascend notes. Powered by Node.js, Docker, Express.js, and Mongoose, this API is designed to readable and easy to use as a template for future APIs.
+Welcome to the **Notes App Backend**. Powered by Node.js, Express.js, Mongoose, and Docker, the API provides a simple way to manage notes & is designed to be readable and easy to use as a template for future APIs.
 
 Ready to explore the API? Check out the [Notes API Spec](#-notes-api-spec) below!
 
 ### 🚀 Installation & Run
-Getting started is ez-pz! Simply follow these steps:
-1. If you don't have Docker installed, don't worry! You can still run the app using MongoDB Atlas. Set the `MONGODB_URI` environment variable ( dotenv is installed so create a .env) and run the dev server on your local machine with `npm install` & `npm run dev`.
-2. If you have Docker installed, navigate to the backend directory and run `docker compose up`.
-3. That's it! Your API is now up and running at http://localhost:8420.
+#### Clone the repository:
+`git clone https://github.com/wadedesir/notes-app.git`
+
+#### If you don't have Docker installed, you can run the app using MongoDB Atlas:
+1. Make an .env file and set the `MONGODB_URI` environment variable.
+2. Navigate to the backend directory: `cd backend`
+3. Install dependencies: `npm install`
+4. Run the backend: `npm run dev`
+
+#### If you have Docker installed:
+1. Navigate to the backend directory: `cd backend`
+2. Run the backend: `docker compose up`
+
+#### Your API is now running at http://localhost:8420.
 
 ### 🧪 Testing & Linting
-These tests are ran automatically through github actions ( check out the .github/workflows/ folder at the root of the repo ) when creating a new PR to main!
-But running unit tests & linting the project manually is pretty straight forward.
+Whenever a new PR is made, tests are run automatically through GitHub Actions (check out the .github/workflows folder at the root of the repo). Otherwise, running unit tests and linting the project manually is pretty straightforward.
 
-1. If you don't have Docker installed, don't worry! To lint the project just do `npm run lint` to lint, and `npm run test` to run test!.
-2. If you have Docker installed, do `docker compose run api npm run lint` to lint, and `docker compose run api npm run test` to run tests!
+1. If you don't have Docker installed, run `npm run lint` to lint & `npm run test` to test.
+2. If you have Docker installed, run `docker compose run api npm run lint` to lint & `docker compose run api npm run test` to test.
+
+NEED MORE DOCUMENTATION HERE
 
 ### 📦 Deployment
+To deploy our application, we opted for AWS EC2 due to its compatibility with our multi-container setup, as Fly.io does not support docker-compose.
 
-Though the application is fairly straightforward, configuration and deploying to fly.io / render can be slightly complicated, so we went with AWS ec2. This is a result of the app using a multi-container setup when fly.io doesnt support docker-compose.
+To deploy to AWS, follow these steps:
+1. Set up an AWS account and create an EC2 instance.
+2. Access the EC2 instance via SSH and install necessary dependencies such as docker, docker-compose, git, and npm.
+3. **Code deployment**: Use AWS CodeDeploy or GitHub Actions with a self-hosted runner to automatically pull in the code. Alternatively, you can manually run `git clone` from inside the EC2 instance.
+4. **Build and copy frontend**: Use AWS CodeDeploy or GitHub Actions (with a self-hosted runner) to build the frontend and copy it to the backend's /dist folder.
+5. Run `docker-compose up` in the backend folder on the EC2 instance.
+6. Modify inbound traffic rules to allow traffic to port 8420 on the EC2 instance.
 
-To deploy to AWS, follow these steps.
-1. Create AWS account & ec2 instance
-2. SSH into ec2 instance and install deps ( docker, docker-compose, git, npm) 
-3. use AWS code deploy OR github actions + self hosted runner to pull in the code automatically. Alternative is to just run git clone from inside the instance
-4. use AWS code deploy OR github actions + self hosted runner to build the frontend and copy it to the backend's /dist folder
-5. run docker-compose up in the backend folder on the ec2 instance
-6. edit inbound traffic rules to allow traffic to port 8420 on the ec2 instance
-
-### 🗂 Structure
-Here's an overview of the project structure:
+### 🗂 Backend File Structure
 ```
-├── index.js // main entry point into the app
-├── routes // all the express routes
+├── index.js           // Main entry point into the app
+├── routes             // Express routes
 │   ├── LoginRouter.js
 │   ├── UserRouter.js
 │   ├── NoteRouter.js
-├── controllers // application logic implementations
+├── controllers        // Application logic implementations
 │   ├── NoteController.js
 │   ├── UserController.js
 │   ├── LoginController.js
-├── models // database object interfaces
+├── models             // Database object interfaces
 │   ├── User.js
 │   ├── Note.js
-├── util // utility functions
+├── util               // Utility functions
 │   ├── db_util.js
 │   ├── logger.js
 │   ├── config.js
 │   ├── middleware.js
-├── tests // jest tests - everything in here gets ran automatically through github actions when tryna merge so make sure youre passing!
+├── tests              // Jest tests (automatically run through GitHub Actions)
 ```
-### Implementation Overview
 
-The backend of our notes app follows a modular architecture, with distinct components responsible for handling different aspects of the application logic.
+### Implementation Overview
+The backend follows a modular architecture, with distinct components responsible for handling different aspects of the application logic.
 
 #### 1. Routes
-
 - **LoginRouter.js**: Defines routes related to user authentication.
 - **UserRouter.js**: Handles CRUD operations for user management.
 - **NoteRouter.js**: Manages CRUD operations for notes.
 
 #### 2. Controllers
-
 - **LoginController.js**: Contains logic for user authentication.
 - **UserController.js**: Implements methods for user CRUD operations.
 - **NoteController.js**: Implements methods for note CRUD operations.
 
 #### 3. Models
-
 - **User.js**: Defines the schema and methods for interacting with user data in the database.
 - **Note.js**: Defines the schema and methods for interacting with note data in the database.
 
 #### 4. Utilities
-
 - **db_util.js**: Provides utility functions for interacting with the database.
 - **logger.js**: Handles logging throughout the application.
 - **config.js**: Manages application configuration settings.
 - **middleware.js**: Contains middleware functions for request processing.
 
 # 📝 Notes API Spec
-
-Welcome to the Notes API Spec. This Spec outlines the various responses from the API
+The following outlines the various responses from the API.
 
 ## 🛣️ Path Table
-
 | Method | Path | Description |
 | --- | --- | --- |
 | GET | [/v1/users](#getv1users) | Get all users |
@@ -101,7 +104,6 @@ Welcome to the Notes API Spec. This Spec outlines the various responses from the
 | POST | [/v1/login](#postv1login) | Authenticate user |
 
 ## 📚 Reference Table
-
 | Name | Path | Description |
 | --- | --- | --- |
 | User | [#/components/schemas/User](#componentsschemasuser) | 🥷🏾 User Schema |

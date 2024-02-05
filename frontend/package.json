@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "test": "jest",
+    "test": "jest --coverage",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -18,10 +18,12 @@
     "react-router-dom": "^6.21.3"
   },
   "devDependencies": {
+    "@babel/plugin-syntax-numeric-separator": "^7.10.4",
     "@babel/preset-env": "^7.23.9",
     "@babel/preset-react": "^7.23.3",
     "@testing-library/jest-dom": "^6.4.1",
     "@testing-library/react": "^14.2.1",
+    "@testing-library/user-event": "^14.5.2",
     "@types/react": "^18.2.43",
     "@types/react-dom": "^18.2.17",
     "@vitejs/plugin-react": "^4.2.1",
@@ -37,6 +39,8 @@
     "vite": "^5.0.8"
   },
   "jest": {
-    "testEnvironment": "jsdom"
+    "testEnvironment": "jsdom",
+    "collectCoverage": true,
+    "collectCoverageFrom": ["./src/**"]
   }
 }
