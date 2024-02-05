@@ -1,9 +1,13 @@
 # 📝 Notes App Backend Overview
 
-# 👋🏿 Introduction
+### 👋🏿 Introduction
 Welcome to the **Notes App Backend**. Powered by Node.js, Express.js, Mongoose, and Docker, the API provides a simple way to manage notes & is designed to be readable and easy to use as a template for future APIs.
 
 Ready to explore the API? Check out the [Notes API Spec](#-notes-api-spec) below!
+
+Want to dive into our tests? Check out our [Testing & Linting Details](#-testing-&-linting) below!
+
+For an overview on the architecture, check out the [Implementation Overview Section](#-implementation-overview) below!
 
 # 🚀 Installing & Starting the Service
 ### Clone the repository:
@@ -66,8 +70,12 @@ https://github.com/wadedesir/notes-app/blob/da9820c45348238941af9a44a88a6e4f6146
 
 NEED MORE DOCUMENTATION HERE
 
-# 📦 Deployment
-To deploy our application, we opted for AWS EC2 due to its compatibility with our multi-container setup, as Fly.io does not support docker-compose.
+
+# Implementation Overview
+
+### 📦 Deployment
+To deploy our application, we opted for AWS EC2 due to its compatibility with our multi-container setup, as Fly.io does not support docker-compose. 😥
+( You can still run the application on Fly.io if you want to use MongoDB Atlas over Docker, since you wont need the extra container to run mongoDB )
 
 To deploy to AWS, follow these steps:
 1. Set up an AWS account and create an EC2 instance.
@@ -77,7 +85,8 @@ To deploy to AWS, follow these steps:
 5. Run `docker-compose up` in the backend folder on the EC2 instance.
 6. Modify inbound traffic rules to allow traffic to port 8420 on the EC2 instance.
 
-# 🗂 Backend File Structure
+### 🗂 Backend File Structure
+The backend follows a modular architecture, with distinct components responsible for handling different aspects of the application logic.
 ```
 ├── index.js           // Main entry point into the app
 ├── routes             // Express routes
@@ -98,10 +107,6 @@ To deploy to AWS, follow these steps:
 │   ├── middleware.js
 ├── tests              // Jest tests (automatically run through GitHub Actions)
 ```
-
-# Implementation Overview
-The backend follows a modular architecture, with distinct components responsible for handling different aspects of the application logic.
-
 #### 1. Routes
 - **LoginRouter.js**: Defines routes related to user authentication.
 - **UserRouter.js**: Handles CRUD operations for user management.
