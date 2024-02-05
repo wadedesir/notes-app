@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1707100120633" clover="3.2.0">
+  <project timestamp="1707100120633" name="All files">
+    <metrics statements="7" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="7" coveredmethods="4" elements="14" coveredelements="8" complexity="0" loc="7" ncloc="7" packages="1" files="2" classes="2"/>
+    <file name="AddNote.jsx" path="/Users/wadedesir/Github/notes-app/frontend/src/components/AddNote.jsx">
+      <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
+      <line num="3" count="2" type="stmt"/>
+      <line num="11" count="17" type="stmt"/>
+      <line num="14" count="1" type="stmt"/>
+    </file>
+    <file name="LoginForm.jsx" path="/Users/wadedesir/Github/notes-app/frontend/src/components/LoginForm.jsx">
+      <metrics statements="4" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="1"/>
+      <line num="2" count="1" type="stmt"/>
+      <line num="8" count="0" type="stmt"/>
+      <line num="15" count="0" type="stmt"/>
+      <line num="20" count="0" type="stmt"/>
+    </file>
+  </project>
+</coverage>
