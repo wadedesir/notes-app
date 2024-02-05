@@ -1,4 +1,4 @@
-import '../index.css'
+// import '../index.css'
 import logo from '../assets/logo.png'
 import { useNavigate, Link } from 'react-router-dom'
 import SignUpForm from '../components/SignUpForm'

@@ -1,0 +1,1 @@
+export default './__mocks__/logoMock.png';
