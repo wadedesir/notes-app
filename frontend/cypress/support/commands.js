@@ -28,8 +28,8 @@ Cypress.Commands.add('login', ({ username, password }) => {
   cy.request('POST', 'http://localhost:8420/v1/login', {
     username, password
   }).then(({ body }) => {
-    localStorage.setItem('token', JSON.stringify(body))
-    cy.visit('http://localhost:5173')
+    localStorage.setItem('token', body.token)
+    cy.visit('http://localhost:5173/home')
   })
 })
 
@@ -43,5 +43,5 @@ Cypress.Commands.add('createNote', ({ content, important }) => {
     }
   })
 
-  cy.visit('http://localhost:5173')
+  cy.visit('http://localhost:5173/home')
 })

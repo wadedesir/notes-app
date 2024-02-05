@@ -31,7 +31,7 @@ Server.use('/v1/notes', NoteRouter)
 Server.use('/v1/users', UserRouter)
 Server.use('/v1/login', LoginRouter)
 // Only on dev!!!!
-if (process.env.NODE_ENV == 'e2e') {
+if (process.env.NODE_ENV === 'e2e') {
   Server.use('/v1/test', TestRouter)
 }
 // Set up post-request middleware

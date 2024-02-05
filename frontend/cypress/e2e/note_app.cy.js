@@ -7,19 +7,18 @@ describe('Notes App', function() {
       username: 'test_user',
       password: 'test_password'
     }
-    cy.request('POST', 'http://localhost:8420/v1/user', user)
-    cy.visit('')
+    cy.request('POST', 'http://localhost:8420/v1/users', user)
+    cy.visit('http://localhost:5173')
   })
 
   // Front page should be the log in page at this point
   it('front page can be opened', function() {
-    cy.contains('Notes')
-    cy.contains('Login')
+    cy.contains('Sign up')
   })
 
   it('login form can be opened', function() {
-    cy.get('input:first').type('test')
-    cy.get('input:last').type('test')
+    cy.get('input:first').type('test_user')
+    cy.get('input:last').type('test_password')
     cy.contains('Login').click()
 
     // if we see the 'ADD' button, that means we've logged in.
@@ -28,39 +27,34 @@ describe('Notes App', function() {
 
   describe('when logged in', function() {
     beforeEach(function() {
-      cy.login({ username: 'mluukkai', password: 'salainen' })
+      cy.login({ username: 'test_user', password: 'test_password' })
     })
 
     it('a new note can be created', function() {
-      cy.get('input').type('a note created by cypress')
+      cy.get('input:first').type('jobava london is fun')
       cy.contains('Add').click()
-      cy.contains('a note created by cypress')
+      cy.contains('jobava london is fun')
     })
 
     describe('and a note exists', function () {
       beforeEach(function () {
-        cy.createNote({ content: 'first note', important: false })
-        cy.createNote({ content: 'second note', important: false })
-        cy.createNote({ content: 'third note', important: false })
+        cy.createNote({ content: 'Kings indian samisch variation is fun', important: false})
+        cy.createNote({ content: 'Modern scandi is fun', important: false})
+        cy.createNote({ content: 'portugese / icelandic gambit is fun', important: false})
       })
 
-      // it('one of those can be made important', function () {
-      //   cy.contains('second note').parent().find('button').as('theButton')
-      //   cy.get('@theButton').click()
-      //   cy.get('@theButton').should('contain', 'make not important')
-      // })
+      it('one of those can be made important', function () {
+        cy.contains('samisch').parent().trigger('mouseover')
+        cy.get('#pin_button').click()
+      })
     })
   })
 
   // it('login fails with wrong password', function() {
-  //   cy.contains('log in').click()
-  //   cy.get('#username').type('mluukkai')
-  //   cy.get('#password').type('wrong')
-  //   cy.get('#login-button').click()
+  //   cy.get('input:first').type('test_user')
+  //   cy.get('input:last').type('test_ass_word')
+  //   cy.contains('Login').click()
 
-  //   cy.get('.error')
-  //     .should('contain', 'wrong credentials')
-  //     .and('have.css', 'color', 'rgb(255, 0, 0)')
-  //     .and('have.css', 'border-style', 'solid')
+  //   // We dont have an error message yet 🥲
   // })
 })
