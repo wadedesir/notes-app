@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom'
-import { render, screen, fireEvent, waitFor, act } from '@testing-library/react'
+import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import axios from 'axios'
 import SignUp from '../src/pages/SignUp'
@@ -7,15 +7,6 @@ import SignUp from '../src/pages/SignUp'
 jest.mock('axios')
 
 describe('SignUp Component', () => {
-  beforeEach(() => {
-    jest.useFakeTimers()
-    jest.clearAllMocks() // Clear mocks before each test
-  })
-
-  afterEach(() => {
-    jest.clearAllTimers()
-  })
-
   // TEST #1
   test('renders SignUp component', () => {
     render(<MemoryRouter><SignUp /></MemoryRouter>)
@@ -41,7 +32,7 @@ describe('SignUp Component', () => {
     const passwordInput = screen.getByPlaceholderText('Password')
     const confirmPasswordInput = screen.getByPlaceholderText('Confirm password')
 
-    fireEvent.change(usernameInput, { target: { value: 'user' } })
+    fireEvent.change(usernameInput, { target: { value: 'username' } })
     fireEvent.change(passwordInput, { target: { value: 'password' } })
     fireEvent.change(confirmPasswordInput, { target: { value: 'password' } })
 
@@ -55,6 +46,4 @@ describe('SignUp Component', () => {
     const loginLink = screen.getByText(/Already have an account?/).closest('p').querySelector('a')
     expect(loginLink).toHaveAttribute('href', '/login')
   })
-
-// TEST #4
 })
