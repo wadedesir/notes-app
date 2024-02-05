@@ -16,6 +16,7 @@ function Home() {
     axios
     .get('http://localhost:8420/v1/notes')
     .then(resp => {
+<<<<<<< HEAD
       const { data } = resp;
 
       const importantNotes = data.filter(d => d.important)
@@ -23,6 +24,15 @@ function Home() {
 
       setNotes([...importantNotes, ...notImportantNotes])
       console.log(data)
+=======
+      const d = resp.data;
+
+      const importantNotes = resp.data.filter(d => d.important)
+      const notImportantNotes = resp.data.filter(d => !d.important)
+
+      setNotes([...importantNotes, ...notImportantNotes])
+      console.log(resp.data)
+>>>>>>> ea9aced (make important notes appear on top)
     })
   }
 

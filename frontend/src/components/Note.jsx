@@ -4,13 +4,23 @@ function Note({ id, date, content, important, editNote, deleteNote }) {
   const [note, setNote] = useState(content)
   const [editing, setEditing] = useState(false)
   const [tooltip, setTooltip] = useState(false)
+<<<<<<< HEAD
+=======
+  // const [isImportant, setIsImportant] = useState(important)
+>>>>>>> ea9aced (make important notes appear on top)
 
   const updateNote = () => {
     editNote(note, important, id)
     setEditing(false)
   }
   const toggleImportant = () => {
+<<<<<<< HEAD
     editNote(note, !important, id)
+=======
+    // const newImportance = !isImportant
+    editNote(note, !important, id)
+    // setIsImportant(newImportance)
+>>>>>>> ea9aced (make important notes appear on top)
   }
 
   return (
@@ -20,10 +30,17 @@ function Note({ id, date, content, important, editNote, deleteNote }) {
       )}
       
       {(
+<<<<<<< HEAD
         tooltip && <span id="edit_button" className="hover:cursor-pointer absolute z-50 rounded-full bg-white text-black hover:bg-green-500 text-center flex justify-center items-center" style={{left: '-5px', top: '-10px', width: '32px', height: '32px'}} onClick={() => setEditing(!editing)}>✏️</span>
       )}
       {(
         tooltip && <span id="pin_button" className="hover:cursor-pointer absolute z-50 rounded-full bg-white text-black hover:bg-green-500 text-center flex justify-center items-center" style={{left: '30px', top: '-10px', width: '32px', height: '32px', opacity: important ? '1' : '0.25'}} onClick={toggleImportant}>📌</span>
+=======
+        tooltip && <span className="hover:cursor-pointer absolute z-50 rounded-full bg-white text-black hover:bg-green-500 text-center flex justify-center items-center" style={{left: '-5px', top: '-10px', width: '32px', height: '32px'}} onClick={() => setEditing(!editing)}>foo✏️</span>
+      )}
+      {(
+        tooltip && <span className="hover:cursor-pointer absolute z-50 rounded-full bg-white text-black hover:bg-green-500 text-center flex justify-center items-center" style={{left: '30px', top: '-10px', width: '32px', height: '32px', opacity: important ? '1' : '0.25'}} onClick={toggleImportant}>📌</span>
+>>>>>>> ea9aced (make important notes appear on top)
       )}
               
       <div className={`${important ? 'bg-cyan-600' : 'bg-slate-500'} aspect-h-1 aspect-w-1 w-68 h-32 overflow-hidden rounded-md  lg:aspect-none group-hover:opacity-75 p-5`}>
