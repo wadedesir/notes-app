@@ -4,6 +4,7 @@ import cors from 'cors'
 import NoteRouter from './routes/NoteRouter.js'
 import UserRouter from './routes/UserRouter.js'
 import LoginRouter from './routes/LoginRouter.js'
+import TestRouter from './routes/TestRouter.js'
 
 import { initDb } from './util/db_util.js'
 import { logInfo } from './util/logger.js'
@@ -29,6 +30,7 @@ Server.use(requestLogger)
 Server.use('/v1/notes', NoteRouter)
 Server.use('/v1/users', UserRouter)
 Server.use('/v1/login', LoginRouter)
+Server.use('/v1/test', TestRouter)
 
 // Set up post-request middleware
 Server.use(errorHandler)
