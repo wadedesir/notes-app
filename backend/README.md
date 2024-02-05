@@ -1,7 +1,7 @@
 # 📝 Notes App Backend Overview
 
 ### 👋🏿 Introduction
-Welcome to the **Notes App Backend**. Powered by Node.js, Express.js, Mongoose, and Docker, the API provides a simple way to manage notes & is designed to be readable and easy to use as a template for future APIs.
+Welcome to the [**Notes.app**](http://18.116.34.64:8420/) Backend. Powered by Node.js, Express.js, Mongoose, and Docker, this API provides a simple way to manage notes & is designed to be readable and easy to use as a template for future APIs.
 
 Ready to explore the API? Check out the [Notes API Spec](#-notes-api-spec) below!
 
