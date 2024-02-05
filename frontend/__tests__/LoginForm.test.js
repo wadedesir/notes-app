@@ -3,7 +3,6 @@ import "@testing-library/jest-dom"
 import { fireEvent, render, screen} from "@testing-library/react"
 import LoginForm from "../src/components/LoginForm"
 
-
 describe("Tests for LoginForm Component", () => {
     //Mocks for setter and authenticate functions
     let mockSetUsername = jest.fn()
