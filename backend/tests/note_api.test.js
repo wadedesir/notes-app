@@ -8,6 +8,7 @@ import { notesInDb, nonExistingId, initNotes } from './helper.js'
 const testServer = supertest(Server)
 
 let token = ''
+let userId = ''
 
 const testName = 'Test Dummy'
 const testUserName = 'test_dummy420'
@@ -72,6 +73,7 @@ describe('when logged out', () => {
       .expect(200)
       .expect('Content-Type', /application\/json/)
     token = res.body.token
+    userId = res.body.id
   })
 })
 

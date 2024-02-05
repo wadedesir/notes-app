@@ -43,7 +43,7 @@ We define some `setup` & `teardown` logic for jest in [setup.js](https://github.
 
 We're using the User & Note model in a top level `beforeAll` function to wipe the User & Note collection data so we're not relying on the databases previous state (which could introduce false positives & other issues to our tests). This `beforeAll` logic will run once before all the other tests in this file.
 
-https://github.com/wadedesir/notes-app/blob/da9820c45348238941af9a44a88a6e4f61461024/backend/tests/note_api.test.js#L16C1-L19C3
+https://github.com/wadedesir/notes-app/blob/da9820c45348238941af9a44a88a6e4f61461024/backend/tests/note_api.test.js#L16-L19
 
 ### Integration Test Implementation Overview
 
@@ -59,17 +59,32 @@ When no users are added, we test that we can actually create a user. We create a
 
 https://github.com/wadedesir/notes-app/blob/da9820c45348238941af9a44a88a6e4f61461024/backend/tests/note_api.test.js#L37-L47
 
-#### GET USERS TEST /v1/users/${ID} (Return a user by ID)
-#### PUT USERS TEST /v1/users/${ID} (Update a user by ID)
-#### DELETE USERS TEST /v1/users/${ID} (Delete a user by ID)
 
 #### GET NOTE TEST /v1/notes/ (Get all notes)
+When we're logged in we should be able to get back all the notes. We hit the `/v1/notes` end point and check that it gives up back 200.
+
+https://github.com/wadedesir/notes-app/blob/da9820c45348238941af9a44a88a6e4f61461024/backend/tests/note_api.test.js#L78-L84
+
 #### POST NOTE TEST /v1/notes/ (Create a note)
+When we're logged in, we should be able to create a new note. The user token from when we logged in got saved to the test's top level scope so it's available in all our test cases. We use the token here to make a post request to the notes endpoint and then we check the status code to make sure everything came back as expected.
+
+https://github.com/wadedesir/notes-app/blob/da9820c45348238941af9a44a88a6e4f61461024/backend/tests/note_api.test.js#L86-L100
+
 #### GET NOTES TEST /v1/notes/${ID} (Return a note by ID)
-#### PUT NOTES TEST /v1/notes/${ID} (Update a note by ID)
+In this test we're trying to make sure that we get the correct note by ID. We first grab all the notes in the database directly through our Note Model with `notesInDb()`. After we get all the notes, we grab the first note in the collection and use its ID in the request to the GET `/v1/notes/${ID}` endpoint.
+
+https://github.com/wadedesir/notes-app/blob/da9820c45348238941af9a44a88a6e4f61461024/backend/tests/note_api.test.js#L123-L135
+
 #### DELETE NOTES TEST /v1/notes/${ID} (Delete a note by ID)
+In this test we're trying to make sure that we delete the right note. We first grab all the notes in the database directly through our Note Model with `notesInDb()`. After we get all the notes, we grab the first note in the collection and use its ID in the request to the DELETE `/v1/notes/${ID}` endpoint.
+
+https://github.com/wadedesir/notes-app/blob/da9820c45348238941af9a44a88a6e4f61461024/backend/tests/note_api.test.js#L194-L213
 
 #### POST LOGIN TEST /v1/login/ (Create a new login token)
+In this test we first check to make sure we cant log in with fugazi information. We send bad credentials on purpose and check to see if we get back a `401` unauthorized request.
+After making sure we actually CANT log in with bad creds, we use the correct information to log in. We post to the same endpoint & check to see if it's response is 200, then we set the user token & user id to variables.
+
+https://github.com/wadedesir/notes-app/blob/da9820c45348238941af9a44a88a6e4f61461024/backend/tests/note_api.test.js#L49-L76
 
 NEED MORE DOCUMENTATION HERE
 

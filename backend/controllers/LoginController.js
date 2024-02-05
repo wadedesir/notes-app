@@ -40,6 +40,7 @@ export const createNewLogin = async (req, res) => {
   )
 
   res.status(200).json({
+    id: user._id,
     token,
     username: user.username,
     name: user.name
