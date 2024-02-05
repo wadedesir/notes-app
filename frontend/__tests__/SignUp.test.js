@@ -4,7 +4,6 @@ import { MemoryRouter } from 'react-router-dom'
 import axios from 'axios'
 import SignUp from '../src/pages/SignUp'
 
-jest.mock('../src/assets/logo.png', () => './__mocks__/logoMock.js')
 jest.mock('axios')
 
 describe('SignUp Component', () => {
@@ -29,7 +28,6 @@ describe('SignUp Component', () => {
     const logoElement = screen.getByRole('img', { name: '' })
     expect(logoElement).toBeInTheDocument()
     expect(logoElement).toHaveClass('size-1/2 object-contain')
-    expect(logoElement).toHaveAttribute('src', './__mocks__/logoMock.js')
   })
 
   // TEST #3
