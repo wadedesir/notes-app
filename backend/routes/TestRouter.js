@@ -12,9 +12,11 @@ const TestingRouter = express.Router()
 /**
  * Route to delete everything out the db.
  */
-TestingRouter.post('/reset', async (req, res) => {
+TestingRouter.get('/reset', async (req, res) => {
   await Note.deleteMany({})
   await User.deleteMany({})
 
-  response.status(204).end()
+  res.status(204).end()
 })
+
+export default TestingRouter

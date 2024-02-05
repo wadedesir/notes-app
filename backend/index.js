@@ -16,7 +16,7 @@ import {
 } from './util/middleware.js'
 
 // Init mongoDB and create the server.
-logInfo('Server starting')
+logInfo(`server starting, NODE_ENV=${process.env.NODE_ENV}`)
 initDb()
 const Server = express()
 
@@ -30,8 +30,10 @@ Server.use(requestLogger)
 Server.use('/v1/notes', NoteRouter)
 Server.use('/v1/users', UserRouter)
 Server.use('/v1/login', LoginRouter)
-Server.use('/v1/test', TestRouter)
-
+// Only on dev!!!!
+if (process.env.NODE_ENV === 'e2e') {
+  Server.use('/v1/test', TestRouter)
+}
 // Set up post-request middleware
 Server.use(errorHandler)
 Server.use(unknownEndpointHandler)
