@@ -78,6 +78,19 @@ describe('when logged out', () => {
 })
 
 describe('when logged in', () => {
+
+  test('a valid user can be updated', async () => {
+    const newUserData = {
+      name: 'new new',
+    }
+
+    await testServer
+      .put(`/v1/users/${userId}`)
+      .send(newUserData)
+      .expect(200)
+      .expect('Content-Type', /application\/json/)
+  })
+
   test('notes are returned as json', async () => {
     await testServer
       .get('/v1/notes')
