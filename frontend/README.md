@@ -13,7 +13,22 @@ Welcome to the **Notes App Frontend**. Powered by React, Vite.js, and Tailwind C
 ### 🧪 Testing & Linting
 Whenever a new PR is made, tests are run automatically through GitHub Actions (check out the .github/workflows folder at the root of the repo).
 
-NEED MORE DOCUMENTATION HERE
+## 🔚 End To End Tests
+End-to-end testing for the Notes App is conducted using Cypress, a modern testing framework for web applications. Cypress provides a powerful set of tools for writing, running, and debugging tests, making it ideal for ensuring the application works as expected from a user's perspective.
+
+## 🚀 Running End to End Tests
+To run the Cypress end-to-end tests locally, follow these steps:
+
+1. Make sure the frontend & backend servers are running. If not, start it by running `npm run dev` in the `frontend` directory & `export NODE_ENV=e2e && docker-compose up` in the `backend` directory.
+2. Navigate to frontend directory & run Cypress by executing the command `npm run cypress:open` to run the e2e tests visually or `npm run test:e2e` to run them in headless mode.
+
+## 🧪 End to End Test Coverage
+The Cypress end-to-end tests cover various scenarios to ensure the functionality and integrity of the Notes App. Here's an overview of what the tests cover:
+
+- **Front Page Interaction**: Verifies that the front page can be opened and the login form is accessible.
+- **Login Functionality**: Tests the login form's functionality, ensuring users can log in successfully.
+- **Note Management**: Validates that users can create new notes, mark notes as important, and perform other note-related actions.
+- **User Authentication**: Ensures that login fails with incorrect credentials.
 
 ### 🗂 Frontend File Structure
 ```

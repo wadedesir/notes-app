@@ -15,7 +15,7 @@ import { SECRET } from '../util/config.js'
  * @param {string} authorization - The auth header striNg.
  * @returns {string|null} The extracted token or null if not found.
  */
-const getTokenFrom = authorization => {
+export const getTokenFrom = authorization => {
   logInfo(`authorization: ${authorization}`)
 
   if (authorization.startsWith('Bearer ')) {
