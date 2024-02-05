@@ -16,13 +16,13 @@ function Home() {
     axios
     .get('http://localhost:8420/v1/notes')
     .then(resp => {
-      const d = resp.data;
+      const { data } = resp;
 
-      const importantNotes = resp.data.filter(d => d.important)
-      const notImportantNotes = resp.data.filter(d => !d.important)
+      const importantNotes = data.filter(d => d.important)
+      const notImportantNotes = data.filter(d => !d.important)
 
       setNotes([...importantNotes, ...notImportantNotes])
-      console.log(resp.data)
+      console.log(data)
     })
   }
 
