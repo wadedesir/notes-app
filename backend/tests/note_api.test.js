@@ -78,10 +78,9 @@ describe('when logged out', () => {
 })
 
 describe('when logged in', () => {
-
   test('a valid user can be updated', async () => {
     const newUserData = {
-      name: 'new new',
+      name: 'new new'
     }
 
     await testServer
