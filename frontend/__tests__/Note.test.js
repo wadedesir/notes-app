@@ -30,7 +30,7 @@ describe('Tests for Note Component', () => {
     expect(screen.getByText(noteProps.date)).toBeInTheDocument()
   })
 
-  it('displays edit and delete buttons on mouse hover', async () => {
+  it('displays edit, delete & pin buttons on mouse hover', async () => {
     const { container } = render(<Note {...noteProps} />)
     const noteElement = screen.getByText(noteProps.content).closest('div.relative')
 
@@ -44,6 +44,44 @@ describe('Tests for Note Component', () => {
     // Check if delete button is rendered
     const deleteButton = screen.getByText('🗑️')
     expect(deleteButton).toBeInTheDocument()
+
+    // Check if pin button is rendered
+    const pinButton = screen.getByText('📌')
+    expect(pinButton).toBeInTheDocument()
+  })
+
+  it('hides edit, delete & pin buttons on mouse leave', async () => {
+    const { container } = render(<Note {...noteProps} />)
+    const noteElement = screen.getByText(noteProps.content).closest('div.relative')
+
+    // Hover over the note element to reveal its buttons
+    await userEvent.hover(noteElement)
+
+    // Check if the edit button is rendered
+    let editButton = screen.getByText('✏️')
+    expect(editButton).toBeInTheDocument()
+
+    // Check if delete button is rendered
+    let deleteButton = screen.getByText('🗑️')
+    expect(deleteButton).toBeInTheDocument()
+
+    // Check if pin button is rendered
+    let pinButton = screen.getByText('📌')
+    expect(pinButton).toBeInTheDocument()
+
+    await userEvent.unhover(noteElement)
+
+    // Check if the edit button is still rendered
+    editButton = screen.queryByText('✏️')
+    expect(editButton).toBeNull()
+
+    // Check if delete button is still rendered
+    deleteButton = screen.queryByText('🗑️')
+    expect(deleteButton).toBeNull()
+
+    // Check if pin button is still rendered
+    pinButton = screen.queryByText('📌')
+    expect(pinButton).toBeNull()
   })
 
   it('displays modal elements when edit button is clicked', async () => {
@@ -75,6 +113,24 @@ describe('Tests for Note Component', () => {
 
     // Click the save button to interact with the modal
     fireEvent.click(screen.getByText('✔️'))
+
+    // Use waitFor to ensure that the modal elements are removed after interaction
+    expect(screen.queryByText('✖️')).toBe(null)
+    expect(screen.queryByText('✔️')).toBe(null)
+  })
+
+  it('hides modal elements after clicking cancel button', async () => {
+    const { container } = render(<Note {...noteProps} />)
+    const noteElement = screen.getByText(noteProps.content).closest('div.relative')
+
+    // Hover over the note element to reveal its buttons
+    await userEvent.hover(noteElement)
+
+    // Click the edit button to trigger the modal
+    fireEvent.click(screen.getByText('✏️'))
+
+    // Click the save button to interact with the modal
+    fireEvent.click(screen.getByText('✖️'))
 
     // Use waitFor to ensure that the modal elements are removed after interaction
     expect(screen.queryByText('✖️')).toBe(null)
@@ -152,4 +208,6 @@ describe('Tests for Note Component', () => {
     // Ensure that the styling for important notes is applied
     expect(screen.getByText(noteProps.date).closest('div').classList).toContain('bg-cyan-600')
   })
+
+
 })
