@@ -73,4 +73,25 @@ describe('SignUpForm component', () => {
 
     expect(mockAuthenticate).toHaveBeenCalledTimes(1)
   })
+
+  test('does not call authenticate if passwords do not match', () => {
+    const mockAuthenticate = jest.fn()
+
+    render(
+      <SignUpForm
+        setPassword={jest.fn()}
+        setConfirmPassword={jest.fn()}
+        authenticate={mockAuthenticate}
+        username='username'
+        password='pass' //force set username & password to be false
+        confirmPassword='noMatch'
+      />
+    )
+
+    const button = screen.getByRole('button')
+
+    fireEvent.click(button)
+
+    expect(mockAuthenticate).toHaveBeenCalledTimes(0)
+  })
 })

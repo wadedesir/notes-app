@@ -158,7 +158,6 @@ describe("Tests for Home Page", () => {
         })
 
         //initially note value should be "test content"
-        screen.debug()
         let note = await screen.findByText("test content")
         expect(note).toBeInTheDocument()
 
