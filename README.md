@@ -22,7 +22,7 @@ A key objective of this project was learning and implementing tests. The READMEs
 
 - **Unit Test**: Tests that cover isolated modules or "units" of code without depending on outside modules. Typically, these test individual functions or branches of code.
 
-- **Integration Test**: Tests that cover multiple modules together interacting with each other.
+- **Integration Tests**: Tests that cover multiple modules together interacting with each other.
 
 - **End-to-End Tests**: Tests functionality of an entire software application from start to finish by simulating UI interactions and replicating live data.
 
