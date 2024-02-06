@@ -121,8 +121,84 @@ https://github.com/wadedesir/notes-app/blob/3a93fc3bcdd5559d8a17ec374169f79dcd60
 #### Test
 
 ### Page: Home
-#### Test
-#### Test
+#### `beforeEach` and `afterEach` Setup
+
+- **Mocking Axios:**
+  - Mocks GET, POST, DELETE, and PUT requests with specific responses for testing scenarios.
+  - Resets mocks between tests to ensure isolation.
+
+#### Test 1: `All components render`
+
+- **Objective:**
+  - Ensure that all required components (logo, note input, and add button) render correctly on the `Home` page.
+  
+- **Steps:**
+  1. Wait for component states to update.
+  2. Render the `Home` page.
+  3. Verify the presence of the logo, note input, and add button.
+
+#### Test 2: `Notes should be rendered on load`
+
+- **Objective:**
+  - Confirm that notes are rendered on the page after the component loads.
+  
+- **Steps:**
+  1. Wait for component states to update.
+  2. Render the `Home` page.
+  3. Query all rendered notes.
+  4. Verify that Axios GET request is called.
+  5. Ensure at least one note is rendered on the page.
+
+#### Test 3: `Submitting form sends correct request to backend`
+
+- **Objective:**
+  - Ensure that submitting the form sends the correct POST request to the backend with the provided data.
+  
+- **Steps:**
+  1. Wait for component states to update.
+  2. Render the `Home` page.
+  3. Simulate user input and click on the add button.
+  4. Verify that the Axios POST request is called.
+  5. Check if the correct data is submitted.
+  6. Ensure the note input is reset.
+
+#### Test 4: `Empty note doesn't create a new note`
+
+- **Objective:**
+  - Confirm that submitting an empty note does not trigger a POST request.
+  
+- **Steps:**
+  1. Wait for component states to update.
+  2. Render the `Home` page.
+  3. Click on the add button without entering any text.
+  4. Verify that Axios POST request is not called.
+  5. Ensure the note input remains empty.
+
+#### Test 5: `Deleting note should remove note from page`
+
+- **Objective:**
+  - Ensure that deleting a note removes it from the page.
+  
+- **Steps:**
+  1. Wait for component states to update.
+  2. Render the `Home` page.
+  3. Mouse over the note, reveal delete button, and click it.
+  4. Verify that Axios DELETE request is called.
+  5. Ensure the note is removed from the page.
+
+#### Test 6: `Editing changes contents of note`
+
+- **Objective:**
+  - Confirm that editing a note changes its content.
+  
+- **Steps:**
+  1. Wait for component states to update.
+  2. Render the `Home` page.
+  3. Mouse over the note, reveal edit button, and click it.
+  4. Input new text and submit the edited note.
+  5. Verify that Axios PUT request is called.
+  6. Ensure the old note is no longer displayed.
+  7. Check if the new note content is displayed on the page.
 
 ### Page: Login
 #### Test
