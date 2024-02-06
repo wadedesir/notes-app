@@ -99,8 +99,6 @@ After making sure we cant log in with bad creds, we use the correct information 
 
 https://github.com/wadedesir/notes-app/blob/da9820c45348238941af9a44a88a6e4f61461024/backend/tests/note_api.test.js#L49-L76
 
-NEED MORE DOCUMENTATION HERE
-
 
 # Implementation Overview
 
