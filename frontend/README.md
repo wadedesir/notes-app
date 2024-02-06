@@ -87,7 +87,7 @@ https://github.com/wadedesir/notes-app/blob/3a93fc3bcdd5559d8a17ec374169f79dcd60
 
 This also involved creating mock functions to provide to setNote & createNote using jest.fn()
 
-https://github.com/wadedesir/notes-app/blob/3a93fc3bcdd5559d8a17ec374169f79dcd60cb86/frontend/__tests__/AddNote.test.js#L12C1-L13C37
+https://github.com/wadedesir/notes-app/blob/3a93fc3bcdd5559d8a17ec374169f79dcd60cb86/frontend/__tests__/AddNote.test.js#L12-L13
 
 afterwards all that needed to be done was to:
 - grab the input field and submit button using the provided screen util
