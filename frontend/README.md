@@ -75,22 +75,38 @@ Note: You can run `npx eslint --fix .` while in the frontend directory to automa
 
 ### Component: AddNote
 Testing the AddNote component was fairly straightforward. This was a simple unit test as it did not require working with any other components. There were only a couple things that needed to be tested:
-- Does it render sucessfully
-- Does it call the correct functions and update states correctly
+1.  Does it render sucessfully
+2. Does it call the correct functions and update states correctly
 
 Those were tested using two test cases respectively. 
 
+#### Component renders input and button
 To test if it rendered we had to do a test render with the react-testing-library render function like so:
 
 https://github.com/wadedesir/notes-app/blob/3a93fc3bcdd5559d8a17ec374169f79dcd60cb86/frontend/__tests__/AddNote.test.js#L17-L22
 
 This also involved creating mock functions to provide to setNote & createNote using jest.fn()
 
-https://github.com/wadedesir/notes-app/blob/main/frontend/__tests__/AddNote.test.js#L12-L13
+https://github.com/wadedesir/notes-app/blob/3a93fc3bcdd5559d8a17ec374169f79dcd60cb86/frontend/__tests__/AddNote.test.js#L12C1-L13C37
 
+afterwards all that needed to be done was to:
+- grab the input field and submit button using the provided screen util
+- check that they actually existed on the page
 
-#### Test
-#### Test
+#### Component updates parent state and calls handler
+
+This time around we already checked if the component was getting successfully rendered on the page, now all we had to do was check if click the submit button triggered the correct action
+
+To test this we used the userEvent module provided by react-testing-library
+
+All we had to do was call the setup function:
+https://github.com/wadedesir/notes-app/blob/3a93fc3bcdd5559d8a17ec374169f79dcd60cb86/frontend/__tests__/AddNote.test.js#L48
+
+Then grab the input and submit button from the page again and follow that up by emulating a keyboard input and button press for the form:
+https://github.com/wadedesir/notes-app/blob/3a93fc3bcdd5559d8a17ec374169f79dcd60cb86/frontend/__tests__/AddNote.test.js#L50-L54
+
+Finally we used expect() to assert that the createNote function was called and setNote was given the correct input values:
+https://github.com/wadedesir/notes-app/blob/3a93fc3bcdd5559d8a17ec374169f79dcd60cb86/frontend/__tests__/AddNote.test.js#L56-L57
 
 ### Component: Login
 #### Test
