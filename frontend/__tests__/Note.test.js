@@ -144,36 +144,6 @@ describe('Tests for Note Component', () => {
     // Ensure that the input field is not rendered
     expect(screen.queryByDisplayValue(noteProps.content)).toBeNull()
   })
-  
-  // it('displays input field when in editing mode', () => {
-  //   const { container } = render(<Note {...noteProps} />)
-    
-  //   // Hover over the note element to reveal its buttons
-  //   userEvent.hover(screen.getByText(noteProps.content).closest('div.relative'))
-    
-  //   // Click the edit button to enter editing mode
-  //   fireEvent.click(screen.getByText('✏️'))
-    
-  //   // Ensure that the input field is rendered
-  //   expect(screen.getByDisplayValue(noteProps.content)).toBeInTheDocument()
-  // })
-  
-  // it('updates input field on content change', () => {
-  //   const { container } = render(<Note {...noteProps} />)
-    
-  //   // Hover over the note element to reveal its buttons
-  //   userEvent.hover(screen.getByText(noteProps.content).closest('div.relative'))
-    
-  //   // Click the edit button to enter editing mode
-  //   fireEvent.click(screen.getByText('✏️'))
-  
-  //   // Change the note content in the input field
-  //   const input = screen.getByDisplayValue(noteProps.content)
-  //   fireEvent.change(input, { target: { value: 'Updated Content' } })
-    
-  //   // Ensure that changes to the input field are reflected
-  //   expect(screen.getByDisplayValue('Updated Content')).toBeInTheDocument()
-  // })
 
   it('applies styling for important notes', () => {
     const importantNoteProps = { ...noteProps, important: true }
