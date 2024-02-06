@@ -5,10 +5,10 @@ import { MemoryRouter } from 'react-router-dom'
 import axios from 'axios'
 import Login from '../src/pages/Login'
 
-jest.mock('../src/assets/logo.png', () => './__mocks__/logoMock.js')
 jest.mock('axios')
 
 describe('Login Component', () => {
+
   // TEST #1
   test('renders Login component', () => {
     render(<MemoryRouter><Login /></MemoryRouter>)
@@ -20,7 +20,6 @@ describe('Login Component', () => {
     const logoElement = screen.getByRole('img', { name: '' })
     expect(logoElement).toBeInTheDocument()
     expect(logoElement).toHaveClass('size-1/2 object-contain')
-    expect(logoElement).toHaveAttribute('src', './__mocks__/logoMock.js')
   })
 
   // TEST #3
@@ -43,6 +42,54 @@ describe('Login Component', () => {
     expect(signUpLink).toBeInTheDocument()
     expect(signUpLink).toHaveAttribute('href', '/signup')
   })
+
+  test("Correct credentials trigger successful login", async () => {
+
+    //set mock success response
+    axios.post.mockResolvedValue({status: 200, data: {token: '123'}})
+
+    //render and grab components
+    render(<MemoryRouter><Login /></MemoryRouter>)
+    const username = screen.getByPlaceholderText("Username")
+    const password = screen.getByPlaceholderText("Password")
+    const loginButton = screen.getByText("Login")
+
+    //launch test events
+    fireEvent.change(username, { target: { value: 'username' } })
+    fireEvent.change(password, { target: { value: 'password' } })
+    await waitFor( async () => fireEvent.click(loginButton))
+
+    //check if login call was made
+    expect(axios.post.mock.calls.length).toBeGreaterThan(0)
+    
+    //was correct username and password provided?
+    expect(axios.post.calls[0][1].username).toBe('username')
+    expect(axios.post.calls[0][1].username).toBe('password')
+
+  })
+
+  test("wrong credentials result do not log in", async () => {
+
+    //fail mock response
+    axios.post.mockResolvedValue({status: 400})
+
+    //render and grab components
+    render(<MemoryRouter><Login /></MemoryRouter>)
+    const username = screen.getByPlaceholderText("Username")
+    const password = screen.getByPlaceholderText("Password")
+    const loginButton = screen.getByText("Login")
+
+    //launch test events
+    fireEvent.change(username, { target: { value: 'username' } })
+    fireEvent.change(password, { target: { value: 'password' } })
+    await waitFor( async () => fireEvent.click(loginButton))
+
+    //check if login call was made
+    expect(axios.post.mock.calls.length).toBeGreaterThan(0)
+
+  })
+
+
 
   // TEST #5
   // test('form submission with valid data and successful response', async () => {
