@@ -47,6 +47,7 @@ https://github.com/wadedesir/notes-app/blob/4593e16b1d0a5b557bc0c70bf520bbf457ee
 https://github.com/wadedesir/notes-app/blob/4593e16b1d0a5b557bc0c70bf520bbf457eed42c/frontend/cypress/e2e/note_app.cy.js#L2-L12
 
 ### Integration Test Details
+Integration testing for the Notes App is done using jest
 
 ### 🗂 Frontend File Structure
 ```
