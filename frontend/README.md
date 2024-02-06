@@ -100,7 +100,7 @@ https://github.com/wadedesir/notes-app/blob/8a2b94eb8af7730bd972c8e6c4635fe0c17d
 
 #### Test #2: Calls authenticate function on click event
 Verifies that the authenticate function is called when the login button is clicked. This test simulates a user clicking the login button and checks if the authenticate function is invoked.
-https://github.com/wadedesir/notes-app/blob/8a2b94eb8af7730bd972c8e6c4635fe0c17d6489/frontend/__tests__/LoginForm.test.js#L59-L61
+https://github.com/wadedesir/notes-app/blob/8a2b94eb8af7730bd972c8e6c4635fe0c17d6489/frontend/__tests__/LoginForm.test.js#L56-L61
 
 #### Test #3: Calls setUsername with value from username input
 Ensures that the setUsername function is called with the correct value when there is a change in the "Username" input. This test simulates a user inputting a username and checks if the setUsername function is invoked with the correct value.
