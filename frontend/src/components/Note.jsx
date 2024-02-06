@@ -30,7 +30,7 @@ function Note({ id, date, content, important, editNote, deleteNote }) {
       <div className={`${important ? 'bg-cyan-600' : 'bg-slate-500'} aspect-h-1 aspect-w-1 w-68 h-32 overflow-hidden rounded-md  lg:aspect-none group-hover:opacity-75 p-5`}>
         {date}
         <br></br>
-        {(editing ? <input className="text-black font-bold border-0 outline-none" value={note} onChange={(e) => setNote(e.target.value)}/> : <strong>{content}</strong> )}
+        {(editing ? <input className="edit-input text-black font-bold border-0 outline-none" value={note} onChange={(e) => setNote(e.target.value)}/> : <strong>{content}</strong> )}
         {(editing && <div className="text-xl hover:cursor-pointer"><span onClick={() => setEditing(false)}>✖️</span> <span onClick={() => updateNote()}>✔️</span></div>)}
         
       </div>
