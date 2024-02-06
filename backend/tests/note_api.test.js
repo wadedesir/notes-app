@@ -232,11 +232,12 @@ describe('deletion of a note', () => {
   })
 })
 
+test('a valid user can be deleted', async () => {
+  await testServer
+    .delete(`/v1/users/${userId}`)
+    .expect(204)
+})
+
 afterAll(async () => {
-  test('a valid user can be deleted', async () => {
-    await testServer
-      .delete(`/v1/users/${userId}`)
-      .expect(204)
-  })
   await mongoose.connection.close()
 })

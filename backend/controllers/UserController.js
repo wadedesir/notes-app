@@ -102,6 +102,6 @@ export const updateUser = async (req, res) => {
 export const deleteUser = async (req, res) => {
   const { id } = req.params
 
-  await User.findByIdAndDelete(id)
-  res.status(204)
+  const deletedUser = await User.findByIdAndDelete(id)
+  res.status(204).json(deletedUser)
 }

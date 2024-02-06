@@ -69,41 +69,352 @@ To run linting tests locally:
 2. Install dependencies: `npm install`
 3. Run the frontend: `npm run lint`
 
-Note: You can run `npx eslint --fix .` while in the frontend directory to automatically fix some linting problems
+Note: You can run `npx eslint --fix .` while in the frontend directory to automatically fix any linting problems
 
 ## Unit and Integration Test Details
 
 ### Component: AddNote
-#### Test
-#### Test
+Testing the AddNote component was fairly straightforward. This was a simple unit test as it did not require working with any other components. There were only a couple things that needed to be tested:
+1.  Does it render sucessfully
+2. Does it call the correct functions and update states correctly
 
-### Component: Login
-#### Test
-#### Test
+Those were tested using two test cases respectively. 
+
+#### Component renders input and button
+To test if it rendered we had to do a test render with the react-testing-library render function like so:
+
+https://github.com/wadedesir/notes-app/blob/3a93fc3bcdd5559d8a17ec374169f79dcd60cb86/frontend/__tests__/AddNote.test.js#L17-L22
+
+This also involved creating mock functions to provide to setNote & createNote using jest.fn()
+
+https://github.com/wadedesir/notes-app/blob/3a93fc3bcdd5559d8a17ec374169f79dcd60cb86/frontend/__tests__/AddNote.test.js#L12-L13
+
+afterwards all that needed to be done was to:
+- grab the input field and submit button using the provided screen util
+- check that they actually existed on the page
+
+#### Component updates parent state and calls handler
+
+This time around we already checked if the component was getting successfully rendered on the page, now all we had to do was check if click the submit button triggered the correct action
+
+To test this we used the userEvent module provided by react-testing-library
+
+All we had to do was call the setup function:
+https://github.com/wadedesir/notes-app/blob/3a93fc3bcdd5559d8a17ec374169f79dcd60cb86/frontend/__tests__/AddNote.test.js#L48
+
+Then grab the input and submit button from the page again and follow that up by emulating a keyboard input and button press for the form:
+https://github.com/wadedesir/notes-app/blob/3a93fc3bcdd5559d8a17ec374169f79dcd60cb86/frontend/__tests__/AddNote.test.js#L50-L54
+
+Finally we used expect() to assert that the createNote function was called and setNote was given the correct input values:
+https://github.com/wadedesir/notes-app/blob/3a93fc3bcdd5559d8a17ec374169f79dcd60cb86/frontend/__tests__/AddNote.test.js#L56-L57
+
+### LoginForm Component
+#### Test #1: Renders LoginForm component
+Ensures that the LoginForm component renders inputs for "Username" and "Password" along with a login button.
+https://github.com/wadedesir/notes-app/blob/8a2b94eb8af7730bd972c8e6c4635fe0c17d6489/frontend/__tests__/LoginForm.test.js#L13-L34
+
+#### Test #2: Calls authenticate function on click event
+Verifies that the authenticate function is called when the login button is clicked.
+https://github.com/wadedesir/notes-app/blob/8a2b94eb8af7730bd972c8e6c4635fe0c17d6489/frontend/__tests__/LoginForm.test.js#L59-L64
+
+### Test #3: Calls setUsername with value from username input
+Ensures that the setUsername function is called with the correct value when there is a change in the "Username" input.
+https://github.com/wadedesir/notes-app/blob/8a2b94eb8af7730bd972c8e6c4635fe0c17d6489/frontend/__tests__/LoginForm.test.js#L66-L74
+
+### Test #4: Calls setPassword with value from password input
+Validates that the setPassword function is called with the correct value when there is a change in the "Password" input.
+https://github.com/wadedesir/notes-app/blob/8a2b94eb8af7730bd972c8e6c4635fe0c17d6489/frontend/__tests__/LoginForm.test.js#L76-L84
 
 ### Component: Note
-#### Test
-#### Test
+#### Test 1: `renders without crashing`
 
-### Component: SignUpForm
-#### Test
-#### Test
+- **Objective:**
+  - Ensure that the `Note` component renders without errors.
+  
+- **Steps:**
+  1. Render the `Note` component with the provided props.
+  2. Check if the content of the note is present on the screen.
+
+#### Test 2: `displays the date`
+
+- **Objective:**
+  - Confirm that the date associated with the note is displayed.
+  
+- **Steps:**
+  1. Render the `Note` component with the provided props.
+  2. Check if the date is present on the screen.
+
+#### Test 3: `displays edit, delete & pin buttons on mouse hover`
+
+- **Objective:**
+  - Verify that the edit, delete, and pin buttons are displayed when the user hovers over the note.
+  
+- **Steps:**
+  1. Render the `Note` component with the provided props.
+  2. Hover over the note element.
+  3. Check if the edit, delete, and pin buttons are rendered.
+
+#### Test 4: `hides edit, delete & pin buttons on mouse leave`
+
+- **Objective:**
+  - Confirm that the edit, delete, and pin buttons are hidden when the user stops hovering over the note.
+  
+- **Steps:**
+  1. Render the `Note` component with the provided props.
+  2. Hover over the note element.
+  3. Check if the edit, delete, and pin buttons are rendered.
+  4. Move the mouse away from the note element.
+  5. Check if the edit, delete, and pin buttons are hidden.
+
+#### Test 5: `displays modal elements when edit button is clicked`
+
+- **Objective:**
+  - Ensure that the modal elements are displayed when the user clicks the edit button.
+  
+- **Steps:**
+  1. Render the `Note` component with the provided props.
+  2. Hover over the note element.
+  3. Click the edit button.
+  4. Check if the modal elements (cancel and save buttons) are rendered.
+
+#### Test 6: `hides modal elements after clicking save button`
+
+- **Objective:**
+  - Confirm that the modal elements are hidden after the user clicks the save button.
+  
+- **Steps:**
+  1. Render the `Note` component with the provided props.
+  2. Hover over the note element.
+  3. Click the edit button.
+  4. Click the save button.
+  5. Check if the modal elements are no longer present on the screen.
+
+#### Test 7: `hides modal elements after clicking cancel button`
+
+- **Objective:**
+  - Confirm that the modal elements are hidden after the user clicks the cancel button.
+  
+- **Steps:**
+  1. Render the `Note` component with the provided props.
+  2. Hover over the note element.
+  3. Click the edit button.
+  4. Click the cancel button.
+  5. Check if the modal elements are no longer present on the screen.
+
+#### Test 8: `can be marked as important/unimportant via the 📌 toggle`
+
+- **Objective:**
+  - Confirm that the note can be marked as important or unimportant by toggling the 📌 button.
+  
+- **Steps:**
+  1. Render the `Note` component with the provided props.
+  2. Hover over the note element.
+  3. Click the 📌 toggle button.
+  4. Check if the mock `editNote` function is called with the correct parameters.
+
+#### Test 9: `can be deleted`
+
+- **Objective:**
+  - Confirm that the note can be deleted by clicking the delete button.
+  
+- **Steps:**
+  1. Render the `Note` component with the provided props.
+  2. Hover over the note element.
+  3. Click the delete button.
+  4. Check if the mock `deleteNote` function is called with the correct parameters.
+
+#### Test 10: `allows editing and updates data after clicking save button`
+
+- **Objective:**
+  - Confirm that the note allows editing, and the data is updated after clicking the save button.
+  
+- **Steps:**
+  1. Render the `Note` component with the provided props.
+  2. Hover over the note element.
+  3. Click the edit button.
+  4. Change the note content.
+  5. Click the save button.
+  6. Check if the mock `editNote` function is called with the updated content.
+
+#### Test 11: `displays content when not in editing mode`
+
+- **Objective:**
+  - Ensure that the content is displayed when the note is not in editing mode.
+  
+- **Steps:**
+  1. Render the `Note` component with the provided props.
+  2. Check if the content is displayed.
+  3. Check if the input field is not rendered.
+
+#### Test 12: `applies styling for important notes`
+
+- **Objective:**
+  - Confirm that styling for important notes is applied.
+  
+- **Steps:**
+  1. Render the `Note` component with the provided props (important: true).
+  2. Check if the styling for important notes is applied.
+
+
+### SignUp Form Component
+#### Test #1: Renders SignUpForm component
+Ensures that the SignUpForm component is rendered successfully by checking for the presence of input placeholders for "Username," "Password," and "Confirm password."
+https://github.com/wadedesir/notes-app/blob/3a93fc3bcdd5559d8a17ec374169f79dcd60cb86/frontend/__tests__/SignUpForm.test.js#L7-L12
+
+#### Test #2: Displays error message for mismatched passwords
+Verifies that the SignUpForm component displays an error message when the passwords provided do not match. The test simulates user input, triggering the error message to appear, and checks if it is rendered.
+https://github.com/wadedesir/notes-app/blob/3a93fc3bcdd5559d8a17ec374169f79dcd60cb86/frontend/__tests__/SignUpForm.test.js#L15-L30
+
+#### Test #3: Does not display error message when passwords match
+Ensures that the SignUpForm component does not display an error message when the provided passwords match. The test confirms that the error message disappears when passwords are identical.
+https://github.com/wadedesir/notes-app/blob/3a93fc3bcdd5559d8a17ec374169f79dcd60cb86/frontend/__tests__/SignUpForm.test.js#L33-L50
+
+#### Test #4: Calls authenticate function when passwords match and button is clicked
+Verifies that the SignUpForm component calls the authenticate function when the passwords match, and the submit button is clicked. The test uses a mock authenticate function and checks if it is called exactly once.
+https://github.com/wadedesir/notes-app/blob/3a93fc3bcdd5559d8a17ec374169f79dcd60cb86/frontend/__tests__/SignUpForm.test.js#L53-L75
+
+### Test #5: Does not call authenticate if passwords do not match
+Ensures that the SignUpForm component does not call the authenticate function if the passwords do not match. The test sets up a scenario where passwords mismatch, clicks the submit button, and checks that the authenticate function is not called.
+https://github.com/wadedesir/notes-app/blob/3a93fc3bcdd5559d8a17ec374169f79dcd60cb86/frontend/__tests__/SignUpForm.test.js#L77-L96
 
 ### Page: Home
-#### Test
-#### Test
+#### `beforeEach` and `afterEach` Setup
 
-### Page: Login
-#### Test
-#### Test
+- **Mocking Axios:**
+  - Mocks GET, POST, DELETE, and PUT requests with specific responses for testing scenarios.
+  - Resets mocks between tests to ensure isolation.
 
-### Page: SignUp page
-#### Test
-#### Test
+#### Test 1: `All components render`
+
+- **Objective:**
+  - Ensure that all required components (logo, note input, and add button) render correctly on the `Home` page.
+  
+- **Steps:**
+  1. Wait for component states to update.
+  2. Render the `Home` page.
+  3. Verify the presence of the logo, note input, and add button.
+
+#### Test 2: `Notes should be rendered on load`
+
+- **Objective:**
+  - Confirm that notes are rendered on the page after the component loads.
+  
+- **Steps:**
+  1. Wait for component states to update.
+  2. Render the `Home` page.
+  3. Query all rendered notes.
+  4. Verify that Axios GET request is called.
+  5. Ensure at least one note is rendered on the page.
+
+#### Test 3: `Submitting form sends correct request to backend`
+
+- **Objective:**
+  - Ensure that submitting the form sends the correct POST request to the backend with the provided data.
+  
+- **Steps:**
+  1. Wait for component states to update.
+  2. Render the `Home` page.
+  3. Simulate user input and click on the add button.
+  4. Verify that the Axios POST request is called.
+  5. Check if the correct data is submitted.
+  6. Ensure the note input is reset.
+
+#### Test 4: `Empty note doesn't create a new note`
+
+- **Objective:**
+  - Confirm that submitting an empty note does not trigger a POST request.
+  
+- **Steps:**
+  1. Wait for component states to update.
+  2. Render the `Home` page.
+  3. Click on the add button without entering any text.
+  4. Verify that Axios POST request is not called.
+  5. Ensure the note input remains empty.
+
+#### Test 5: `Deleting note should remove note from page`
+
+- **Objective:**
+  - Ensure that deleting a note removes it from the page.
+  
+- **Steps:**
+  1. Wait for component states to update.
+  2. Render the `Home` page.
+  3. Mouse over the note, reveal delete button, and click it.
+  4. Verify that Axios DELETE request is called.
+  5. Ensure the note is removed from the page.
+
+#### Test 6: `Editing changes contents of note`
+
+- **Objective:**
+  - Confirm that editing a note changes its content.
+  
+- **Steps:**
+  1. Wait for component states to update.
+  2. Render the `Home` page.
+  3. Mouse over the note, reveal edit button, and click it.
+  4. Input new text and submit the edited note.
+  5. Verify that Axios PUT request is called.
+  6. Ensure the old note is no longer displayed.
+  7. Check if the new note content is displayed on the page.
+
+### Login Page
+#### Test #1: Renders Login component
+Verifies that the Login component is rendered successfully.
+https://github.com/wadedesir/notes-app/blob/a14b8cd7519d57ebd33cd54b5380679df39ebda7/frontend/__tests__/Login.test.js#L13-L15
+
+#### Test #2: Renders Login component with logo
+Ensures that the Login component displays the logo with the correct styling by checking for the presence of the logo and confirming it has the expected class names.
+https://github.com/wadedesir/notes-app/blob/a14b8cd7519d57ebd33cd54b5380679df39ebda7/frontend/__tests__/Login.test.js#L18-L23
+
+#### Test #3: Renders login form with input fields
+Validates that the login form within the Login component renders input fields for "Username" and "Password," along with a login button.
+https://github.com/wadedesir/notes-app/blob/a14b8cd7519d57ebd33cd54b5380679df39ebda7/frontend/__tests__/Login.test.js#L26-L35
+
+#### Test #4: Renders link to sign up page
+Ensures that the Login component renders a link to the sign-up page.
+https://github.com/wadedesir/notes-app/blob/a14b8cd7519d57ebd33cd54b5380679df39ebda7/frontend/__tests__/Login.test.js#L38-L44
+
+#### Test #5: Correct credentials trigger successful login
+Tests the Login component's response to correct credentials, triggering a successful login. This test simulates user input, mocks a successful response from the server, and checks if the login call was made with the correct credentials.
+https://github.com/wadedesir/notes-app/blob/a14b8cd7519d57ebd33cd54b5380679df39ebda7/frontend/__tests__/Login.test.js#L46-L69
+
+#### Test #6: Wrong credentials result do not log in
+Verifies that incorrect credentials do not lead to a successful login. This test simulates user input, mocks a failed response from the server, and checks if the login call was made.
+https://github.com/wadedesir/notes-app/blob/a14b8cd7519d57ebd33cd54b5380679df39ebda7/frontend/__tests__/Login.test.js#L71-L90
+
+### SignUp Page
+#### Test #1: Renders SignUp component
+Ensures that the SignUp component is rendered successfully by checking for the presence of the "Already have an account?" text.
+https://github.com/wadedesir/notes-app/blob/3a93fc3bcdd5559d8a17ec374169f79dcd60cb86/frontend/__tests__/SignUp.test.js#L9-L14
+
+#### Test #2: Renders SignUp component with logo
+Ensures that the SignUp component displays the logo with the correct styling by checking for the presence of the logo and confirming it has the expected class names.
+https://github.com/wadedesir/notes-app/blob/3a93fc3bcdd5559d8a17ec374169f79dcd60cb86/frontend/__tests__/SignUp.test.js#L17-L22
+
+#### Test #3: Form submission with valid data and successful response
+Ensures that the SignUp component handles form submission correctly with valid data and responds appropriately. This test simulates user input, triggers a form submission, and mocks a successful response from the server. It checks if the navigation to the login page is triggered after a successful signup.
+https://github.com/wadedesir/notes-app/blob/3a93fc3bcdd5559d8a17ec374169f79dcd60cb86/frontend/__tests__/SignUp.test.js#L25-L48
+
+#### Test #4: Wrong credentials result in failure
+Ensures that the SignUp component handles incorrect credentials properly. This test simulates user input with incorrect credentials, triggers a form submission, and mocks a response from the server indicating a failure (status code 400). The test checks if the axios.post method was called, indicating that a login attempt was made with wrong credentials.
+https://github.com/wadedesir/notes-app/blob/3a93fc3bcdd5559d8a17ec374169f79dcd60cb86/frontend/__tests__/SignUp.test.js#L50-L71
 
 ### App
-#### Test
-#### Test
+#### Renders login page on launch
+This test ensures that the App component correctly renders the login page with the expected elements. It uses the React Testing Library and Jest for assertions.
+
+1. Waiting for component states to update:
+https://github.com/wadedesir/notes-app/blob/3a93fc3bcdd5559d8a17ec374169f79dcd60cb86/frontend/__tests__/App.test.js#L10-L12
+The waitFor function is used to wait for asynchronous updates in the component states before rendering.
+
+2. Asserting the presence of elements:
+https://github.com/wadedesir/notes-app/blob/3a93fc3bcdd5559d8a17ec374169f79dcd60cb86/frontend/__tests__/App.test.js#L13-L22
+
+- `getByRole`: Finds an element by its role attribute.
+- `getByPlaceholderText`: Finds an input element by its placeholder text.
+- `findByText`: Finds an element with the specified text, waiting for it to appear asynchronously.
+
+The test ensures that the login page contains the logo, username input field, password input field, and a login button.
 
 ## 🔚 End To End Test Details
 End-to-end testing for the Notes App is conducted using Cypress, a modern testing framework for web applications. 

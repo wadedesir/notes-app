@@ -74,6 +74,7 @@ describe('SignUpForm component', () => {
     expect(mockAuthenticate).toHaveBeenCalledTimes(1)
   })
 
+  // TEST #5
   test('does not call authenticate if passwords do not match', () => {
     const mockAuthenticate = jest.fn()
 

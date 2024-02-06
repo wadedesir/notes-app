@@ -71,7 +71,7 @@ https://github.com/wadedesir/notes-app/blob/7400dcdd46191c5fa9beed56bdefef9eb9d9
 #### DELETE USER TEST /v1/users/${userId} (Delete a user)
 After all our tests are done running, we delete the user we used for our tests.
 
-https://github.com/wadedesir/notes-app/blob/da9820c45348238941af9a44a88a6e4f61461024/backend/tests/note_api.test.js#L235-L240
+https://github.com/wadedesir/notes-app/blob/da9820c45348238941af9a44a88a6e4f61461024/backend/tests/note_api.test.js#L235-L239
 
 #### GET NOTE TEST /v1/notes/ (Get all notes)
 When we're logged in we should be able to get back all the notes. We hit the `/v1/notes` end point and check that it gives up back 200.
@@ -98,8 +98,6 @@ In this test we first check to make sure we cant log in with bad credentials. We
 After making sure we cant log in with bad creds, we use the correct information to log in. We post to the same endpoint & check to see if it's response is 200, then we set the user token & user id to variables.
 
 https://github.com/wadedesir/notes-app/blob/da9820c45348238941af9a44a88a6e4f61461024/backend/tests/note_api.test.js#L49-L76
-
-NEED MORE DOCUMENTATION HERE
 
 
 # Implementation Overview
@@ -555,7 +553,7 @@ The following outlines the various responses from the API.
 }
 ```
 
-### Unit Test Details
+## Unit Test Details
 The unit tests for the both the notes and user apis are found in the `backend/test/note_api_.test.js`, `backend/test/user_api_.test.js`, and `backend/test/getTokenFrom.js`. This suite will test the application logic of the API to make sure it has the correct behavior & make sure we're getting the data we expect.
 
 ### Unit Test Implementation Special Case

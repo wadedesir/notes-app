@@ -14,6 +14,10 @@ The frontend of the Notes App is built with React, Vite.js, and Tailwind CSS. It
 The backend of the Notes App is powered by Node.js, Express.js, Mongoose, and Docker. It provides a robust API for managing notes, handling user authentication, and interacting with a MongoDB database. The backend follows a modular architecture with routes, controllers, models, and utilities for different aspects of the application logic.
 
 ## 🧪 Testing
+![Frontend Tests](frontend/src//assets//tests.png)
+![Backend Tests](frontend/src//assets//backend.png)
+
+
 A key objective of this project was learning and implementing tests. The READMEs for both the frontend and backend provide detailed insights into the testing strategies and methodologies. In this project we are utilizing Jest on both the frontend and backend for testing React, and Node.js (ES6).
 
 - **Unit Test**: Tests that cover isolated modules or "units" of code without depending on outside modules. Typically, these test individual functions or branches of code.
