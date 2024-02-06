@@ -67,6 +67,7 @@ describe('when logged out', () => {
       username: testUserName
     }
 
+    console.log(`my ID ${userId}`)
     const res = await testServer
       .post('/v1/login')
       .send(loginInfo)
