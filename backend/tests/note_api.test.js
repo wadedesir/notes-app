@@ -64,7 +64,7 @@ describe('when logged out', () => {
       .expect('Content-Type', /application\/json/)
   })
 
-// lets try logging in with good info. we should get back a 200 and a token + ID
+  // lets try logging in with good info. we should get back a 200 and a token + ID
   test('logging in with correct info is possible', async () => {
     const loginInfo = {
       password: testUserPass,
@@ -81,6 +81,7 @@ describe('when logged out', () => {
   })
 })
 
+// check that a user can be updated
 describe('when logged in', () => {
   test('a valid user can be updated', async () => {
     const newUserData = {
