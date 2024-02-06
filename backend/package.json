@@ -43,6 +43,9 @@
     "testEnvironment": "node",
     "globalTeardown": "./tests/teardown.js",
     "setupFiles": ["./tests/setup.js"],
-    "transform": {}
+    "transform": {},
+    "coveragePathIgnorePatterns": [
+      "./util/for_Testing.js", "./routes/TestRouter.js"
+    ]
   }
 }
