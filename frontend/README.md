@@ -133,8 +133,21 @@ https://github.com/wadedesir/notes-app/blob/3a93fc3bcdd5559d8a17ec374169f79dcd60
 #### Test
 
 ### App
-#### Test
-#### Test
+#### Renders login page on launch
+This test ensures that the App component correctly renders the login page with the expected elements. It uses the React Testing Library and Jest for assertions.
+
+1. Waiting for component states to update:
+https://github.com/wadedesir/notes-app/blob/3a93fc3bcdd5559d8a17ec374169f79dcd60cb86/frontend/__tests__/App.test.js#L10-L12
+The waitFor function is used to wait for asynchronous updates in the component states before rendering.
+
+2. Asserting the presence of elements:
+https://github.com/wadedesir/notes-app/blob/3a93fc3bcdd5559d8a17ec374169f79dcd60cb86/frontend/__tests__/App.test.js#L13-L22
+
+- `getByRole`: Finds an element by its role attribute.
+- `getByPlaceholderText`: Finds an input element by its placeholder text.
+- `findByText`: Finds an element with the specified text, waiting for it to appear asynchronously.
+
+The test ensures that the login page contains the logo, username input field, password input field, and a login button.
 
 ## 🔚 End To End Test Details
 End-to-end testing for the Notes App is conducted using Cypress, a modern testing framework for web applications. 
