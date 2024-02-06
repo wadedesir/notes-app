@@ -3,6 +3,13 @@
 ## 👋 Introduction
 Welcome to the [**Notes App**](http://18.116.34.64:8420/) Frontend. Powered by React, Vite.js, and Tailwind CSS, the frontend provides a user-friendly interface for managing notes & interacting with the Notes API. The components are designed for simplicity and ease of use, offering features such as adding, editing, and deleting notes, as well as user authentication with login and signup forms.
 
+## 🚀 Getting Started 
+1. Clone the repository: `git clone https://github.com/wadedesir/notes-app.git`
+2. Navigate to the frontend directory: `cd frontend`
+3. Install dependencies: `npm install`
+4. Run the frontend: `npm run dev`
+5. Open your browser and visit http://localhost:5173 to access the application.
+
 ## 🗂️ Frontend File Structure
 ```
 ├── components          
@@ -45,13 +52,6 @@ The SignUp page includes a signup form for users to create a new account. It als
 ## 💻 App
 The App component sets up the routing for the application using react-router-dom. It includes routes for the home page, login, and signup pages.
 
-## 🚀 Getting Started 
-1. Clone the repository: `git clone https://github.com/wadedesir/notes-app.git`
-2. Navigate to the frontend directory: `cd frontend`
-3. Install dependencies: `npm install`
-4. Run the frontend: `npm run dev`
-5. Open your browser and visit http://localhost:5173 to access the application.
-
 <br>
 <br>
 <hr style="border: 5px solid black">
@@ -59,15 +59,14 @@ The App component sets up the routing for the application using react-router-dom
 <br>
 
 # 🧪 Testing & Linting
-Whenever a new PR is made, tests are run automatically through GitHub Actions (check out the .github/workflows folder at the root of the repo).
+Whenever a new PR is made, tests located in `/frontend/__tests__` are run automatically through GitHub Actions (check out the .github/workflows folder at the root of the repo).
 
 ## 💅 Code Style & Linting Details
 The frontend codebase uses eslint to enforce good code style & perform static code analysis. The code style in use is the 'standard' preset with no extra rules.
 
 To run linting tests locally:
 1. Navigate to the frontend directory: `cd frontend`
-2. Install dependencies: `npm install`
-3. Run the frontend: `npm run lint`
+2. Run linting: `npm run lint`
 
 Note: You can run `npx eslint --fix .` while in the frontend directory to automatically fix any linting problems.
 
