@@ -178,7 +178,7 @@ https://github.com/wadedesir/notes-app/blob/3a93fc3bcdd5559d8a17ec374169f79dcd60
 
 #### Test #5: Does not call authenticate if passwords do not match
 Ensures that the SignUpForm component does not call the authenticate function if the passwords do not match. The test sets up a scenario where passwords mismatch, clicks the submit button, and checks that the authenticate function is not called.
-https://github.com/wadedesir/notes-app/blob/3a93fc3bcdd5559d8a17ec374169f79dcd60cb86/frontend/__tests__/SignUpForm.test.js#L78-L97
+https://github.com/wadedesir/notes-app/blob/3a93fc3bcdd5559d8a17ec374169f79dcd60cb86/frontend/__tests__/SignUpForm.test.js#L77-L96
 
 ### 👉 Home Page
 #### Test #1: All components render
