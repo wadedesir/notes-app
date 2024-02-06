@@ -98,6 +98,29 @@ describe("Tests for Home Page", () => {
         expect(noteInput.value).toBe('')
     })
 
+    test("empty note doesn't create a new note", async () => {
+               
+        let component
+
+        await waitFor( async () => { //waits for component states to update
+            component = render(<Home />) //renders page
+        })
+
+        //grab inputs
+        const noteInput = screen.getByPlaceholderText("I need to remember...")
+        const addButton = screen.getByText("Add")
+
+        //launches test event
+        fireEvent.click(addButton)
+
+        //checks if Post request was sent & correct data was submitted
+        await waitFor(() => expect(axios.post).toHaveBeenCalledTimes(0))
+        expect(axios.post.mock.calls.length).toBe(0)
+
+        //note input should be empty still
+        expect(noteInput.value).toBe('')
+    })
+
     test("deleting note should remove note from page", async () => {
         let component
 
