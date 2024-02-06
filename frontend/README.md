@@ -69,11 +69,26 @@ To run linting tests locally:
 2. Install dependencies: `npm install`
 3. Run the frontend: `npm run lint`
 
-Note: You can run `npx eslint --fix .` while in the frontend directory to automatically fix some linting problems
+Note: You can run `npx eslint --fix .` while in the frontend directory to automatically fix any linting problems
 
 ## Unit and Integration Test Details
 
 ### Component: AddNote
+Testing the AddNote component was fairly straightforward. This was a simple unit test as it did not require working with any other components. There were only a couple things that needed to be tested:
+- Does it render sucessfully
+- Does it call the correct functions and update states correctly
+
+Those were tested using two test cases respectively. 
+
+To test if it rendered we had to do a test render with the react-testing-library render function like so:
+
+https://github.com/wadedesir/notes-app/blob/main/frontend/__tests__/AddNote.test.js#L17-L22
+
+This also involved creating mock functions to provide to setNote & createNote using jest.fn()
+
+https://github.com/wadedesir/notes-app/blob/main/frontend/__tests__/AddNote.test.js#L12-L13
+
+
 #### Test
 #### Test
 
