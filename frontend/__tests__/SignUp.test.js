@@ -47,6 +47,7 @@ describe('SignUp Component', () => {
     expect(loginLink).toHaveAttribute('href', '/login')
   })
 
+  // TEST #4
   test("wrong credentials result in failure", async () => {
 
     axios.post.mockResolvedValueOnce({ status: 400 })
