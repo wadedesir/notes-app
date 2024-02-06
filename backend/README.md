@@ -554,3 +554,10 @@ The following outlines the various responses from the API.
   "token": "string"
 }
 ```
+### Unit Test Details
+The unit tests for the both the notes and user apis are found in the `backend/test/note_api_.test.js`, `backend/test/user_api_.test.js`, and `backend/test/getTokenFrom.js`. This suite will test the application logic of the API to make sure it has the correct behavior & make sure we're getting the data we expect.
+
+### Unit Test Implementation Special Case
+The unit tests in `user_api_.test.js` test the `findUserById` api. You may notice these tests look different than the others. 
+
+This suite includes an experiemental mocking module from Jest that tests ECMAScript Modules. ESM evaluates static `import` statements before looking at code therefore the hoisting of `jest.mock` calls that happen in CJS won't work for ESM. 
