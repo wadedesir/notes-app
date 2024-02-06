@@ -46,4 +46,27 @@ describe('SignUp Component', () => {
     const loginLink = screen.getByText(/Already have an account?/).closest('p').querySelector('a')
     expect(loginLink).toHaveAttribute('href', '/login')
   })
+
+  test("wrong credentials result in failure", async () => {
+
+    axios.post.mockResolvedValueOnce({ status: 400 })
+
+    render(<MemoryRouter><SignUp /></MemoryRouter>)
+
+    // Simulate user input
+    const usernameInput = screen.getByPlaceholderText('Username')
+    const passwordInput = screen.getByPlaceholderText('Password')
+    const confirmPasswordInput = screen.getByPlaceholderText('Confirm password')
+
+    fireEvent.change(usernameInput, { target: { value: 'username' } })
+    fireEvent.change(passwordInput, { target: { value: 'password' } })
+    fireEvent.change(confirmPasswordInput, { target: { value: 'password' } })
+
+    // Simulate form submission
+    fireEvent.click(screen.getByRole('button', { name: 'Sign Up' }))
+
+    //check if login call was made
+    expect(axios.post.mock.calls.length).toBeGreaterThan(0)
+
+  })
 })

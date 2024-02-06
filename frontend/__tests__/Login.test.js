@@ -61,10 +61,10 @@ describe('Login Component', () => {
 
     //check if login call was made
     expect(axios.post.mock.calls.length).toBeGreaterThan(0)
-    
+
     //was correct username and password provided?
-    expect(axios.post.calls[0][1].username).toBe('username')
-    expect(axios.post.calls[0][1].username).toBe('password')
+    expect(axios.post.mock.calls[0][1].username).toBe('username')
+    expect(axios.post.mock.calls[0][1].password).toBe('password')
 
   })
 
