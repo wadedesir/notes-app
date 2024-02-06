@@ -11,7 +11,7 @@ let token = ''
 let userId = ''
 
 const testName = 'Test Dummy'
-const testUserName = 'test_dummy420'
+const testUserName = 'test_dummy325'
 const testUserPass = 'testing123'
 
 beforeAll(async () => {
@@ -71,7 +71,6 @@ describe('when logged out', () => {
       username: testUserName
     }
 
-    console.log(`my ID ${userId}`)
     const res = await testServer
       .post('/v1/login')
       .send(loginInfo)
@@ -86,7 +85,8 @@ describe('when logged out', () => {
 describe('when logged in', () => {
   test('a valid user can be updated', async () => {
     const newUserData = {
-      name: 'new new'
+      name: 'Test Dumay',
+      password: 'testing123'
     }
 
     await testServer
@@ -233,5 +233,10 @@ describe('deletion of a note', () => {
 })
 
 afterAll(async () => {
+  test('a valid user can be deleted', async () => {
+    await testServer
+      .delete(`/v1/users/${userId}`)
+      .expect(204)
+  })
   await mongoose.connection.close()
 })

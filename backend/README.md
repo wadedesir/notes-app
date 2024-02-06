@@ -63,6 +63,15 @@ When no users are added, we test that we can actually create a user. We create a
 
 https://github.com/wadedesir/notes-app/blob/da9820c45348238941af9a44a88a6e4f61461024/backend/tests/note_api.test.js#L37-L47
 
+#### PUT USER TEST /v1/users/${userId} (Update a user)
+When a user has been added, we test that we can use the. We use the HTTP PUT method to update the users data. 
+
+https://github.com/wadedesir/notes-app/blob/7400dcdd46191c5fa9beed56bdefef9eb9d9e799/backend/tests/note_api.test.js#L86-L96
+
+#### DELETE USER TEST /v1/users/${userId} (Delete a user)
+After all our tests are done running, we delete the user we used for our tests.
+
+https://github.com/wadedesir/notes-app/blob/da9820c45348238941af9a44a88a6e4f61461024/backend/tests/note_api.test.js#L235-L240
 
 #### GET NOTE TEST /v1/notes/ (Get all notes)
 When we're logged in we should be able to get back all the notes. We hit the `/v1/notes` end point and check that it gives up back 200.
