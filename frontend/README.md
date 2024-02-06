@@ -113,8 +113,135 @@ https://github.com/wadedesir/notes-app/blob/3a93fc3bcdd5559d8a17ec374169f79dcd60
 #### Test
 
 ### Component: Note
-#### Test
-#### Test
+#### Test 1: `renders without crashing`
+
+- **Objective:**
+  - Ensure that the `Note` component renders without errors.
+  
+- **Steps:**
+  1. Render the `Note` component with the provided props.
+  2. Check if the content of the note is present on the screen.
+
+#### Test 2: `displays the date`
+
+- **Objective:**
+  - Confirm that the date associated with the note is displayed.
+  
+- **Steps:**
+  1. Render the `Note` component with the provided props.
+  2. Check if the date is present on the screen.
+
+#### Test 3: `displays edit, delete & pin buttons on mouse hover`
+
+- **Objective:**
+  - Verify that the edit, delete, and pin buttons are displayed when the user hovers over the note.
+  
+- **Steps:**
+  1. Render the `Note` component with the provided props.
+  2. Hover over the note element.
+  3. Check if the edit, delete, and pin buttons are rendered.
+
+#### Test 4: `hides edit, delete & pin buttons on mouse leave`
+
+- **Objective:**
+  - Confirm that the edit, delete, and pin buttons are hidden when the user stops hovering over the note.
+  
+- **Steps:**
+  1. Render the `Note` component with the provided props.
+  2. Hover over the note element.
+  3. Check if the edit, delete, and pin buttons are rendered.
+  4. Move the mouse away from the note element.
+  5. Check if the edit, delete, and pin buttons are hidden.
+
+#### Test 5: `displays modal elements when edit button is clicked`
+
+- **Objective:**
+  - Ensure that the modal elements are displayed when the user clicks the edit button.
+  
+- **Steps:**
+  1. Render the `Note` component with the provided props.
+  2. Hover over the note element.
+  3. Click the edit button.
+  4. Check if the modal elements (cancel and save buttons) are rendered.
+
+#### Test 6: `hides modal elements after clicking save button`
+
+- **Objective:**
+  - Confirm that the modal elements are hidden after the user clicks the save button.
+  
+- **Steps:**
+  1. Render the `Note` component with the provided props.
+  2. Hover over the note element.
+  3. Click the edit button.
+  4. Click the save button.
+  5. Check if the modal elements are no longer present on the screen.
+
+#### Test 7: `hides modal elements after clicking cancel button`
+
+- **Objective:**
+  - Confirm that the modal elements are hidden after the user clicks the cancel button.
+  
+- **Steps:**
+  1. Render the `Note` component with the provided props.
+  2. Hover over the note element.
+  3. Click the edit button.
+  4. Click the cancel button.
+  5. Check if the modal elements are no longer present on the screen.
+
+#### Test 8: `can be marked as important/unimportant via the 📌 toggle`
+
+- **Objective:**
+  - Confirm that the note can be marked as important or unimportant by toggling the 📌 button.
+  
+- **Steps:**
+  1. Render the `Note` component with the provided props.
+  2. Hover over the note element.
+  3. Click the 📌 toggle button.
+  4. Check if the mock `editNote` function is called with the correct parameters.
+
+#### Test 9: `can be deleted`
+
+- **Objective:**
+  - Confirm that the note can be deleted by clicking the delete button.
+  
+- **Steps:**
+  1. Render the `Note` component with the provided props.
+  2. Hover over the note element.
+  3. Click the delete button.
+  4. Check if the mock `deleteNote` function is called with the correct parameters.
+
+#### Test 10: `allows editing and updates data after clicking save button`
+
+- **Objective:**
+  - Confirm that the note allows editing, and the data is updated after clicking the save button.
+  
+- **Steps:**
+  1. Render the `Note` component with the provided props.
+  2. Hover over the note element.
+  3. Click the edit button.
+  4. Change the note content.
+  5. Click the save button.
+  6. Check if the mock `editNote` function is called with the updated content.
+
+#### Test 11: `displays content when not in editing mode`
+
+- **Objective:**
+  - Ensure that the content is displayed when the note is not in editing mode.
+  
+- **Steps:**
+  1. Render the `Note` component with the provided props.
+  2. Check if the content is displayed.
+  3. Check if the input field is not rendered.
+
+#### Test 12: `applies styling for important notes`
+
+- **Objective:**
+  - Confirm that styling for important notes is applied.
+  
+- **Steps:**
+  1. Render the `Note` component with the provided props (important: true).
+  2. Check if the styling for important notes is applied.
+
 
 ### Component: SignUpForm
 #### Test
