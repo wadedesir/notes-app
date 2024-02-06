@@ -49,12 +49,4 @@ describe('Notes App', function() {
       })
     })
   })
-
-  // it('login fails with wrong password', function() {
-  //   cy.get('input:first').type('test_user')
-  //   cy.get('input:last').type('test_ass_word')
-  //   cy.contains('Login').click()
-
-  //   // We dont have an error message yet 🥲
-  // })
 })
