@@ -19,6 +19,6 @@ jobs:
         working-directory: ./frontend
         run: npm run lint
       - name: tests
-        working-directory: ./backend
+        working-directory: ./frontend
         run: npm run test
 

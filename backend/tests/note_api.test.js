@@ -19,6 +19,7 @@ beforeAll(async () => {
   await User.deleteMany({})
 })
 
+// add a new test user. this is starting with a fresh DB
 describe('when there are no initial users', () => {
   test('a valid user can be added', async () => {
     const newUser = {
@@ -35,6 +36,7 @@ describe('when there are no initial users', () => {
   })
 })
 
+// check that the user we added comes back when we get all users
 describe('when there are some initial users', () => {
   test('users are returned as json', async () => {
     const res = await testServer
@@ -47,6 +49,7 @@ describe('when there are some initial users', () => {
   }, 100000)
 })
 
+// lets try logging in with bad info. we should get back a 401 response
 describe('when logged out', () => {
   test('logging in with bad info is not possible', async () => {
     const loginInfo = {
@@ -61,6 +64,7 @@ describe('when logged out', () => {
       .expect('Content-Type', /application\/json/)
   })
 
+  // lets try logging in with good info. we should get back a 200 and a token + ID
   test('logging in with correct info is possible', async () => {
     const loginInfo = {
       password: testUserPass,
@@ -78,6 +82,7 @@ describe('when logged out', () => {
   })
 })
 
+// check that a user can be updated
 describe('when logged in', () => {
   test('a valid user can be updated', async () => {
     const newUserData = {
