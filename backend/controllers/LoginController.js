@@ -39,6 +39,7 @@ export const createNewLogin = async (req, res) => {
     { expiresIn: 60 * 60 }
   )
 
+  console.log(`the user id ${user._id}`)
   res.status(200).json({
     id: user._id,
     token,

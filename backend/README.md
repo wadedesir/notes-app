@@ -22,24 +22,28 @@ For an overview on the architecture, check out the [Implementation Overview Sect
 ### If you have Docker installed:
 1. Navigate to the backend directory: `cd backend`
 2. Run the backend: `docker compose up`
+3. Your API is now running at http://localhost:8420
 
-#### Your API is now running at http://localhost:8420.
 
 # 🧪 Testing & Linting
-Whenever a new PR is made, tests are run automatically through GitHub Actions (check out the .github/workflows folder at the root of the repo). Otherwise, running unit tests and linting the project manually is pretty straightforward.
+The backend api is using `eslint` to enforce good code style & do static code analysis. The code style in use is the 'standard' preset with no extra rules.
+Whenever a new PR is made, the tests located in `/backend/tests` are run automatically through GitHub Actions (check out the .github/workflows folder at the root of the repo). 
 
-1. If you don't have Docker installed, run `npm run lint` to lint & `npm run test` to test.
-2. If you have Docker installed, run `docker compose run api npm run lint` to lint & `docker compose run api npm run test` to test.
+To run unit / integration tests and lint the project manually
+1. Run npm run lint . to run linting
+1. If you don't have Docker installed, `npm run test` to run jest tests.
+2. If you have Docker installed, run `docker compose run api npm run test` to run jest tests.
+
+Note: if you want to automatically fix what you can run `npx eslint --fix .` while in the root of the backend
 
 ### Integration Test Details
 The integration test for the notes api is handled through `backend/test/note_api.test.js`. This suite will test the application logic of the API to make sure it has the correct behavior & make sure we're getting the data we expect.
 
 
-We're using [super test](https://github.com/visionmedia/supertest) for the backend API testing. The test imports the express app from the main module (index.js) and wraps it with the supertest function into a so-called superagent object. We use this 'superagent object' to make our test API requests.
+We're using [super test](https://github.com/visionmedia/supertest) for the backend API testing. The test imports the express app from the main module (index.js) and wraps it with the supertest function into a so-called superagent object. We use this superagent object to make our test API requests.
 
 ### Integration Test Setup & Config
-We define some `setup` & `teardown` logic for jest in [setup.js](https://github.com/wadedesir/notes-app/blob/main/backend/tests/setup.js) & [teardown.js](https://github.com/wadedesir/notes-app/blob/main/backend/tests/teardown.js). All we're doing in here is making jest a global variable in the `setup`, and making sure our process ends with exit code 0 which tells the 'shell' running our test command that everything went fine
-
+We define some setup & teardown logic for jest in [setup.js](https://github.com/wadedesir/notes-app/blob/main/backend/tests/setup.js) & [teardown.js](https://github.com/wadedesir/notes-app/blob/main/backend/tests/teardown.js). What we're doing here is making jest a global variable in `setup.js`, and making sure our process ends with exit code 0 in `teardown.js` which tells the 'shell' running our test command that everything went fine.
 
 We're using the User & Note model in a top level `beforeAll` function to wipe the User & Note collection data so we're not relying on the databases previous state (which could introduce false positives & other issues to our tests). This `beforeAll` logic will run once before all the other tests in this file.
 
@@ -50,7 +54,7 @@ https://github.com/wadedesir/notes-app/blob/da9820c45348238941af9a44a88a6e4f6146
 #### GET USER TEST /v1/users/ (Get all users)
 a GET request to `/v1/users/` should return all the users, so when there are some initial users ( after we POST a test user ), we should be able to see them when we hit the `/v1/users/` endpoint with a GET request.
 
-All we're doing here is hitting the `/v1/users/` endpoint and mapping the returned object array into a new object array that just has the name for each object. Then we step through that array with jest `expects(contents).toContain(testUserName)` to make sure it contains the user name for the test user we just created.
+What we're doing here is hitting the `/v1/users/` endpoint and mapping the returned object array into a new object array that just has the name for each object. Then we step through that array with jest `expects(contents).toContain(testUserName)` to make sure it contains the user name for the test user we just created.
 
 https://github.com/wadedesir/notes-app/blob/da9820c45348238941af9a44a88a6e4f61461024/backend/tests/note_api.test.js#L21-L35
 
@@ -59,6 +63,15 @@ When no users are added, we test that we can actually create a user. We create a
 
 https://github.com/wadedesir/notes-app/blob/da9820c45348238941af9a44a88a6e4f61461024/backend/tests/note_api.test.js#L37-L47
 
+#### PUT USER TEST /v1/users/${userId} (Update a user)
+When a user has been added, we test that we can use the. We use the HTTP PUT method to update the users data. 
+
+https://github.com/wadedesir/notes-app/blob/7400dcdd46191c5fa9beed56bdefef9eb9d9e799/backend/tests/note_api.test.js#L86-L96
+
+#### DELETE USER TEST /v1/users/${userId} (Delete a user)
+After all our tests are done running, we delete the user we used for our tests.
+
+https://github.com/wadedesir/notes-app/blob/da9820c45348238941af9a44a88a6e4f61461024/backend/tests/note_api.test.js#L235-L240
 
 #### GET NOTE TEST /v1/notes/ (Get all notes)
 When we're logged in we should be able to get back all the notes. We hit the `/v1/notes` end point and check that it gives up back 200.
@@ -81,8 +94,8 @@ In this test we're trying to make sure that we delete the right note. We first g
 https://github.com/wadedesir/notes-app/blob/da9820c45348238941af9a44a88a6e4f61461024/backend/tests/note_api.test.js#L194-L213
 
 #### POST LOGIN TEST /v1/login/ (Create a new login token)
-In this test we first check to make sure we cant log in with fugazi information. We send bad credentials on purpose and check to see if we get back a `401` unauthorized request.
-After making sure we actually CANT log in with bad creds, we use the correct information to log in. We post to the same endpoint & check to see if it's response is 200, then we set the user token & user id to variables.
+In this test we first check to make sure we cant log in with bad credentials. We send bad credentials on purpose and check to see if we get back a `401` unauthorized request.
+After making sure we cant log in with bad creds, we use the correct information to log in. We post to the same endpoint & check to see if it's response is 200, then we set the user token & user id to variables.
 
 https://github.com/wadedesir/notes-app/blob/da9820c45348238941af9a44a88a6e4f61461024/backend/tests/note_api.test.js#L49-L76
 
@@ -92,8 +105,8 @@ NEED MORE DOCUMENTATION HERE
 # Implementation Overview
 
 ### 📦 Deployment
-To deploy our application, we opted for AWS EC2 due to its compatibility with our multi-container setup, as Fly.io does not support docker-compose. 😥
-( You can still run the application on Fly.io if you want to use MongoDB Atlas over Docker, since you wont need the extra container to run mongoDB )
+To deploy our application, we opted for AWS EC2 due to its compatibility with our multi-container setup, and setting up multiple containers on Fly.io is non-trivial
+( You can still run the application on Fly.io if you want to use MongoDB Atlas over Docker, since you wont need the extra container to run mongoDB. To do this youd need to replace the MONGODB_URI environment variable to point to a MongoDB Atlas instance with a .env file)
 
 To deploy to AWS, follow these steps:
 1. Set up an AWS account and create an EC2 instance.

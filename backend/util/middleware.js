@@ -40,5 +40,5 @@ export const errorHandler = (err, req, res, next) => {
   } else if (err.name === 'TokenExpiredError') {
     return res.status(401).json({ error: 'token expired' })
   }
-  res.status(err.status || 500).json({ error: err })
+  res.status(err.status || 500).json({ error: err.message })
 }

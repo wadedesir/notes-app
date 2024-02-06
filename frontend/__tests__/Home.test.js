@@ -134,7 +134,7 @@ describe("Tests for Home Page", () => {
         let notes = component.container.querySelectorAll('.note')
 
         fireEvent.mouseEnter(notes[0])
-        const closeButton = screen.getByText("✖️")
+        const closeButton = screen.getByText("🗑️")
 
         //initially there should be one note on the page
         expect(notes.length).toBe(1)
