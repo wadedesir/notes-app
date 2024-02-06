@@ -71,7 +71,7 @@ https://github.com/wadedesir/notes-app/blob/7400dcdd46191c5fa9beed56bdefef9eb9d9
 #### DELETE USER TEST /v1/users/${userId} (Delete a user)
 After all our tests are done running, we delete the user we used for our tests.
 
-https://github.com/wadedesir/notes-app/blob/da9820c45348238941af9a44a88a6e4f61461024/backend/tests/note_api.test.js#L235-L240
+https://github.com/wadedesir/notes-app/blob/da9820c45348238941af9a44a88a6e4f61461024/backend/tests/note_api.test.js#L235-L239
 
 #### GET NOTE TEST /v1/notes/ (Get all notes)
 When we're logged in we should be able to get back all the notes. We hit the `/v1/notes` end point and check that it gives up back 200.
