@@ -82,7 +82,7 @@ Those were tested using two test cases respectively.
 
 To test if it rendered we had to do a test render with the react-testing-library render function like so:
 
-https://github.com/wadedesir/notes-app/blob/main/frontend/__tests__/AddNote.test.js#L17-L22
+https://github.com/wadedesir/notes-app/blob/3a93fc3bcdd5559d8a17ec374169f79dcd60cb86/frontend/__tests__/AddNote.test.js#L17-L22
 
 This also involved creating mock functions to provide to setNote & createNote using jest.fn()
 
