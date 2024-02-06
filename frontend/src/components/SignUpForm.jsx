@@ -4,16 +4,12 @@ function SignUpForm({ username, password, confirmPassword, setUsername, setPassw
   const [passwordMatchError, setPasswordMatchError] = useState('')
 
   useEffect(() => {
-    checkPasswordMatch()
-  }, [password, confirmPassword])
-
-  const checkPasswordMatch = () => {
     if (password !== confirmPassword) {
       setPasswordMatchError('Passwords do not match')
     } else {
       setPasswordMatchError('')
     }
-  }
+  }, [password, confirmPassword])
 
   return (
     <div className="flex flex-col items-center">
@@ -31,7 +27,6 @@ function SignUpForm({ username, password, confirmPassword, setUsername, setPassw
         value={password}
         onChange={(e) => {
           setPassword(e.target.value)
-          checkPasswordMatch()
         }}
       />
 
@@ -42,7 +37,6 @@ function SignUpForm({ username, password, confirmPassword, setUsername, setPassw
         value={confirmPassword}
         onChange={(e) => {
           setConfirmPassword(e.target.value)
-          checkPasswordMatch()
         }}
       />
 

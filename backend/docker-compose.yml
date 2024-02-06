@@ -22,6 +22,7 @@ services:
       DB_NAME: my_db
       TEST_DB_NAME: jest_test_db
       SECRET: foobar
+      NODE_ENV: ${NODE_ENV}
     depends_on:
       - mongo_db
 

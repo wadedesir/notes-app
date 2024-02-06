@@ -4,6 +4,7 @@ import cors from 'cors'
 import NoteRouter from './routes/NoteRouter.js'
 import UserRouter from './routes/UserRouter.js'
 import LoginRouter from './routes/LoginRouter.js'
+import TestRouter from './routes/TestRouter.js'
 
 import { initDb } from './util/db_util.js'
 import { logInfo } from './util/logger.js'
@@ -15,7 +16,7 @@ import {
 } from './util/middleware.js'
 
 // Init mongoDB and create the server.
-logInfo('Server starting')
+logInfo(`server starting, NODE_ENV=${process.env.NODE_ENV}`)
 initDb()
 const Server = express()
 
@@ -29,7 +30,10 @@ Server.use(requestLogger)
 Server.use('/v1/notes', NoteRouter)
 Server.use('/v1/users', UserRouter)
 Server.use('/v1/login', LoginRouter)
-
+// Only on dev!!!!
+if (process.env.NODE_ENV === 'e2e') {
+  Server.use('/v1/test', TestRouter)
+}
 // Set up post-request middleware
 Server.use(errorHandler)
 Server.use(unknownEndpointHandler)

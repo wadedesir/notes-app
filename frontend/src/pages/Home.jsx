@@ -16,13 +16,13 @@ function Home() {
     axios
     .get('http://localhost:8420/v1/notes')
     .then(resp => {
-      const d = resp.data;
+      const { data } = resp;
 
-      const importantNotes = resp.data.filter(d => d.important)
-      const notImportantNotes = resp.data.filter(d => !d.important)
+      const importantNotes = data.filter(d => d.important)
+      const notImportantNotes = data.filter(d => !d.important)
 
       setNotes([...importantNotes, ...notImportantNotes])
-      console.log(resp.data)
+      console.log(data)
     })
   }
 
@@ -75,8 +75,8 @@ function Home() {
   }
 
   return (
-    <div className="container" style={{ minWidth: '100vw', minHeight: '100vh', padding: '20px' }}>
-      <img className="fixed size-40 left-5 top-0 object-contain" src={logo} alt="logo" />
+    <div data-testid="home-component" className="container" style={{ minWidth: '100vw', minHeight: '100vh', padding: '20px' }}>
+      <img className="logo fixed size-40 left-5 top-0 object-contain" src={logo} alt="logo" />
 
       <AddNote notes={notes} note={note} setNote={setNote} createNote={createNote} />
 
