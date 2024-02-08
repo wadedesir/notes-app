@@ -462,7 +462,6 @@ The following outlines the various responses from the API.
   "token": "string"
 }
 ```
-
 <br>
 <br>
 <hr style="border: 5px solid black">
@@ -549,39 +548,43 @@ After making sure we can't log in with invalid credentials, we use correct infor
 https://github.com/wadedesir/notes-app/blob/da9820c45348238941af9a44a88a6e4f61461024/backend/tests/note_api.test.js#L49-L76
 
 ## 🔬 Unit Test Overview
-The unit tests for the both the notes and user APIs are found in `backend/test/note_api_.test.js`, `backend/test/user_api_.test.js`, and `backend/test/getTokenFrom.js`. This suite tests the application logic of the API to ensure correct behavior and that we're getting the data we expect.
+The unit tests for the both the notes and user apis are found at `backend/test/note_api_unit.test.js`, `backend/test/user_unit.test.js`, and `backend/test/getTokenFrom.test.js`. These suites will test the logic of the API to make sure  our APIs are behaving as expected.
 
-### Unit Test Implementation Special Case
-The unit tests in `user_api_.test.js` test the `findUserById` API. You may notice these tests look different from the others. 
+### Unit Test: ECMAScript Special Case
+The unit tests in `user_unit.test.js` test the `findUserById` api. You may notice these tests look different than the others. 
 
-This suite includes an experimental mocking module from Jest that tests ECMAScript Modules. ESM evaluates static `import` statements before looking at the code. Thus, the hoisting of `jest.mock` calls that happen in CJS won't work for ESM.
+That is because this suite includes an experiemental mocking module from Jest that tests ECMAScript Modules. In this application, we are using static import declaration which is a feature of ECMAScript as opposed to importing using require() which is a feature of CommonJS. ESM evaluates static `import` statements before looking at code however jest mocks must be set prior to importing the module that is being mocked. Therefore the hoisting of `jest.mock` calls that happen in CJS won't work for ESM. 
 
-#### In this test, we are executing an asynchronous setup function.
+Let's break down the following test:
+https://github.com/wadedesir/notes-app/blob/main/backend/tests/user_unit.test.js#L3-L50
+
+1. In this test, we are executing an asynchronous setup function
 ```javascript
 beforeAll(async () => { 
+      
 })
 ```
-
-#### We then use the `jest.unstable_mockModule` to our `User` module to be used in our test. Since ES6 modules are hoisted, we need to set our mocks, prior to running code that uses the User model.
+---
+2. We then use the `jest.unstable_mockModule` to mock our `User` module to be used in our test. Since ES6 modules are hoisted, we need to set our mocks, prior to running code that uses the User model
 ```javascript
 jest.unstable_mockModule('../models/User', () => ({...})
 ```
-
-#### Here we are ensuring that the default export of the `User` module is imported.
+---
+3. Here we are insuring that the default export of the `User` module is imported
 ```javascript
 jest.unstable_mockModule('../models/User', () => ({
-  default:{...}))
+  default:{...}}))
 ```
-
-#### Here we are mocking the `findById` function, so that our mock user has a mock `findById` method, just like a real User module.
+---
+4. Here we are mocking the `findById()` function so that our mock user has a mock `findById()` method as it does in the `User` module
 ```javascript
 ...{
   findById: jest.fn().mockImplementation(id => {...}
 ```
-
-#### In the UserController, we call `User.findById()`, and it can resolve to a value that   `findUserById` uses for two different branches: user found or user not found.
-
-#### In our mock, we are using `Promise.resolve` to immediately return mock values that simulate each pathway. In one pathway, the user's ID is in the DB, so we set the `_id` property to the User's `id`. In another pathway, the user is not found and `null` is returned. Note that since `id` is the only data needed for the scope of these tests, other data that the User object may return is not mocked.
+---
+5. In the UserController, we call `User.findById()` and it can resolve to a value that `findUserById` uses for two different branches: **user found**  or **user not found**.
+---
+6. In our mock, we are using `Promise.resolve` to immediately return mock values that simulate each pathway. One where our user's id is in the DB, so we return the user. The other where the user is not found and `null` is returned. Note that since the id is the only data needed for the scope of these tests, the complete user data that the query may return is not mocked.
 ```javascript
 ...{
   if (id === '123456789') {
@@ -591,14 +594,13 @@ jest.unstable_mockModule('../models/User', () => ({
     return Promise.resolve(null)}
   }
 ```
-
-#### Once the mock user is set, we can dynamically import the UserController. Since the mock user was set prior to this import, our imported API can utilize the mock user in the test environment.
+---
+7. Once the mock is set, we can dynamically import the UserController. Since the mock User was set prior to this import, our imported api can utilize the mock User in the test environment
 ```javascript
 findUserById = (await import('../controllers/UserController')).findUserById
 ```
-
-#### In the first test, we want to test the happy pathway where a user is present in our DB. We are mocking a user that we want to query our database for. We are also mocking the Express `req` HTTP request object and `res` HTTP response object as we are not actually making the API call to the database. 
-#### We then call `findUserById` and use the value of `req.params.id` to simulate the call => `User.findById(req.params.id)`. In this test, we expect that a user is found and `res.json` will be called with the correct 'user' from the database.
+---
+8. Here we are testing the happy pathway where a user is present in our DB. We are mocking a user that we want to query our db for. We are also mocking the express `req` HTTP request object and `res` HTTP response object as we are not actually making the api call to the database. We then call `findUserById` using the value of `req.params.id` to similulate the call => `User.findById(req.params.id)`. In this test, we expect that a user is found and `res.json` will be called with the correct 'user' from the database
 ```javascript
 test('when valid ID return user ', async () => {
   const mockUser = { _id: '123456789' }
@@ -615,8 +617,8 @@ test('when valid ID return user ', async () => {
   expect(res.json).toHaveBeenCalledWith(mockUser)
   })
 ```
-
-#### In the second test, we are testing the other scenario, where our database does not have the user and `findUserById` responds with the appropriate error message and status. In this test, both assertions must be true in order for the test to pass.
+---
+9. The second test, we are testing the other scenario, where our database does not have the user and `findUserById` responds with the appropriate error message and status. In this test, both assertions must be true in order for the test to pass
 ```javascript
 test('when user id is not found, return 404', async () => {
   const req = {
@@ -635,23 +637,3 @@ test('when user id is not found, return 404', async () => {
   expect(res.status).toHaveBeenCalledWith(404)
   })
 ```
-
-<br>
-<br>
-<hr style="border: 5px solid black">
-<br>
-<br>
-
-# Implementation Overview
-
-## 📦 Deployment
-To deploy our application, we opted for AWS EC2 due to its compatibility with our multi-container setup, and setting up multiple containers on Fly.io is non-trivial
-( You can still run the application on Fly.io if you want to use MongoDB Atlas over Docker, since you wont need the extra container to run mongoDB. To do this youd need to replace the MONGODB_URI environment variable to point to a MongoDB Atlas instance with a .env file)
-
-To deploy to AWS, follow these steps:
-1. Set up an AWS account and create an EC2 instance.
-2. Access the EC2 instance via SSH and install necessary dependencies such as docker, docker-compose, git, and npm.
-3. **Code deployment**: Use AWS CodeDeploy or GitHub Actions with a self-hosted runner to automatically pull in the code. Alternatively, you can manually run `git clone` from inside the EC2 instance.
-4. **Build and copy frontend**: Use AWS CodeDeploy or GitHub Actions (with a self-hosted runner) to build the frontend and copy it to the backend's /dist folder.
-5. Run `docker-compose up` in the backend folder on the EC2 instance.
-6. Modify inbound traffic rules to allow traffic to port 8420 on the EC2 instance.
