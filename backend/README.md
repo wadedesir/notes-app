@@ -554,41 +554,43 @@ The following outlines the various responses from the API.
 ```
 
 ## Unit Test Details
-The unit tests for the both the notes and user apis are found in the `backend/test/note_api_.test.js`, `backend/test/user_api_.test.js`, and `backend/test/getTokenFrom.js`. This suite will test the application logic of the API to make sure it has the correct behavior & make sure we're getting the data we expect.
+The unit tests for the both the notes and user apis are found at `backend/test/note_api_unit.test.js`, `backend/test/user_unit.test.js`, and `backend/test/getTokenFrom.test.js`. These suites will test the logic of the API to make sure  our APIs are behaving as expected.
 
-### Unit Test Implementation Special Case
-The unit tests in `user_api_.test.js` test the `findUserById` api. You may notice these tests look different than the others. 
+### Unit Test: ECMAScript Special Case
+The unit tests in `user_unit.test.js` test the `findUserById` api. You may notice these tests look different than the others. 
 
-This suite includes an experiemental mocking module from Jest that tests ECMAScript Modules. ESM evaluates static `import` statements before looking at code therefore the hoisting of `jest.mock` calls that happen in CJS won't work for ESM. 
+That is because this suite includes an experiemental mocking module from Jest that tests ECMAScript Modules. In this application, we are using static import declaration which is a feature of ECMAScript as opposed to importing using require() which is a feature of CommonJS. ESM evaluates static `import` statements before looking at code however jest mocks must be set prior to importing the module that is being mocked. Therefore the hoisting of `jest.mock` calls that happen in CJS won't work for ESM. 
 
-### In this test, we are executing an asynchronous setup function
+Let's break down the following test:
+https://github.com/wadedesir/notes-app/blob/main/backend/tests/user_unit.test.js#L3-L50
+
+1. In this test, we are executing an asynchronous setup function
 ```javascript
 beforeAll(async () => { 
       
 })
 ```
-
-### We then use the `jest.unstable_mockModule` to our `User` module to be used in our test. Since ES6 modules are hoisted, we need to set our mocks, prior to running code that uses the User model
+---
+2. We then use the `jest.unstable_mockModule` to mock our `User` module to be used in our test. Since ES6 modules are hoisted, we need to set our mocks, prior to running code that uses the User model
 ```javascript
 jest.unstable_mockModule('../models/User', () => ({...})
 ```
-
-### Here we are insuring that the default export of the `User` module is imported
+---
+3. Here we are insuring that the default export of the `User` module is imported
 ```javascript
 jest.unstable_mockModule('../models/User', () => ({
-  default:{...}))
-
+  default:{...}}))
 ```
-
-### Here we are mocking the findById function so that our mock user has a mock findById method as it does in the User module
+---
+4. Here we are mocking the `findById()` function so that our mock user has a mock `findById()` method as it does in the `User` module
 ```javascript
 ...{
   findById: jest.fn().mockImplementation(id => {...}
 ```
-
-### In the UserController, we call User.findById() and it can resolve to a value that findUserById uses for two different branches: user found or user not found.
-
-### In our mock, we are using Promise.resolve to immediately return mock values that simulate each pathway. One where our user's id is in the DB, so we set the _id property to the User's id. The other where the user is not found and `null` is returned. Note that since the id is the only data needed for the scope of these tests, the other data that the User object may return is not mocked.
+---
+5. In the UserController, we call `User.findById()` and it can resolve to a value that `findUserById` uses for two different branches: **user found**  or **user not found**.
+---
+6. In our mock, we are using `Promise.resolve` to immediately return mock values that simulate each pathway. One where our user's id is in the DB, so we return the user. The other where the user is not found and `null` is returned. Note that since the id is the only data needed for the scope of these tests, the complete user data that the query may return is not mocked.
 ```javascript
 ...{
   if (id === '123456789') {
@@ -598,14 +600,13 @@ jest.unstable_mockModule('../models/User', () => ({
     return Promise.resolve(null)}
   }
 ```
-
-### Once mock User is set, we can dynamically import the UserController. Since the mock User was set prior to this import, our imported api can utilize the mock User in the test environment
+---
+7. Once the mock is set, we can dynamically import the UserController. Since the mock User was set prior to this import, our imported api can utilize the mock User in the test environment
 ```javascript
 findUserById = (await import('../controllers/UserController')).findUserById
 ```
-
-### In the first test, we want to test the happy pathway where a user is present in our DB. We are mocking a user that we want to query our db for. We are also mocking the express `req` HTTP request object and `res` HTTP response object as we are not actually making the api call to the database. 
-### We then call `findUserById` uses the value of `req.params.id` to similulate the call => `User.findById(req.params.id)`. In this test, we expect that a user is found and `res.json` will be called with be called be the correct 'user' from the database
+---
+8. Here we are testing the happy pathway where a user is present in our DB. We are mocking a user that we want to query our db for. We are also mocking the express `req` HTTP request object and `res` HTTP response object as we are not actually making the api call to the database. We then call `findUserById` using the value of `req.params.id` to similulate the call => `User.findById(req.params.id)`. In this test, we expect that a user is found and `res.json` will be called with the correct 'user' from the database
 ```javascript
 test('when valid ID return user ', async () => {
   const mockUser = { _id: '123456789' }
@@ -622,8 +623,8 @@ test('when valid ID return user ', async () => {
   expect(res.json).toHaveBeenCalledWith(mockUser)
   })
 ```
-
-### The second test, we are testing the other scenario, where our database does not have the user and `findUserById` responds with the appropriate error message and status. In this test, both assertions must be true in order for the test to pass
+---
+9. The second test, we are testing the other scenario, where our database does not have the user and `findUserById` responds with the appropriate error message and status. In this test, both assertions must be true in order for the test to pass
 ```javascript
 test('when user id is not found, return 404', async () => {
   const req = {

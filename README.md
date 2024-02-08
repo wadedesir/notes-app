@@ -51,7 +51,7 @@ Here are some methods you may encounter throughout our tests and what they do:
 
 - `expect()`: Instantiates an assertion. expect() takes in a value and provides access to matchers that evaluate whether the value meets specific conditions. For example:
   ```javascript
-  const name = "Notes-App";
+  const name = "Notes-App"
   expect(name).toBe("Notes-App")
   ```
 For more information about Jest and its capabilities, you can refer to the [Jest documentation](https://jestjs.io/docs/getting-started).
