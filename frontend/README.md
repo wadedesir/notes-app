@@ -53,9 +53,7 @@ The SignUp page includes a signup form for users to create a new account. It als
 The App component sets up the routing for the application using react-router-dom. It includes routes for the home page, login, and signup pages.
 
 <br>
-<br>
 <hr style="border: 5px solid black">
-<br>
 <br>
 
 # 🧪 Testing & Linting

@@ -61,9 +61,7 @@ The backend follows a modular architecture, with distinct components responsible
 - **middleware.js**: Contains middleware functions for request processing.
 
 <br>
-<br>
 <hr style="border: 5px solid black">
-<br>
 <br>
 
 # 📝 Notes API Spec
