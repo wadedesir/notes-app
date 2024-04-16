@@ -61,7 +61,7 @@ The backend follows a modular architecture, with distinct components responsible
 - **middleware.js**: Contains middleware functions for request processing.
 
 <br>
-<hr style="border: 5px solid black">
+<hr>
 <br>
 
 # 📝 Notes API Spec
@@ -461,9 +461,7 @@ The following outlines the various responses from the API.
 }
 ```
 <br>
-<br>
-<hr style="border: 5px solid black">
-<br>
+<hr>
 <br>
 
 # 🧪 Testing & Linting
