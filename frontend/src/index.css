@@ -45,6 +45,18 @@ button:focus-visible {
 input{
   color: black;
 }
+
+.note-bar::-webkit-scrollbar{
+  background-color: inherit;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+
+}
+
+.note-bar::-webkit-scrollbar-thumb{
+  background-color: white;
+  border-radius: 5px;
+}
 /* @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
