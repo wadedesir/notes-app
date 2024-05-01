@@ -30,3 +30,11 @@ export const DB_NAME = process.env.NODE_ENV === 'test'
  * @type {string}
  */
 export const SECRET = process.env.SECRET
+
+/**
+ * OpenAI API Key, ProjectID, and Organization ID
+ * @type {string}
+ */
+export const AI_KEY = "sk-proj-JusCbKpt7S69RCJ8Qo4sT3BlbkFJCD6yhmFAoAvPGvC8kS0E"
+export const PROJ_ID = "proj_Vyk8OIIDLwqw9c3vgehulUOU"
+export const ORG_ID = "org-fn09iT3XneT2Bw0hUku03lEU"

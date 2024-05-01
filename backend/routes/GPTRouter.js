@@ -1,41 +1,37 @@
 import express from 'express'
-import {
-  getAllNotes,
-  createNewNote,
-  findNoteById,
-  updateNote,
-  deleteNote
-} from '../controllers/NoteController.js'
+import sendChat from '../controllers/GPTController.js'
+
+
 
 /**
  * Express router for handling note-related HTTP requests.
  * @type {express.Router}
  */
-const NoteRouter = express.Router()
+const GPTRouter = express.Router()
 
 /**
  * Route to get all notes.
  */
-NoteRouter.get('/', getAllNotes)
+GPTRouter.get('/', sendChat)
 
-/**
- * Route to create a new note.
- */
-NoteRouter.post('/', createNewNote)
+// /**
+//  * Route to create a new note.
+//  */
+// NoteRouter.post('/', createNewNote)
 
-/**
- * Route to find a note by ID.
- */
-NoteRouter.get('/:id', findNoteById)
+// /**
+//  * Route to find a note by ID.
+//  */
+// NoteRouter.get('/:id', findNoteById)
 
-/**
- * Route to update a note by ID.
- */
-NoteRouter.put('/:id', updateNote)
+// /**
+//  * Route to update a note by ID.
+//  */
+// NoteRouter.put('/:id', updateNote)
 
-/**
- * Route to delete a note by ID.
- */
-NoteRouter.delete('/:id', deleteNote)
+// /**
+//  * Route to delete a note by ID.
+//  */
+// NoteRouter.delete('/:id', deleteNote)
 
-export default NoteRouter
+export default GPTRouter

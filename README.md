@@ -65,3 +65,11 @@ For more information about Jest and its capabilities, you can refer to the [Jest
 
 ## Made with love,
 Jose, Kai, Sarah, Wade, & Zrybea ✨
+
+#### Key
+sk-proj-JusCbKpt7S69RCJ8Qo4sT3BlbkFJCD6yhmFAoAvPGvC8kS0E
+#### ProjID
+proj_Vyk8OIIDLwqw9c3vgehulUOU
+
+#### OrgID
+org-fn09iT3XneT2Bw0hUku03lEU

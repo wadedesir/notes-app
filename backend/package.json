@@ -20,7 +20,8 @@
     "express-async-errors": "^3.1.1",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^7.6.5",
-    "mongoose-unique-validator": "^4.0.0"
+    "mongoose-unique-validator": "^4.0.0",
+    "openai": "^4.39.1"
   },
   "devDependencies": {
     "chalk": "^5.3.0",
@@ -42,10 +43,13 @@
   "jest": {
     "testEnvironment": "node",
     "globalTeardown": "./tests/teardown.js",
-    "setupFiles": ["./tests/setup.js"],
+    "setupFiles": [
+      "./tests/setup.js"
+    ],
     "transform": {},
     "coveragePathIgnorePatterns": [
-      "./util/for_Testing.js", "./routes/TestRouter.js"
+      "./util/for_Testing.js",
+      "./routes/TestRouter.js"
     ]
   }
 }
