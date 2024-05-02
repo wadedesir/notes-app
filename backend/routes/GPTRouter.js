@@ -1,5 +1,5 @@
 import express from 'express'
-import sendChat from '../controllers/GPTController.js'
+import { noteAssist, noteEnhance } from '../controllers/GPTController.js'
 
 
 
@@ -9,29 +9,16 @@ import sendChat from '../controllers/GPTController.js'
  */
 const GPTRouter = express.Router()
 
+// GPTRouter.get('/', sendChat)
+
 /**
- * Route to get all notes.
+ * Route to generate additional note data.
  */
-GPTRouter.get('/', sendChat)
+GPTRouter.post('/', noteAssist)
 
-// /**
-//  * Route to create a new note.
-//  */
-// NoteRouter.post('/', createNewNote)
-
-// /**
-//  * Route to find a note by ID.
-//  */
-// NoteRouter.get('/:id', findNoteById)
-
-// /**
-//  * Route to update a note by ID.
-//  */
-// NoteRouter.put('/:id', updateNote)
-
-// /**
-//  * Route to delete a note by ID.
-//  */
-// NoteRouter.delete('/:id', deleteNote)
+/**
+ * Route to create a new note.
+ */
+GPTRouter.post('/enhance', noteEnhance)
 
 export default GPTRouter

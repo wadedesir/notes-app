@@ -1,5 +1,5 @@
 import { useState } from "react"
-
+import axios from "axios"
 function Note({ id, date, content, important, editNote, deleteNote }) {
   const [note, setNote] = useState(content)
   const [editing, setEditing] = useState(false)
@@ -11,6 +11,25 @@ function Note({ id, date, content, important, editNote, deleteNote }) {
   }
   const toggleImportant = () => {
     editNote(note, !important, id)
+  }
+
+  const sendPrompt = async () => {
+
+    if(!confirm("Enhance this note with AI?")) return
+
+    const data = {
+      prompt: note
+    }
+
+   await  axios.post('http://localhost:8420/v1/gpt/enhance', data)
+    .then(response => {
+      console.log('Completion:', response.data);
+      editNote(response.data.message.content, important, id)
+    })
+    .catch(error => {
+      console.error('Error:sdsd', error.response.data);
+    });
+
   }
 
   return (
@@ -27,7 +46,7 @@ function Note({ id, date, content, important, editNote, deleteNote }) {
         tooltip && <span id="pin_button" className="hover:cursor-pointer absolute z-30 rounded-full bg-white text-black hover:bg-green-500 text-center flex justify-center items-center" style={{left: '30px', top: '-10px', width: '32px', height: '32px', opacity: important ? '1' : '0.25'}} onClick={toggleImportant}>📌</span>
 
       )}
-      <span className="delete hover:cursor-pointer absolute z-30 rounded-full bg-slate-500 text-black hover:bg-blue-400 text-center flex justify-center items-center" style={{right: '-5px', bottom: '-25px', width: '50px', height: '50px'}} onClick={() => confirm("Enhance this note with AI?")}>✨</span>
+      <span className="delete hover:cursor-pointer absolute z-30 rounded-full bg-slate-500 text-black hover:bg-blue-400 text-center flex justify-center items-center" style={{right: '-5px', bottom: '-25px', width: '50px', height: '50px'}} onClick={() => sendPrompt()}>✨</span>
 
               
       <div className={`${important ? 'bg-cyan-600' : 'bg-slate-500'} aspect-h-1 aspect-w-1 w-68 h-32 overflow-y-scroll rounded-md  lg:aspect-none group-hover:opacity-75 p-5 note-bar`} style={{scrollbarColor: 'red'}}>

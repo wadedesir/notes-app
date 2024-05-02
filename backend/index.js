@@ -5,7 +5,7 @@ import NoteRouter from './routes/NoteRouter.js'
 import UserRouter from './routes/UserRouter.js'
 import LoginRouter from './routes/LoginRouter.js'
 import TestRouter from './routes/TestRouter.js'
-// import GPTRouter from './routes/GPTRouter.js'
+import GPTRouter from './routes/GPTRouter.js'
 
 import { initDb } from './util/db_util.js'
 import { logInfo } from './util/logger.js'
@@ -15,13 +15,7 @@ import {
   unknownEndpointHandler,
   errorHandler
 } from './util/middleware.js'
-// import OpenAI from "openai";
-// import { AI_KEY, PROJ_ID, ORG_ID } from './util/config.js'
 
-// const openai = new OpenAI({
-//   organization: ORG_ID,
-//   project: PROJ_ID,
-// });
 
 // Init mongoDB and create the server.
 logInfo(`server starting, NODE_ENV=${process.env.NODE_ENV}`)
@@ -38,7 +32,9 @@ Server.use(requestLogger)
 Server.use('/v1/notes', NoteRouter)
 Server.use('/v1/users', UserRouter)
 Server.use('/v1/login', LoginRouter)
-// Server.use('/v1/gpt', GPTRouter)
+Server.use('/v1/gpt', GPTRouter)
+
+
 // Only on dev!!!!
 if (process.env.NODE_ENV === 'e2e') {
   Server.use('/v1/test', TestRouter)
