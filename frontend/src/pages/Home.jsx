@@ -14,7 +14,7 @@ function Home() {
 
   const getNotes = () => {
     axios
-    .get('http://gptnotes.us-east-2.elasticbeanstalk.com:8420/v1/notes')
+    .get('https://gptnotes.us-east-2.elasticbeanstalk.com:8420/v1/notes')
     .then(resp => {
       const { data } = resp;
 
@@ -40,7 +40,7 @@ function Home() {
     const headers = {'Authorization': 'Bearer ' + localStorage.token}
 
     axios
-      .post('http://gptnotes.us-east-2.elasticbeanstalk.com:8420/v1/notes', noteObj, {headers})
+      .post('https://gptnotes.us-east-2.elasticbeanstalk.com:8420/v1/notes', noteObj, {headers})
       .then(resp => {
         console.log(resp)
         getNotes()
@@ -52,7 +52,7 @@ function Home() {
   const deleteNote = (id) => {
     console.log('delete')
     axios
-      .delete('http://gptnotes.us-east-2.elasticbeanstalk.com:8420/v1/notes/' + id)
+      .delete('https://gptnotes.us-east-2.elasticbeanstalk.com:8420/v1/notes/' + id)
       .then(resp => {
         console.log(resp)
         getNotes()
@@ -68,7 +68,7 @@ function Home() {
     }
 
     axios
-      .put('http://gptnotes.us-east-2.elasticbeanstalk.com:8420/v1/notes/' + id, noteObj)
+      .put('https://gptnotes.us-east-2.elasticbeanstalk.com:8420/v1/notes/' + id, noteObj)
       .then(resp => {
         console.log(resp)
         getNotes()

@@ -21,7 +21,7 @@ function Note({ id, date, content, important, editNote, deleteNote }) {
       prompt: note
     }
 
-   await  axios.post('http://gptnotes.us-east-2.elasticbeanstalk.com:8420/v1/gpt/enhance', data)
+   await  axios.post('https://gptnotes.us-east-2.elasticbeanstalk.com:8420/v1/gpt/enhance', data)
     .then(response => {
       console.log('Completion:', response.data);
       editNote(response.data.message.content, important, id)
