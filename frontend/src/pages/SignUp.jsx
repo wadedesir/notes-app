@@ -18,7 +18,7 @@ function SignUp() {
     }
     
     axios
-      .post('http://localhost:8420/v1/users', credentials)
+      .post('http://gptnotes.us-east-2.elasticbeanstalk.com:8420/v1/users', credentials)
       .then(resp => {
         console.log(resp)
         if(resp.status == 201){

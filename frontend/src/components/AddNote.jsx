@@ -23,7 +23,7 @@ function AddNote({note, setNote, createNote}) {
 
     let ret = ''
 
-   await  axios.post('http://localhost:8420/v1/gpt', data)
+   await  axios.post('http://gptnotes.us-east-2.elasticbeanstalk.com:8420/v1/gpt', data)
     .then(response => {
       console.log('Completion:', response.data);
       setNote(note + ' ' + response.data.message.content)

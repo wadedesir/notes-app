@@ -14,7 +14,7 @@ function Home() {
 
   const getNotes = () => {
     axios
-    .get('http://localhost:8420/v1/notes')
+    .get('http://gptnotes.us-east-2.elasticbeanstalk.com:8420/v1/notes')
     .then(resp => {
       const { data } = resp;
 
@@ -27,7 +27,8 @@ function Home() {
   }
 
   const createNote = () => {
-    if(note == ''){
+    if(note == '' || note.length < 5){
+      alert('Note needs to be at least 5 characters')
       return
     }
 
@@ -39,7 +40,7 @@ function Home() {
     const headers = {'Authorization': 'Bearer ' + localStorage.token}
 
     axios
-      .post('http://localhost:8420/v1/notes', noteObj, {headers})
+      .post('http://gptnotes.us-east-2.elasticbeanstalk.com:8420/v1/notes', noteObj, {headers})
       .then(resp => {
         console.log(resp)
         getNotes()
@@ -51,7 +52,7 @@ function Home() {
   const deleteNote = (id) => {
     console.log('delete')
     axios
-      .delete('http://localhost:8420/v1/notes/' + id)
+      .delete('http://gptnotes.us-east-2.elasticbeanstalk.com:8420/v1/notes/' + id)
       .then(resp => {
         console.log(resp)
         getNotes()
@@ -67,7 +68,7 @@ function Home() {
     }
 
     axios
-      .put('http://localhost:8420/v1/notes/' + id, noteObj)
+      .put('http://gptnotes.us-east-2.elasticbeanstalk.com:8420/v1/notes/' + id, noteObj)
       .then(resp => {
         console.log(resp)
         getNotes()
