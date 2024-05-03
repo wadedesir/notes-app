@@ -7,6 +7,7 @@ import User from '../models/User.js'
 import { logInfo } from '../util/logger.js'
 import { SECRET } from '../util/config.js'
 
+import axios from 'axios'
 /**
  * Extracts the JWT token from the authorization header.
  * @module NoteController
@@ -50,6 +51,7 @@ export const getAllNotes = async (req, res) => {
  * @param {boolean} req.body.important - Indicates whether the note is important.
  */
 export const createNewNote = async (req, res) => {
+
   const { content, important } = req.body
 
   const authorization = req.get('authorization')
