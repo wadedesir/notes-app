@@ -1,9 +1,0 @@
-node_modules
-Dockerfile
-.dockerignore
-docker-compose.yml
-http_requests
-# Elastic Beanstalk Files
-.elasticbeanstalk/*
-.git
-.gitignore
